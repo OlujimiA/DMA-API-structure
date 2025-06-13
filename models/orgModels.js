@@ -39,5 +39,5 @@ module.exports = {
   getAllorgs,
   getorgById,
   createOrg,
-  deleteOrg
+  deleteOrg,
 };
