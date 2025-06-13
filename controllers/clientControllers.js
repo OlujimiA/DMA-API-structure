@@ -45,3 +45,18 @@ exports.createClient = async (req, res) => {
     res.status(500).json({ message: 'Could not create Client', error: err.message });
   }
 };
+
+exports.deleteClient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deleted = await clientService.deleteClient(id);
+
+    if (deleted.affectedRows === 0) {
+      return res.status(404).json({ message: 'Client not found' });
+    }
+
+    res.json({ message: 'client deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Could not delete client', error: err.message });
+  }
+};

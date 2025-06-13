@@ -25,8 +25,17 @@ const createClient = async ({ name, email, tel, country, password }) => {
   };
 };
 
+const deleteClient = async (id) => {
+  const [result] = await db.execute(
+    `DELETE FROM client WHERE id = ?`,
+    [id]
+  );
+  return result; 
+};
+
 module.exports = {
   getAllclients,
   getclientById,
   createClient,
+  deleteClient,
 };
