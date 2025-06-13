@@ -8,7 +8,12 @@ const getorgById = async (id) => {
   return await orgModel.getorgById(id);
 };
 
+const createOrg = async (OrgData) => {
+  return await OrgModel.createOrg(OrgData);
+};
+
 module.exports = {
   getAllorgs,
   getorgById,
+  createOrg,
 };

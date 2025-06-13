@@ -8,7 +8,12 @@ const getclientById = async (id) => {
   return await clientModel.getclientById(id);
 };
 
+const createClient = async (ClientData) => {
+  return await ClientModel.createClient(ClientData);
+};
+
 module.exports = {
   getAllclients,
   getclientById,
+  createClient,
 };
