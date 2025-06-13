@@ -13,7 +13,7 @@ const getclientById = async (id) => {
 const createClient = async ({ name, email, tel, country, password }) => {
   const [result] = await db.query(
     `INSERT INTO client (name, email, tel, country, password)
-     VALUES (?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?)`,
     [name, email, tel, country, password]
   );
   
@@ -21,8 +21,7 @@ const createClient = async ({ name, email, tel, country, password }) => {
     id: result.insertId,
     name,
     email,
-    tel,
-    password
+    tel
   };
 };
 

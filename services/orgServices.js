@@ -9,7 +9,7 @@ const getorgById = async (id) => {
 };
 
 const createOrg = async (OrgData) => {
-  return await OrgModel.createOrg(OrgData);
+  return await orgModel.createOrg(OrgData);
 };
 
 module.exports = {

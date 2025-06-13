@@ -13,7 +13,7 @@ const getorgById = async (id) => {
 const createOrg = async ({ name, email, tel, website, address, password }) => {
   const [result] = await db.query(
     `INSERT INTO organisation (name, email, tel, website, address, password)
-     VALUES (?, ?, ?, ?)`,
+     VALUES (?, ?, ?, ?, ?, ?)`,
     [name, email, tel, website, address, password]
   );
   

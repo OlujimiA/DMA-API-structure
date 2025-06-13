@@ -9,7 +9,7 @@ const getclientById = async (id) => {
 };
 
 const createClient = async (ClientData) => {
-  return await ClientModel.createClient(ClientData);
+  return await clientModel.createClient(ClientData);
 };
 
 module.exports = {
