@@ -10,7 +10,25 @@ const getorgById = async (id) => {
   return rows;
 };
 
+const createOrg = async ({ name, email, tel, website, address, password }) => {
+  const [result] = await db.query(
+    `INSERT INTO organisation (name, email, tel, website, address, password)
+     VALUES (?, ?, ?, ?)`,
+    [name, email, tel, website, address, password]
+  );
+  
+  return {
+    id: result.insertId,
+    name,
+    email,
+    tel,
+    website,
+    address
+  };
+};
+
 module.exports = {
   getAllorgs,
   getorgById,
+  createOrg,
 };

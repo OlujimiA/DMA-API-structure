@@ -10,7 +10,24 @@ const getclientById = async (id) => {
   return rows;
 };
 
+const createClient = async ({ name, email, tel, country, password }) => {
+  const [result] = await db.query(
+    `INSERT INTO client (name, email, tel, country, password)
+     VALUES (?, ?, ?, ?)`,
+    [name, email, tel, country, password]
+  );
+  
+  return {
+    id: result.insertId,
+    name,
+    email,
+    tel,
+    password
+  };
+};
+
 module.exports = {
   getAllclients,
   getclientById,
+  createClient,
 };
