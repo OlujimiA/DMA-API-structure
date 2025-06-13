@@ -4,6 +4,6 @@ const orgController = require('../controllers/orgControllers.js');
 
 router.get('/', orgController.getAllorgs);
 router.get('/:id', orgController.getorgById);
-router.post('/', clientController.createOrg);
+router.post('/', orgController.createOrg);
 
 module.exports = router;
