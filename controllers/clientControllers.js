@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const clientService = require('../services/clientServices.js');
 
 exports.getAllclients = async (req, res) => {

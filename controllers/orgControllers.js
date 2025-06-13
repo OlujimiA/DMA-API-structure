@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const orgService = require('../services/orgServices.js');
 
 exports.getAllorgs = async (req, res) => {
