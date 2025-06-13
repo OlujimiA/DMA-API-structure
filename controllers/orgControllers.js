@@ -21,3 +21,28 @@ exports.getorgById = async (req, res) => {
   }
   
 };
+
+exports.createOrg = async (req, res) => {
+  try {
+    const { name, email, tel, website, address, password } = req.body;
+
+    if (!name || !email || !tel || !website || !address || !password) {
+      return res.status(400).json({ message: 'All fields are required - name, email, tel, website, address, password' });
+    }
+
+    const hashed_password = await bcrypt.hash(password, 10);
+
+    const newOrg = await orgService.createOrg({
+      name,
+      email,
+      tel,
+      website,
+      address,
+      password: hashed_password,
+    });
+
+    res.status(201).json({ message: 'Org created successfully', Org: newOrg });
+  } catch (err) {
+    res.status(500).json({ message: 'Could not create Org', error: err.message });
+  }
+};
