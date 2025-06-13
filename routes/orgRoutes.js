@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const orgController = require('../controllers/orgController.js');
+const orgController = require('../controllers/orgControllers.js');
 
-router.get('/', orgController.getAllOrgs);
-
-router.get('/:id', orgController.getOrgById);
+router.get('/', orgController.getAllorgs);
+router.get('/:id', orgController.getorgById);
 
 module.exports = router;
