@@ -29,7 +29,7 @@ const createOrg = async ({ name, email, tel, website, address, password }) => {
 
 const deleteOrg = async (id) => {
   const [result] = await db.execute(
-    `DELETE FROM org WHERE id = ?`,
+    `DELETE FROM organisation WHERE id = ?`,
     [id]
   );
   return result; 
