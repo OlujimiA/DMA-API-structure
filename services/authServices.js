@@ -19,7 +19,12 @@ const loginUser = async (email, password) => {
   return { token, user: { id: user.id, email: user.email, role: user.role } };
 };
 
+const signup = async (UserData) => {
+  return await authModel.signup(UserData);
+};
+
 module.exports = {
   loginUser,
+  signup,
 };
 
