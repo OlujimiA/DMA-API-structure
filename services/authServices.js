@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const authModel = require('../models/authModel');
+const authModel = require('../models/authModels');
 
 const loginUser = async (email, password) => {
   const user = await authModel.getUserByEmail(email);
