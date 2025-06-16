@@ -6,7 +6,7 @@ const getAllLeads = async () => {
 };
 
 const getLeadByOrgId = async (id) => {
-  const [rows] = await db.query('SELECT id, message, service_interested, client_id FROM `lead` WHERE organisation_id = ?', [id]);
+  const [rows] = await db.query('SELECT * FROM `lead-content` WHERE organisation_id = ?', [id]);
   return rows;
 };
 

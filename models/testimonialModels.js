@@ -6,7 +6,7 @@ const getAlltestimonials = async () => {
 };
 
 const getTestimonialByOrgId = async (id) => {
-  const [rows] = await db.query('SELECT id, message, client_id FROM testimonial WHERE organisation_id = ?', [id]);
+  const [rows] = await db.query('SELECT * FROM testimonial WHERE organisation_id = ?', [id]);
   return rows;
 };
 
