@@ -10,13 +10,19 @@ const loginUser = async (email, password) => {
   if (!passwordMatch) return null;
 
   // create token
-  const token = jwt.sign(
+  const accesstoken = jwt.sign(
     { id: user.id, email: user.email, role: user.role },
-    process.env.JWT_SECRET,
-    { expiresIn: '1h' }
+    process.env.JWT_ACCESS_SECRET,
+    { expiresIn: '15m' }
   );
 
-  return { token, user: { id: user.id, email: user.email, role: user.role } };
+  const refreshtoken = jwt.sign(
+    { id: user.id },
+    process.env.JWT_REFRESH_SECRET,
+    { expiresIn: '7d' }
+  );
+
+  return { accesstoken, refreshtoken, user: { id: user.id, email: user.email, role: user.role } };
 };
 
 const signup = async (UserData) => {
