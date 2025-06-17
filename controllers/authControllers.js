@@ -15,7 +15,17 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    res.json({ token: result.token, user: result.user });
+    const { accessToken, refreshToken } = result.tokens
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: true, // set to true in production
+      sameSite: 'Strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
+
+    res.json({ AccessToken: accessToken, user: result.user });
+
   } catch (err) {
     res.status(500).json({ message: 'Login failed', error: err.message });
   }
@@ -38,8 +48,28 @@ exports.signup = async (req, res) => {
     });
 
     res.status(201).json({ message: 'User created successfully', User: newUser });
+    
   } catch (err) {
     res.status(500).json({ message: 'Could not create User', error: err.message });
   }
 };
 
+
+exports.refreshToken = (req, res) => {
+  const token = req.cookies.refreshToken;
+  if (!token) return res.sendStatus(401);
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+
+    const newAccessToken = jwt.sign(
+      { id: decoded.id },
+      process.env.JWT_ACCESS_SECRET,
+      { expiresIn: '15m' }
+    );
+
+    return res.json({ accessToken: newAccessToken });
+  } catch (err) {
+    return res.sendStatus(403);
+  }
+};
