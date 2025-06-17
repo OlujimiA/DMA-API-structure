@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const cookieParser = require('cookie-parser');
 
 // Import different route files
 const leadRoutes = require('./routes/leadRoutes');
@@ -10,6 +11,7 @@ const testimonialRoutes = require('./routes/testimonialRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 app.use(express.json());
+app.use(cookieParser());
 
 // Mount routes to different paths
 app.use('/api/clients', clientRoutes);

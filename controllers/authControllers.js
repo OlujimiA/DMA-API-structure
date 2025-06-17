@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const authService = require('../services/authServices');
 
@@ -19,7 +20,7 @@ exports.login = async (req, res) => {
 
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: true, // set to true in production
+      secure: false, // set to true in production
       sameSite: 'Strict',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
@@ -70,6 +71,7 @@ exports.refreshToken = (req, res) => {
 
     return res.json({ accessToken: newAccessToken });
   } catch (err) {
-    return res.sendStatus(403);
+    console.error('Refresh token verification error:', err.message);
+    return res.status(403).json({ message: 'Invalid or expired refresh token', error: err.message });
   }
 };
