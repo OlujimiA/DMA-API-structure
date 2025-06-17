@@ -66,7 +66,7 @@ exports.refreshToken = (req, res) => {
     const newAccessToken = jwt.sign(
       { id: decoded.id },
       process.env.JWT_ACCESS_SECRET,
-      { expiresIn: '15m' }
+      { expiresIn: '1h' }
     );
 
     return res.json({ accessToken: newAccessToken });
