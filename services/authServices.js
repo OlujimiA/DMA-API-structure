@@ -10,13 +10,13 @@ const loginUser = async (email, password) => {
   if (!passwordMatch) return null;
 
   // create token
-  const accesstoken = jwt.sign(
+  const accessToken = jwt.sign(
     { id: user.id, email: user.email, role: user.role },
     process.env.JWT_ACCESS_SECRET,
     { expiresIn: '15m' }
   );
 
-  const refreshtoken = jwt.sign(
+  const refreshToken = jwt.sign(
     { id: user.id },
     process.env.JWT_REFRESH_SECRET,
     { expiresIn: '7d' }
