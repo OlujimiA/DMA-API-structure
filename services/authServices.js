@@ -22,7 +22,7 @@ const loginUser = async (email, password) => {
     { expiresIn: '7d' }
   );
 
-  return { accesstoken, refreshtoken, user: { id: user.id, email: user.email, role: user.role } };
+  return { tokens: {accessToken, refreshToken}, user: { id: user.id, email: user.email, role: user.role } };
 };
 
 const signup = async (UserData) => {
