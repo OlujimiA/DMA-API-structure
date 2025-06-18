@@ -47,16 +47,39 @@ exports.createOrg = async (req, res) => {
   }
 };
 
+exports.updateOrg = async (req, res) => {
+  try {
+    const { name, email, tel, website, address, password } = req.body;
+    const { id } = req.params;
+
+    if (!name || !email || !tel || !website || !address || !password) {
+      return res.status(400).json({ message: 'All fields are required - name, email, tel, website, address, password' });
+    }
+
+    const hashed_password = await bcrypt.hash(password, 10);
+
+    const updated = await orgService.updateOrg(id, { name, email, tel, website, address, password: hashed_password });
+
+    if (!updated) {
+      return res.status(404).json({ message: 'organisation not found'});
+    }
+
+    res.json({ message: 'Organisation updated successfully', Organisation: updated });
+  } catch (err) {
+    res.status(500).json({ message: 'Could not update organisation', error: err.message });
+  }
+};
+
 exports.deleteOrg = async (req, res) => {
   try {
     const { id } = req.params;
     const deleted = await orgService.deleteOrg(id);
 
-    if (deleted.affectedRows === 0) {
+    if (!deleted) {
       return res.status(404).json({ message: 'Organisation not found' });
     }
 
-    res.json({ message: 'Organisation deleted successfully' });
+    res.json({ message: 'Organisation deleted successfully', Organisation: deleted });
   } catch (err) {
     res.status(500).json({ message: 'Could not delete Organisation', error: err.message });
   }

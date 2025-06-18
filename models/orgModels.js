@@ -1,43 +1,73 @@
-const db = require('../config/db');
+const prisma = require('../config/db');
 
 const getAllorgs = async () => {
-  const [rows] = await db.query('SELECT id, name, email, tel AS phone_number, website, address FROM organisation');
-  return rows;
+  const orgs = await prisma.organisation.findMany({
+    omit: {
+      password: true,
+    },
+  });
+  return orgs;
 };
 
 const getorgById = async (id) => {
-  const [rows] = await db.query('SELECT id, name, email, tel AS phone_number, website, address FROM organisation WHERE id = ?', [id]);
-  return rows;
+  const org = await prisma.organisation.findUnique({
+    where: {id: parseInt(id)},
+    omit: {
+      password: true,
+    },
+  });
+  return org;
 };
 
 const createOrg = async ({ name, email, tel, website, address, password }) => {
-  const [result] = await db.query(
-    `INSERT INTO organisation (name, email, tel, website, address, password)
-     VALUES (?, ?, ?, ?, ?, ?)`,
-    [name, email, tel, website, address, password]
-  );
-  
-  return {
-    id: result.insertId,
-    name,
-    email,
-    tel,
-    website,
-    address
-  };
+  const org = await prisma.organisation.create({
+    data: {
+      name: name, 
+      email: email, 
+      tel: tel, 
+      website: website, 
+      address: address, 
+      password: password,
+    },
+    omit: {
+      password: true,
+    }
+  });
+  return org;
+};
+
+const updateOrg = async (id, { name, email, tel, website, address, password }) => {
+  const updated = await prisma.organisation.update({
+    where: { id: parseInt(id) },
+    data: {
+      name: name, 
+      email: email, 
+      tel: tel, 
+      website: website, 
+      address: address, 
+      password: password,
+    },
+    omit: {
+      password: true,
+    }
+  });
+  return updated;
 };
 
 const deleteOrg = async (id) => {
-  const [result] = await db.execute(
-    `DELETE FROM organisation WHERE id = ?`,
-    [id]
-  );
-  return result; 
+  const deleted = await prisma.organisation.delete({
+    where: { id: parseInt(id) },
+    omit: {
+      password: true,
+    }
+  });
+  return deleted; 
 };
 
 module.exports = {
   getAllorgs,
   getorgById,
   createOrg,
+  updateOrg,
   deleteOrg,
 };
