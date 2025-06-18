@@ -12,6 +12,10 @@ const createClient = async (ClientData) => {
   return await clientModel.createClient(ClientData);
 };
 
+const updateClient = async (id, updateData) => {
+  return await clientModel.updateClient(id, updateData);
+};
+
 const deleteClient = async (id) => {
   return await clientModel.deleteClient(id);
 };
@@ -20,5 +24,6 @@ module.exports = {
   getAllclients,
   getclientById,
   createClient,
+  updateClient,
   deleteClient,
 };

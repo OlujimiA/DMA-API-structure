@@ -31,6 +31,19 @@ const createClient = async ({ name, email, tel, country, password }) => {
   return result;
 };
 
+const updateClient = async (id, { name, email, tel, country, password }) => {
+  const result = await prisma.client.update({
+    where: {id: parseInt(id)},
+    data: {
+      name: name, email: email, tel: tel, country: country, password: password,
+    },
+    omit: {
+      password: true,
+    },
+  });
+  return result;
+};
+
 const deleteClient = async (id) => {
   const client = await prisma.client.delete({
     where: {id: parseInt(id)},
@@ -40,17 +53,11 @@ const deleteClient = async (id) => {
   });
   return client;
 };
-// const deleteClient = async (id) => {
-//   const [result] = await db.execute(
-//     `DELETE FROM client WHERE id = ?`,
-//     [id]
-//   );
-//   return result; 
-// };
 
 module.exports = {
   getAllclients,
   getclientById,
   createClient,
+  updateClient,
   deleteClient,
 };

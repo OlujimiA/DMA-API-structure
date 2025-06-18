@@ -17,7 +17,7 @@ exports.getclientById = async (req, res) => {
     res.json(client);
 
   } catch (err){
-    res.status(500).json({ message: 'Server error', error: err.message });
+    res.status(500).json({message: 'Server error', error: err.message });
   }
   
 };
@@ -43,6 +43,29 @@ exports.createClient = async (req, res) => {
     res.status(201).json({ message: 'Client created successfully', Client: newClient });
   } catch (err) {
     res.status(500).json({ message: 'Could not create Client', error: err.message });
+  }
+};
+
+exports.updateClient = async (req, res) => {
+  try {
+    const { name, email, tel, country, password } = req.body;
+    const { id } = req.params;
+
+    if (!name || !email || !tel || !country || !password) {
+      return res.status(400).json({ message: 'All fields are required - name, email, tel, country, password' });
+    }
+
+    const hashed_password = await bcrypt.hash(password, 10);
+
+    const updated = await clientService.updateClient(id, { name, email, tel, country, password: hashed_password });
+
+    if (!updated) {
+      return res.status(404).json({ message: 'Client not found' });
+    }
+
+    res.json({ message: 'Client updated successfully', client: updated });
+  } catch (err) {
+    res.status(500).json({ message: 'Could not update client', error: err.message });
   }
 };
 
