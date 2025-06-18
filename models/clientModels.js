@@ -21,7 +21,8 @@ const createClient = async ({ name, email, tel, country, password }) => {
     id: result.insertId,
     name,
     email,
-    tel
+    tel,
+    country
   };
 };
 
