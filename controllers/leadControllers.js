@@ -47,11 +47,11 @@ exports.deleteLead = async (req, res) => {
     const { id } = req.params;
     const deleted = await leadService.deleteLead(id);
 
-    if (deleted.affectedRows === 0) {
+    if (!deleted) {
       return res.status(404).json({ message: 'Lead not found' });
     }
 
-    res.json({ message: 'Lead deleted successfully' });
+    res.json({ message: 'Lead deleted successfully', Lead: deleted });
   } catch (err) {
     res.status(500).json({ message: 'Could not delete lead', error: err.message });
   }
@@ -68,11 +68,11 @@ exports.updateLead = async (req, res) => {
 
     const updated = await leadService.updateLead(id, { message, service_interested });
 
-    if (updated.affectedRows === 0) {
+    if (!updated) {
       return res.status(404).json({ message: 'Lead not found' });
     }
 
-    res.json({ message: 'Lead updated successfully' });
+    res.json({ message: 'Lead updated successfully', lead: updated });
   } catch (err) {
     res.status(500).json({ message: 'Could not update lead', error: err.message });
   }
