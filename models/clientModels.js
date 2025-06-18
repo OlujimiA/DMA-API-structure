@@ -24,25 +24,12 @@ const createClient = async ({ name, email, tel, country, password }) => {
     data: {
       name: name, email: email, tel: tel, country: country, password: password,
     },
-    
+    omit: {
+      password: true,
+    },
   });
-
-}
-
-// const createClient = async ({ name, email, tel, country, password }) => {
-//   const [result] = await db.query(
-//     `INSERT INTO client (name, email, tel, country, password)
-//      VALUES (?, ?, ?, ?, ?)`,
-//     [name, email, tel, country, password]
-//   );
-  
-//   return {
-//     id: result.insertId,
-//     name,
-//     email,
-//     tel
-//   };
-// };
+  return result;
+};
 
 // const deleteClient = async (id) => {
 //   const [result] = await db.execute(
