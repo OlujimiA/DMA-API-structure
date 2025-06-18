@@ -51,11 +51,11 @@ exports.deleteClient = async (req, res) => {
     const { id } = req.params;
     const deleted = await clientService.deleteClient(id);
 
-    if (deleted.affectedRows === 0) {
+    if (!deleted) {
       return res.status(404).json({ message: 'Client not found' });
     }
 
-    res.json({ message: 'client deleted successfully' });
+    res.json({ message: 'client deleted successfully', client: deleted });
   } catch (err) {
     res.status(500).json({ message: 'Could not delete client', error: err.message });
   }
