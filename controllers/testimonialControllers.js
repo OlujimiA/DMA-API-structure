@@ -46,11 +46,11 @@ exports.deleteTestimonial = async (req, res) => {
     const { id } = req.params;
     const deleted = await testimonialService.deleteTestimonial(id);
 
-    if (deleted.affectedRows === 0) {
+    if (!deleted) {
       return res.status(404).json({ message: 'testimonial not found' });
     }
 
-    res.json({ message: 'testimonial deleted successfully' });
+    res.json({ message: 'testimonial deleted successfully', testimonial: deleted});
   } catch (err) {
     res.status(500).json({ message: 'Could not delete testimonial', error: err.message });
   }
@@ -67,11 +67,11 @@ exports.updateTestimonial = async (req, res) => {
 
     const updated = await testimonialService.updateTestimonial(id, { message });
 
-    if (updated.affectedRows === 0) {
+    if (!updated) {
       return res.status(404).json({ message: 'testimonial not found' });
     }
 
-    res.json({ message: 'testimonial updated successfully' });
+    res.json({ message: 'testimonial updated successfully', testimonial: updated });
   } catch (err) {
     res.status(500).json({ message: 'Could not update testimonial', error: err.message });
   }
