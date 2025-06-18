@@ -31,6 +31,15 @@ const createClient = async ({ name, email, tel, country, password }) => {
   return result;
 };
 
+const deleteClient = async (id) => {
+  const client = await prisma.client.delete({
+    where: {id: parseInt(id)},
+    omit: {
+      password: true,
+    }
+  });
+  return client;
+};
 // const deleteClient = async (id) => {
 //   const [result] = await db.execute(
 //     `DELETE FROM client WHERE id = ?`,
@@ -43,5 +52,5 @@ module.exports = {
   getAllclients,
   getclientById,
   createClient,
-  // deleteClient,
+  deleteClient,
 };
