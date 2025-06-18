@@ -1,6 +1,5 @@
 const prisma = require('../config/db');
 
-
 const getAllLeads = async () => {
   const rows = await prisma.lead.findMany({
     select: {
@@ -25,8 +24,8 @@ const getAllLeads = async () => {
 };
 
 const getLeadByOrgId = async (id) => {
-  const lead = await prisma.lead.findUnique({
-    where: { id: parseInt(id) },
+  const lead = await prisma.lead.findMany({
+    where: { organisation_id: parseInt(id) },
     select: {
       id: true,
       message: true,
