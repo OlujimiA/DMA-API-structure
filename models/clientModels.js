@@ -22,15 +22,18 @@ const getclientById = async (id) => {
 const getclientByEmail = async (email) => {
   const rows = await prisma.user.findUnique({
     where: { email: email },
+    omit: {
+      password: true,
+    }
   });
   return rows;
 }
 
-const createClient = async ({ name, email, tel, country, password }) => {
+const createClient = async ({ name, email, tel, country, category, password }) => {
 
   const result = await prisma.client.create({
     data: {
-      name: name, email: email, tel: tel, country: country, password: password,
+      name: name, email: email, tel: tel, country: country, category: category, password: password,
     },
     omit: {
       password: true,
@@ -39,11 +42,11 @@ const createClient = async ({ name, email, tel, country, password }) => {
   return result;
 };
 
-const updateClient = async (id, { name, email, tel, country, password }) => {
+const updateClient = async (id, { name, email, tel, country, category, password }) => {
   const result = await prisma.client.update({
     where: {id: parseInt(id)},
     data: {
-      name: name, email: email, tel: tel, country: country, password: password,
+      name: name, email: email, tel: tel, country: country, category: category, password: password,
     },
     omit: {
       password: true,
