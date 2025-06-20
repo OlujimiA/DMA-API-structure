@@ -42,11 +42,11 @@ const createClient = async ({ name, email, tel, country, category, password }) =
   return result;
 };
 
-const updateClient = async (id, { name, email, tel, country, category, password }) => {
+const updateClient = async (id, { name, email, tel, country, address, category, password }) => {
   const result = await prisma.client.update({
     where: {id: parseInt(id)},
     data: {
-      name: name, email: email, tel: tel, country: country, category: category, password: password,
+      name: name, email: email, tel: tel, country: country, address: address, category: category, password: password,
     },
     omit: {
       password: true,
