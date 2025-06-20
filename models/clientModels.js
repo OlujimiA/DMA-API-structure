@@ -20,6 +20,7 @@ const getclientById = async (id) => {
 };
 
 const createClient = async ({ name, email, tel, country, password }) => {
+
   const result = await prisma.client.create({
     data: {
       name: name, email: email, tel: tel, country: country, password: password,
@@ -42,6 +43,7 @@ const updateClient = async (id, { name, email, tel, country, password }) => {
     },
   });
   return result;
+
 };
 
 const deleteClient = async (id) => {
