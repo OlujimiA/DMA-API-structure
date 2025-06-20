@@ -37,6 +37,7 @@ exports.createClient = async (req, res) => {
       email,
       tel,
       country,
+      address,
       category,
       password: hashed_password,
     });
