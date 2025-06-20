@@ -24,10 +24,10 @@ exports.getclientById = async (req, res) => {
 
 exports.createClient = async (req, res) => {
   try {
-    const { name, email, tel, country, password } = req.body;
+    const { name, email, tel, country, category, password } = req.body;
 
-    if (!name || !email || !tel || !country || !password) {
-      return res.status(400).json({ message: 'All fields are required - name, email, tel, country, and password' });
+    if (!name || !email || !tel || !country || !category || !password) {
+      return res.status(400).json({ message: 'All fields are required - name, email, tel, country, category, and password' });
     }
 
     const hashed_password = await bcrypt.hash(password, 10);
@@ -37,6 +37,7 @@ exports.createClient = async (req, res) => {
       email,
       tel,
       country,
+      category,
       password: hashed_password,
     });
 
@@ -51,13 +52,13 @@ exports.updateClient = async (req, res) => {
     const { name, email, tel, country, password } = req.body;
     const { id } = req.params;
 
-    if (!name || !email || !tel || !country || !password) {
-      return res.status(400).json({ message: 'All fields are required - name, email, tel, country, password' });
+    if (!name || !email || !tel || !country || !category || !password) {
+      return res.status(400).json({ message: 'All fields are required - name, email, tel, country, category, password' });
     }
 
     const hashed_password = await bcrypt.hash(password, 10);
 
-    const updated = await clientService.updateClient(id, { name, email, tel, country, password: hashed_password });
+    const updated = await clientService.updateClient(id, { name, email, tel, country, category, password: hashed_password });
 
     if (!updated) {
       return res.status(404).json({ message: 'Client not found' });
