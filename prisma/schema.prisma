@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model client {
+  id          Int           @id @default(autoincrement()) @db.UnsignedInt
+  name        String        @db.VarChar(255)
+  email       String        @unique(map: "email") @db.VarChar(350)
+  tel         String        @unique(map: "tel") @db.VarChar(50)
+  country     String        @db.VarChar(200)
+  password    String        @db.Text
+  lead        lead[]
+  testimonial testimonial[]
+}
+
+model lead {
+  id                 Int          @id @default(autoincrement()) @db.UnsignedInt
+  message            String       @db.Text
+  service_interested String       @db.Text
+  organisation_id    Int          @db.UnsignedInt
+  client_id          Int          @db.UnsignedInt
+  client             client       @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_client_id")
+  organisation       organisation @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_organisation_id")
+
+  @@index([client_id], map: "fk_client_id")
+  @@index([organisation_id], map: "fk_organisation_id")
+}
+
+model organisation {
+  id          Int           @id @default(autoincrement()) @db.UnsignedInt
+  name        String        @db.VarChar(450)
+  email       String        @unique(map: "email") @db.VarChar(350)
+  tel         String        @unique(map: "tel") @db.VarChar(50)
+  website     String        @db.Text
+  address     String        @db.Text
+  password    String        @db.Text
+  lead        lead[]
+  service     service[]
+  testimonial testimonial[]
+}
+
+model service {
+  id              Int          @id @default(autoincrement()) @db.UnsignedInt
+  title           String       @db.Text
+  description     String       @db.Text
+  organisation_id Int          @db.UnsignedInt
+  organisation    organisation @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_organisation_id")
+
+  @@index([organisation_id], map: "fk_service_organisation_id")
+}
+
+model testimonial {
+  id              Int          @id @default(autoincrement()) @db.UnsignedInt
+  message         String       @db.Text
+  client_id       Int          @db.UnsignedInt
+  organisation_id Int          @db.UnsignedInt
+  client          client       @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_t_client_id")
+  organisation    organisation @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_t_organisation_id")
+
+  @@index([client_id], map: "fk_t_client_id")
+  @@index([organisation_id], map: "fk_t_organisation_id")
+}
+
+model user {
+  id         Int       @id @default(autoincrement()) @db.UnsignedInt
+  email      String    @unique(map: "email") @db.VarChar(255)
+  password   String    @db.Text
+  role       String?   @default("user") @db.VarChar(50)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+}

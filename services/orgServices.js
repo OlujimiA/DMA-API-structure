@@ -12,6 +12,10 @@ const createOrg = async (OrgData) => {
   return await orgModel.createOrg(OrgData);
 };
 
+const updateOrg = async (id, updateData) => {
+  return await orgModel.updateOrg(id, updateData);
+};
+
 const deleteOrg = async (id) => {
   return await orgModel.deleteOrg(id);
 };
@@ -20,5 +24,6 @@ module.exports = {
   getAllorgs,
   getorgById,
   createOrg,
+  updateOrg,
   deleteOrg,
 };

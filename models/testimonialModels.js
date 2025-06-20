@@ -1,44 +1,121 @@
-const db = require('../config/db');
+const prisma = require('../config/db');
 
 const getAlltestimonials = async () => {
-  const [rows] = await db.query('SELECT * FROM testimonial');
-  return rows;
+  const testimonial = await prisma.testimonial.findMany({
+    select: {
+      id: true, message: true, 
+      client_id: true, 
+      client: {
+        select: {
+          name: true,
+        },
+      }, 
+      organisation_id: true, 
+      organisation: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+  return testimonial;
 };
 
 const getTestimonialByOrgId = async (id) => {
-  const [rows] = await db.query('SELECT * FROM testimonial WHERE organisation_id = ?', [id]);
-  return rows;
+  const testimonial = await prisma.testimonial.findMany({
+    where: { organisation_id: parseInt(id) },
+    select: {
+      id: true, message: true, 
+      client_id: true, 
+      client: {
+        select: {
+          name: true,
+        },
+      }, 
+      organisation_id: true, 
+      organisation: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+  return testimonial;
 };
 
 const createTestimonial = async ({ message, organisation_id, client_id }) => {
-  const [result] = await db.query(
-    `INSERT INTO testimonial (message, organisation_id, client_id)
-     VALUES (?, ?, ?)`,
-    [message, organisation_id, client_id]
-  );
+  const testimonial = await prisma.testimonial.create({
+    data: {
+      message: message,
+      organisation_id: organisation_id,
+      client_id: client_id,
+    },
+    select: {
+      id: true, message: true, 
+      client_id: true, 
+      client: {
+        select: {
+          name: true,
+        },
+      }, 
+      organisation_id: true, 
+      organisation: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
   
-  return {
-    id: result.insertId,
-    message,
-    organisation_id,
-    client_id
-  };
+  return  testimonial;
 };
 
 const deleteTestimonial = async (id) => {
-  const [result] = await db.query(
-    `DELETE FROM testimonial WHERE id = ?`,
-    [id]
-  );
-  return result; 
+  const deleted = await prisma.testimonial.delete({
+    where: { id: parseInt(id)},
+    select: {
+      id: true, message: true, 
+      client_id: true, 
+      client: {
+        select: {
+          name: true,
+        },
+      }, 
+      organisation_id: true, 
+      organisation: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+
+  return deleted; 
 };
 
 const updateTestimonial = async (id, { message }) => {
-  const [result] = await db.query(
-    `UPDATE testimonial SET message = ? WHERE id = ?`,
-    [message, id]
-  );
-  return result; 
+  const updated = await prisma.testimonial.update({
+    where: { id: parseInt(id)},
+    data: {
+      message: message,
+    },
+    select: {
+      id: true, message: true, 
+      client_id: true, 
+      client: {
+        select: {
+          name: true,
+        },
+      }, 
+      organisation_id: true, 
+      organisation: {
+        select: {
+          name: true,
+        },
+      },
+    },
+  });
+  return updated; 
 };
 
 
