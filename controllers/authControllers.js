@@ -15,7 +15,6 @@ exports.refreshToken = (req, res) => {
 
     return res.json({ accessToken: newAccessToken });
   } catch (err) {
-    console.error('Refresh token verification error:', err.message);
     return res.status(403).json({ message: 'Invalid or expired refresh token', error: err.message });
   }
 };
