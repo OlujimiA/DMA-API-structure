@@ -83,3 +83,33 @@ exports.deleteClient = async (req, res) => {
     res.status(500).json({ message: 'Could not delete client', error: err.message });
   }
 };
+
+exports.login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email and password required' });
+    }
+
+    const result = await clientService.login(email, password);
+
+    if (!result) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const { accessToken, refreshToken } = result.tokens
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: false, // set to true in production
+      sameSite: 'Strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
+
+    res.json({ AccessToken: accessToken, user: result.user });
+
+  } catch (err) {
+    res.status(500).json({ message: 'Login failed', error: err.message });
+  }
+};
