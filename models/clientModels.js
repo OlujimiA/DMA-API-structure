@@ -19,6 +19,13 @@ const getclientById = async (id) => {
   return client;
 };
 
+const getclientByEmail = async (email) => {
+  const rows = await prisma.user.findUnique({
+    where: { email: email },
+  });
+  return rows;
+}
+
 const createClient = async ({ name, email, tel, country, password }) => {
 
   const result = await prisma.client.create({
@@ -59,6 +66,7 @@ const deleteClient = async (id) => {
 module.exports = {
   getAllclients,
   getclientById,
+  getclientByEmail,
   createClient,
   updateClient,
   deleteClient,
