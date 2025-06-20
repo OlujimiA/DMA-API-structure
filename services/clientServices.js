@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const clientModel = require('../models/clientModels.js');
 
 const login = async (email, password) => {
-  const user = await authModel.getUserByEmail(email);
+  const user = await clientModel.getclientByEmail(email);
   if (!user) return null;
 
   const passwordMatch = await bcrypt.compare(password, user.password);
@@ -52,4 +52,5 @@ module.exports = {
   createClient,
   updateClient,
   deleteClient,
+  login,
 };
