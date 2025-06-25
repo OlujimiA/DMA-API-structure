@@ -136,3 +136,7 @@ exports.forget_password = async (req, res) => {
     res.status(500).json({message: 'Server error', error: err.message });
   }
 };
+
+exports.reset_password = async (req, res) => {
+
+};
