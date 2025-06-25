@@ -125,8 +125,9 @@ exports.forget_password = async (req, res) => {
     const client = await clientService.getclientByEmail(email);
     if (!client) return res.status(404).json({ message: 'client not found' });
   
-    const { token, hashedToken, expiresAt } = generateToken();
+    const { token, expiresAt } = await generateToken();
     const id = client.id;
+    const hashedToken = await bcrypt.hash(token, 10);
     console.log(token, expiresAt, id);
     await clientService.saveToken({ hashedToken, expiresAt, id });
 
