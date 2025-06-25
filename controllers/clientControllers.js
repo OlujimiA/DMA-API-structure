@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const clientService = require('../services/clientServices.js');
+const generateToken = require('../utils/generateToken')
 
 exports.getAllclients = async (req, res) => {
   try {
@@ -113,5 +114,22 @@ exports.login = async (req, res) => {
 
   } catch (err) {
     res.status(500).json({ message: 'Login failed', error: err.message });
+  }
+};
+
+exports.forget_password = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) { return res.status(400).json({ message: 'Email and password required' }); };
+
+    const client = await clientService.getclientByEmail(email);
+    if (!client) return res.status(404).json({ message: 'client not found' });
+  
+    const { token, hashedToken, expiresAt } = generateToken;
+
+    res.status(201).json({ token: token , Hash: hashedToken, dateOfExpiry: expiresAt})
+  
+  } catch (err) {
+    res.status(500).json({message: 'Server error', error: err.message });
   }
 };

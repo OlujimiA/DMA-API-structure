@@ -34,6 +34,10 @@ const getclientById = async (id) => {
   return await clientModel.getclientById(id);
 };
 
+const getclientByEmail = async (email) => {
+  return await clientModel.getclientByEmail(email);
+};
+
 const createClient = async (ClientData) => {
   return await clientModel.createClient(ClientData);
 };
@@ -49,6 +53,7 @@ const deleteClient = async (id) => {
 module.exports = {
   getAllclients,
   getclientById,
+  getclientByEmail,
   createClient,
   updateClient,
   deleteClient,
