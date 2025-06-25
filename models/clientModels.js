@@ -63,6 +63,17 @@ const deleteClient = async (id) => {
   return client;
 };
 
+const saveToken = async ({ hashedToken, expiresAt, id }) => {
+  const token = await prisma.ptoken.create({
+    data: {
+      client_id: id,
+      token: hashedToken,
+      expires_at: expiresAt,
+    },
+  });
+  return token;
+};
+
 module.exports = {
   getAllclients,
   getclientById,
@@ -70,4 +81,5 @@ module.exports = {
   createClient,
   updateClient,
   deleteClient,
+  saveToken,
 };

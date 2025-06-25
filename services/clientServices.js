@@ -50,6 +50,10 @@ const deleteClient = async (id) => {
   return await clientModel.deleteClient(id);
 };
 
+const saveToken = async (tokenData) => {
+  return await clientModel.saveToken(tokenData);
+};
+
 module.exports = {
   getAllclients,
   getclientById,
@@ -58,4 +62,5 @@ module.exports = {
   updateClient,
   deleteClient,
   login,
+  saveToken,
 };
