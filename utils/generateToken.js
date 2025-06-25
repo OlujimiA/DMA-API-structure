@@ -9,6 +9,4 @@ function generateToken() {
   return { token, hashedToken, expiresAt };
 };
 
-module.exports = {
-    generateToken,
-};
+module.exports = generateToken;

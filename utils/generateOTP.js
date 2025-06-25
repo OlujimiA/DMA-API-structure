@@ -8,6 +8,4 @@ function generateOTP(length = 6) {
   return otp;
 }
 
-module.exports = {
-    generateOTP,
-}
+module.exports = generateOTP;
