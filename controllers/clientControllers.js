@@ -120,18 +120,22 @@ exports.login = async (req, res) => {
 exports.forget_password = async (req, res) => {
   try {
     const { email } = req.body;
-    if (!email) { return res.status(400).json({ message: 'Email is required' }); };
+    if (!email) return res.status(400).json({ message: 'Email is required' });
 
     const client = await clientService.getclientByEmail(email);
     if (!client) return res.status(404).json({ message: 'client not found' });
+
+    const id = client.id;
+    const getToken = await clientService.getToken(id);
+    if (getToken) return res.status(403).json({ message:  'A token has already been created within the last 15 mins' });
   
     const { token, expiresAt } = await generateToken();
-    const id = client.id;
     const hashedToken = await bcrypt.hash(token, 10);
-    console.log(token, expiresAt, id);
-    await clientService.saveToken({ hashedToken, expiresAt, id });
+    const save = await clientService.saveToken({ hashedToken, expiresAt, id });
 
-    res.status(201).json({ message: 'Add the token to your URL', token: token });
+    let new_token = token + "/" + id;
+
+    res.status(200).json({ message: 'Add the token to your URL', token: new_token});
   
   } catch (err) {
     res.status(500).json({message: 'Server error', error: err.message });
@@ -139,5 +143,26 @@ exports.forget_password = async (req, res) => {
 };
 
 exports.reset_password = async (req, res) => {
+  try {
+    const { password } = req.body;
+    if (!password) return res.status(400).json({ message: 'password is required' });
 
+    const token = req.params.token;
+    const id = req.params.id;
+    const savedToken = await clientService.getToken(id);
+    if (!savedToken) return res.status(403).json({ message: 'expired or invalid token' });
+
+    const hashed_token = savedToken.token;
+    console.log(token, hashed_token, id)
+    const passwordMatch = await bcrypt.compare(token, hashed_token);
+    if (!passwordMatch) return res.status(403).json({ message: 'invalid or expired token' });
+
+    const hashed_password = await bcrypt.hash(password, 10);
+
+    const user = await clientService.updatePassword(savedToken.client_id, hashed_password);
+
+    res.status(200).json({ message: 'Password has been updated successfully!', client: user});
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to reset password', error: err.message });
+  }
 };
