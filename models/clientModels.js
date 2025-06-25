@@ -69,9 +69,35 @@ const saveToken = async ({ hashedToken, expiresAt, id }) => {
       client_id: id,
       token: hashedToken,
       expires_at: expiresAt,
+      created_at: new Date(),
     },
   });
   return token;
+};
+
+const getToken = async (id) => {
+  const token = await prisma.ptoken.findFirst({
+    where: {
+      client_id: parseInt(id),
+      expires_at: {
+        gt: new Date(),
+      },
+    },
+  });
+  return token;
+};
+
+const updatePassword = async (id, password) => {
+  const client = await prisma.client.update({
+    where: {id: id},
+    data: {
+      password: password,
+    },
+    omit: {
+      password: true,
+    }
+  });
+  return client;
 };
 
 module.exports = {
@@ -82,4 +108,6 @@ module.exports = {
   updateClient,
   deleteClient,
   saveToken,
+  getToken,
+  updatePassword,
 };
