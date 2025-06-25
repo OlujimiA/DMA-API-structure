@@ -120,14 +120,17 @@ exports.login = async (req, res) => {
 exports.forget_password = async (req, res) => {
   try {
     const { email } = req.body;
-    if (!email) { return res.status(400).json({ message: 'Email and password required' }); };
+    if (!email) { return res.status(400).json({ message: 'Email is required' }); };
 
     const client = await clientService.getclientByEmail(email);
     if (!client) return res.status(404).json({ message: 'client not found' });
   
-    const { token, hashedToken, expiresAt } = generateToken;
+    const { token, hashedToken, expiresAt } = generateToken();
+    const id = client.id;
+    console.log(token, expiresAt, id);
+    await clientService.saveToken({ hashedToken, expiresAt, id });
 
-    res.status(201).json({ token: token , Hash: hashedToken, dateOfExpiry: expiresAt})
+    res.status(201).json({ message: 'Add the token to your URL', token: token });
   
   } catch (err) {
     res.status(500).json({message: 'Server error', error: err.message });
