@@ -6,7 +6,7 @@ const generateToken = async () => {
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes from now
     return { token, expiresAt };
   } catch (err) {
-    throw new Error("Error generating token");
+    throw new Error("Error generating token: " + err.message);
   }
 };
 
