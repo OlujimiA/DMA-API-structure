@@ -9,21 +9,24 @@ datasource db {
 }
 
 model client {
-  id          Int           @id @default(autoincrement()) @db.UnsignedInt
-  name        String        @db.VarChar(255)
-  email       String        @unique(map: "email") @db.VarChar(350)
-  tel         String        @unique(map: "tel") @db.VarChar(50)
-  country     String        @db.VarChar(200)
-  address     String        @db.Text
-  category    String?       @db.Text
-  role        String?       @default("user") @db.VarChar(50)
-  pfp_url     String?       @db.Text
-  doc_url     String?       @db.Text
-  business_status String?   @db.VarChar(5)
-  password    String        @db.Text
-  created_at  DateTime?     @default(now()) @db.Timestamp(0)
-  lead        lead[]
-  testimonial testimonial[]
+  id              Int           @id @default(autoincrement()) @db.UnsignedInt
+  name            String        @db.VarChar(255)
+  email           String        @unique(map: "email") @db.VarChar(350)
+  tel             String        @unique(map: "tel") @db.VarChar(50)
+  country         String        @db.VarChar(200)
+  address         String        @db.Text
+  category        String        @db.Text
+  role            String        @default("user") @db.VarChar(50)
+  pfp_url         String?       @db.Text
+  doc_url         String?       @db.Text
+  business_status String?       @db.VarChar(5)
+  password        String        @db.Text
+  status          String        @default("unverified") @db.VarChar(50)
+  created_at      DateTime?     @default(now()) @db.Timestamp(0)
+  lead            lead[]
+  testimonial     testimonial[]
+  otp             otp[]
+  ptoken          ptoken[]
 }
 
 model lead {
@@ -44,13 +47,14 @@ model organisation {
   name        String        @db.VarChar(450)
   email       String        @unique(map: "email") @db.VarChar(350)
   address     String        @db.Text
-  country     String?        @db.Text
+  country     String?       @db.Text
   type        String?       @db.Text
   industry    String?       @db.Text
-  rc_number   String?        @unique(map: "rc_number") @db.VarChar(200)
+  rc_number   String?       @unique(map: "rc_number") @db.VarChar(200)
   staff_size  String?       @db.Text
   logo_url    String?       @db.Text
   password    String        @db.Text
+  created_at  DateTime?     @default(now()) @db.Timestamp(0)
   lead        lead[]
   service     service[]
   testimonial testimonial[]
@@ -83,4 +87,26 @@ model contact{
   name     String  @db.Text
   pfp_url  String  @db.Text
   doc_url  String  @db.Text
+}
+
+model otp {
+  id          String     @id @default(uuid())
+  client_id   Int        @db.UnsignedInt
+  otp         String     @db.Text
+  expires_at  DateTime?  @db.Timestamp(0)
+  created_at  DateTime?  @default(now()) @db.Timestamp(0)
+  client      client     @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_otp_client_id")
+
+  @@index([client_id], map: "fk_otp_client_id")
+}
+
+model ptoken {
+  id          String     @id @default(uuid())
+  client_id   Int        @db.UnsignedInt
+  token       String     @db.Text
+  expires_at  DateTime?  @db.Timestamp(0)
+  created_at  DateTime?  @default(now()) @db.Timestamp(0)
+  client      client     @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_token_client_id")
+
+  @@index([client_id], map: "fk_token_client_id")
 }
