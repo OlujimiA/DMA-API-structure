@@ -17,6 +17,9 @@ model client {
   address     String        @db.Text
   category    String?       @db.Text
   role        String?       @default("user") @db.VarChar(50)
+  pfp_url     String?       @db.Text
+  doc_url     String?       @db.Text
+  business_status String?   @db.VarChar(5)
   password    String        @db.Text
   created_at  DateTime?     @default(now()) @db.Timestamp(0)
   lead        lead[]
@@ -40,9 +43,13 @@ model organisation {
   id          Int           @id @default(autoincrement()) @db.UnsignedInt
   name        String        @db.VarChar(450)
   email       String        @unique(map: "email") @db.VarChar(350)
-  tel         String        @unique(map: "tel") @db.VarChar(50)
-  website     String        @db.Text
   address     String        @db.Text
+  country     String?        @db.Text
+  type        String?       @db.Text
+  industry    String?       @db.Text
+  rc_number   String?        @unique(map: "rc_number") @db.VarChar(200)
+  staff_size  String?       @db.Text
+  logo_url    String?       @db.Text
   password    String        @db.Text
   lead        lead[]
   service     service[]
@@ -71,3 +78,9 @@ model testimonial {
   @@index([organisation_id], map: "fk_t_organisation_id")
 }
 
+model contact{
+  id       Int     @id @default(autoincrement()) @db.UnsignedInt 
+  name     String  @db.Text
+  pfp_url  String  @db.Text
+  doc_url  String  @db.Text
+}
