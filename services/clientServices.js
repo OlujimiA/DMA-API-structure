@@ -7,7 +7,7 @@ const login = async (email, password) => {
   if (!user) return res.status(403).json({ message: 'client not found' });
 
   const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) return res.status(403).json({ message: 'invalid email or password' });;
+  if (!passwordMatch) return res.status(403).json({ message: 'invalid email or password' });
 
   // create token
   const accessToken = jwt.sign(
@@ -54,6 +54,14 @@ const saveToken = async (tokenData) => {
   return await clientModel.saveToken(tokenData);
 };
 
+const getToken = async (id) => {
+  return await clientModel.getToken(id);
+};
+
+const updatePassword = async (updateData) => {
+  return await clientModel.updatePassword(updateData);
+};
+
 module.exports = {
   getAllclients,
   getclientById,
@@ -63,4 +71,6 @@ module.exports = {
   deleteClient,
   login,
   saveToken,
+  getToken,
+  updatePassword,
 };
