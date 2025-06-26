@@ -20,10 +20,15 @@ const deleteOrg = async (id) => {
   return await orgModel.deleteOrg(id);
 };
 
+const createContact = async (id) => {
+  return await orgModel.createContact(id);
+};
+
 module.exports = {
   getAllorgs,
   getorgById,
   createOrg,
   updateOrg,
   deleteOrg,
+  createContact,
 };
