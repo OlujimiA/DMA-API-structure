@@ -62,6 +62,10 @@ const updatePassword = async (updateData) => {
   return await clientModel.updatePassword(updateData);
 };
 
+const saveOTP = async (otpData) => {
+  return await clientModel.saveOTP(otpData);
+};
+
 module.exports = {
   getAllclients,
   getclientById,
@@ -73,4 +77,5 @@ module.exports = {
   saveToken,
   getToken,
   updatePassword,
+  saveOTP,
 };
