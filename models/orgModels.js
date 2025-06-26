@@ -60,8 +60,25 @@ const createContact = async ({ name, pfp_url, doc_url, organisation_id }) => {
       doc_url: doc_url,
       organisation_id: organisation_id,
     }
-  })
+  });
   return contact;
+};
+
+const getContact = async () => {
+  const contacts = await prisma.contact.findMany({
+    select: {
+      name: true,
+      pfp_url: true, 
+      doc_url: true,
+      organisation_id: true,
+      organisation: {
+        select: {
+          name: true,
+        }
+      },
+    }
+  });
+  return contacts;
 };
 
 module.exports = {
@@ -71,4 +88,5 @@ module.exports = {
   updateOrg,
   deleteOrg,
   createContact,
+  getContact,
 };

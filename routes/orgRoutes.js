@@ -5,6 +5,7 @@ const orgController = require('../controllers/orgControllers.js');
 
 router.get('/', auth, orgController.getAllorgs);
 router.get('/:id', auth, orgController.getorgById);
+router.get('/contact', auth, orgController.getContact);
 router.post('/', auth, orgController.createOrg);
 router.post('/contact', auth, orgController.createContact);
 router.put('/:id', auth, orgController.updateOrg);
