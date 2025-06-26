@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const clientService = require('../services/clientServices.js');
-const generateToken = require('../utils/generateToken')
+const generateToken = require('../utils/generateToken');
+const generateOTP = require('../utils/generateOTP');
 
 exports.getAllclients = async (req, res) => {
   try {
@@ -42,6 +43,11 @@ exports.createClient = async (req, res) => {
       category,
       password: hashed_password,
     });
+
+    const { otp, expiresAt } = await generateOTP();
+    const hashedOTP = await bcrypt.hash(otp, 10);
+    const id = newClient.id;
+    const save = await clientService.saveOTP({ hashedOTP, expiresAt, id });
 
     res.status(201).json({ message: 'Client created successfully', Client: newClient });
   } catch (err) {
