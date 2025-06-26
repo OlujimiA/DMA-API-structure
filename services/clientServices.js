@@ -62,8 +62,16 @@ const updatePassword = async (updateData) => {
   return await clientModel.updatePassword(updateData);
 };
 
+const getOTP = async (otpData) => {
+  return await clientModel.getOTP(otpData);
+};
+
 const saveOTP = async (otpData) => {
   return await clientModel.saveOTP(otpData);
+};
+
+const verifyEmail = async (id) => {
+  return await clientModel.verifyEmail(id);
 };
 
 module.exports = {
@@ -78,4 +86,6 @@ module.exports = {
   getToken,
   updatePassword,
   saveOTP,
+  verifyEmail,
+  getOTP,
 };
