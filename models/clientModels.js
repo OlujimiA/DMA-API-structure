@@ -22,6 +22,9 @@ const getclientById = async (id) => {
 const getclientByEmail = async (email) => {
   const rows = await prisma.client.findUnique({
     where: { email: email },
+    omit: {
+      password: true,
+    }
   });
   return rows;
 }
@@ -112,6 +115,33 @@ const saveOTP = async ({ hashedOTP, expiresAt, id }) => {
   return otp;
 };
 
+const verifyEmail = async (id) => {
+  const client = await prisma.client.update({
+    where: {
+      id: parseInt(id),
+    },
+    data: {
+      status: 'verified',
+    },
+    omit: {
+      password: true,
+    }
+  });
+  return client;
+};
+
+const getOTP = async (id) => {
+  const otp = await prisma.otp.findFirst({
+    where: {
+      client_id: parseInt(id),
+      expires_at: {
+        gt: new Date(),
+      },
+    },
+  });
+  return otp;
+};
+
 module.exports = {
   getAllclients,
   getclientById,
@@ -123,4 +153,6 @@ module.exports = {
   getToken,
   updatePassword,
   saveOTP,
+  verifyEmail,
+  getOTP,
 };
