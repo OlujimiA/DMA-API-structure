@@ -24,10 +24,10 @@ exports.getorgById = async (req, res) => {
 
 exports.createOrg = async (req, res) => {
   try {
-    const { name, email, address, country, type, industry, rc_number, logo_url } = req.body;
+    const { name, email, address, country, type, industry, rc_number, logo_url, client_id } = req.body;
 
-    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !logo_url ) {
-      return res.status(400).json({ message: 'All fields are required - name, email, address, country, type, industry, rc_number, logo_url' });
+    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !logo_url || !client_id) {
+      return res.status(400).json({ message: 'All fields are required - name, email, address, country, type, industry, rc_number, logo_url, client_id' });
     }
 
     const newOrg = await orgService.createOrg({
@@ -40,6 +40,7 @@ exports.createOrg = async (req, res) => {
       rc_number,
       staff_size,
       logo_url,
+      client_id
     });
 
     res.status(201).json({ message: 'Org created successfully', Org: newOrg });
