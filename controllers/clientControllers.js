@@ -49,7 +49,7 @@ exports.createClient = async (req, res) => {
     const id = newClient.id;
     const save = await clientService.saveOTP({ hashedOTP, expiresAt, id });
 
-    res.status(201).json({ message: 'Client created successfully', Client: newClient });
+    res.status(201).json({ message: 'Client created successfully', Client: newClient, OTP: otp });
   } catch (err) {
     res.status(500).json({ message: 'Could not create Client', error: err.message });
   }
@@ -151,7 +151,7 @@ exports.forget_password = async (req, res) => {
 exports.reset_password = async (req, res) => {
   try {
     const { password } = req.body;
-    if (!password) return res.status(400).json({ message: 'password is required' });
+    if (!password) return res.status(403).json({ message: 'password is required' });
 
     const token = req.params.token;
     const id = req.params.id;
@@ -159,9 +159,8 @@ exports.reset_password = async (req, res) => {
     if (!savedToken) return res.status(403).json({ message: 'expired or invalid token' });
 
     const hashed_token = savedToken.token;
-    console.log(token, hashed_token, id)
-    const passwordMatch = await bcrypt.compare(token, hashed_token);
-    if (!passwordMatch) return res.status(403).json({ message: 'invalid or expired token' });
+    const tokenMatch = await bcrypt.compare(token, hashed_token);
+    if (!tokenMatch) return res.status(403).json({ message: 'invalid or expired token' });
 
     const hashed_password = await bcrypt.hash(password, 10);
 
@@ -172,3 +171,48 @@ exports.reset_password = async (req, res) => {
     res.status(500).json({ message: 'Failed to reset password', error: err.message });
   }
 };
+
+exports.verify_email = async (req, res) => {
+  try {
+    const { otp } = req.body;
+    if (!otp) return res.status(403).json({ message: 'otp is required!'});
+
+    const id = req.params.id;
+
+    const savedOTP = await clientService.getOTP(id);
+    if (!savedOTP) return res.status(403).json({ message: 'expired or invalid otp' });
+
+    const hashedOTP = savedOTP.otp;
+    const otpMatch = await bcrypt.compare(otp, hashedOTP);
+    if (!otpMatch) return res.status(403).json({ message: 'invalid or expired token' });
+
+    const verify = await clientService.verifyEmail(id);
+
+    res.status(200).json({ message: 'Email has been verified successfully!', client: verify})
+  } catch (err) {
+    res.status(500).json({ message: "Failed to verify email", Error: err.message});
+  };
+
+};
+
+exports.resend_otp = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ message: 'Email is required' });
+
+    const client = await clientService.getclientByEmail(email);
+    if (!client) return res.status(404).json({ message: 'client not found' });
+
+    const id = client.id;
+    const getOTP = await clientService.getOTP(id);
+    if (getOTP) return res.status(403).json({ message:  'An otp has already been sent within the last 5 mins' });
+
+    const { otp, expiresAt } = await generateOTP();
+    const hashedOTP = await bcrypt.hash(otp, 10);
+    const save = await clientService.saveOTP({ hashedOTP, expiresAt, id });
+
+    res.status(200).json({ message: 'OTP has been successfully generated!', OTP: otp, Client: client});
+  } catch (err) {
+    res.status(500).json({ message: 'Could not resend an otp', Error: err.message});
+  }
+}
