@@ -216,3 +216,22 @@ exports.resend_otp = async (req, res) => {
     res.status(500).json({ message: 'Could not resend an otp', Error: err.message});
   }
 }
+
+exports.profile = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { pfp_url, doc_url, business_status } = req.body;
+    if (!pfp_url || !doc_url || !business_status) {
+      return res.status().json({ message: 'All fields are required - pfp_url, doc_url, business_status'});
+    }
+
+    const profile = await clientService.profile(id, { pfp_url, doc_url, business_status});
+    if (!profile) {
+      return res.status(404).json({ message: 'Client not found' });
+    }
+
+    res.json({ message: 'Client profile has been successfully completed!', Client: profile})
+  } catch (err) {
+    res.status(500).json({ message: 'Could not complete client profile', Error: err.message });
+  }
+};

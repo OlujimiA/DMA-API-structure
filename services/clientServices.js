@@ -74,6 +74,10 @@ const verifyEmail = async (id) => {
   return await clientModel.verifyEmail(id);
 };
 
+const profile = async (id, profileData) => {
+  return await clientModel.profile(id, profileData);
+};
+
 module.exports = {
   getAllclients,
   getclientById,
@@ -88,4 +92,5 @@ module.exports = {
   saveOTP,
   verifyEmail,
   getOTP,
+  profile,
 };

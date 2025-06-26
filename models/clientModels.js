@@ -142,6 +142,21 @@ const getOTP = async (id) => {
   return otp;
 };
 
+const profile = async (id, { pfp_url, doc_url, business_status }) => {
+  const profile = await prisma.client.update({
+    where: { id: parseInt(id) },
+    data: {
+      pfp_url: pfp_url,
+      doc_url: doc_url,
+      business_status: business_status,
+    },
+    omit: {
+      password: true,
+    }
+  });
+  return profile;
+};
+
 module.exports = {
   getAllclients,
   getclientById,
@@ -155,4 +170,5 @@ module.exports = {
   saveOTP,
   verifyEmail,
   getOTP,
+  profile,
 };

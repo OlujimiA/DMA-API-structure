@@ -5,6 +5,7 @@ const clientController = require('../controllers/clientControllers.js');
 
 router.get('/', auth, clientController.getAllclients);
 router.get('/:id', auth, clientController.getclientById);
+router.post('/profile/:id', auth, clientController.profile);
 router.put('/:id', auth, clientController.updateClient);
 router.delete('/:id', auth, clientController.deleteClient);
 
