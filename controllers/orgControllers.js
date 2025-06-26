@@ -24,21 +24,22 @@ exports.getorgById = async (req, res) => {
 
 exports.createOrg = async (req, res) => {
   try {
-    const { name, email, tel, website, address, password } = req.body;
+    const { name, email, address, country, type, industry, rc_number, logo_url } = req.body;
 
-    if (!name || !email || !tel || !website || !address || !password) {
-      return res.status(400).json({ message: 'All fields are required - name, email, tel, website, address, password' });
+    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !logo_url ) {
+      return res.status(400).json({ message: 'All fields are required - name, email, address, country, type, industry, rc_number, logo_url' });
     }
-
-    const hashed_password = await bcrypt.hash(password, 10);
 
     const newOrg = await orgService.createOrg({
       name,
       email,
-      tel,
-      website,
       address,
-      password: hashed_password,
+      country,
+      type,
+      industry,
+      rc_number,
+      staff_size,
+      logo_url,
     });
 
     res.status(201).json({ message: 'Org created successfully', Org: newOrg });
@@ -49,16 +50,14 @@ exports.createOrg = async (req, res) => {
 
 exports.updateOrg = async (req, res) => {
   try {
-    const { name, email, tel, website, address, password } = req.body;
+    const { name, email, address, country, type, industry, rc_number, logo_url } = req.body;
     const { id } = req.params;
 
-    if (!name || !email || !tel || !website || !address || !password) {
-      return res.status(400).json({ message: 'All fields are required - name, email, tel, website, address, password' });
+    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !logo_url ) {
+      return res.status(400).json({ message: 'All fields are required - name, email, address, country, type, industry, rc_number, logo_url' });
     }
 
-    const hashed_password = await bcrypt.hash(password, 10);
-
-    const updated = await orgService.updateOrg(id, { name, email, tel, website, address, password: hashed_password });
+    const updated = await orgService.updateOrg(id, { name, email, address, country, type, industry, rc_number, logo_url });
 
     if (!updated) {
       return res.status(404).json({ message: 'organisation not found'});
@@ -82,5 +81,21 @@ exports.deleteOrg = async (req, res) => {
     res.json({ message: 'Organisation deleted successfully', Organisation: deleted });
   } catch (err) {
     res.status(500).json({ message: 'Could not delete Organisation', error: err.message });
+  }
+};
+
+exports.createContact = async (req, res) => {
+  try {
+    const { name, pfp_url, doc_url, organisation_id } = req.body;
+    if (!name || !pfp_url || !doc_url || !organisation_id){
+      return res.status(400).json({ message: 'All fields are required - name, pfp_url, doc_url, organisation_id' });
+    }
+
+    const newContact = await orgService.createContact({ name, pfp_url, doc_url, organisation_id });
+
+    res.status(201).json({ message: 'Organisation contact created successfully', Contact: newContact });
+
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to create a Contact profile', Error: err.message });
   }
 };
