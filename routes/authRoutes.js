@@ -8,6 +8,7 @@ router.post('/login', clientController.login);
 router.post('/register', clientController.createClient);
 router.post('/forget-password', clientController.forget_password);
 router.post('/forget-password/:token/:id', clientController.reset_password);
-router.post('/verify-email', clientController.verify_email)
+router.post('/verify-email/:id', clientController.verify_email);
+router.post('/resend-otp', clientController.resend_otp);
 module.exports = router;
 
