@@ -1,7 +1,15 @@
 const prisma = require('../config/db');
 
 const getAllorgs = async () => {
-  const orgs = await prisma.organisation.findMany();
+  const orgs = await prisma.organisation.findMany({
+    include: {
+      client: {
+        select: {
+          name: true,
+        }
+      }
+    }   
+  });
   return orgs;
 };
 
@@ -12,7 +20,7 @@ const getorgById = async (id) => {
   return org;
 };
 
-const createOrg = async ({ name, email, address, country, type, industry, rc_number, logo_url }) => {
+const createOrg = async ({ name, email, address, country, type, industry, rc_number, logo_url, client_id }) => {
   const org = await prisma.organisation.create({
     data: {
       name: name, 
@@ -23,6 +31,7 @@ const createOrg = async ({ name, email, address, country, type, industry, rc_num
       industry: industry,
       rc_number: rc_number,
       logo_url: logo_url,
+      client_id: client_id,
     },
   });
   return org;
