@@ -52,10 +52,23 @@ const deleteOrg = async (id) => {
   return deleted; 
 };
 
+const createContact = async ({ name, pfp_url, doc_url, organisation_id }) => {
+  const contact = await prisma.contact.create({
+    data: {
+      name: name,
+      pfp_url: pfp_url,
+      doc_url: doc_url,
+      organisation_id: organisation_id,
+    }
+  })
+  return contact;
+};
+
 module.exports = {
   getAllorgs,
   getorgById,
   createOrg,
   updateOrg,
   deleteOrg,
+  createContact,
 };
