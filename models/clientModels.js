@@ -100,6 +100,18 @@ const updatePassword = async (id, password) => {
   return client;
 };
 
+const saveOTP = async ({ hashedOTP, expiresAt, id }) => {
+  const otp = await prisma.otp.create({
+    data: {
+      client_id: id,
+      otp: hashedOTP,
+      expires_at: expiresAt,
+      created_at: new Date(),
+    },
+  });
+  return otp;
+};
+
 module.exports = {
   getAllclients,
   getclientById,
@@ -110,4 +122,5 @@ module.exports = {
   saveToken,
   getToken,
   updatePassword,
+  saveOTP,
 };
