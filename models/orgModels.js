@@ -20,7 +20,7 @@ const getorgById = async (id) => {
   return org;
 };
 
-const createOrg = async ({ name, email, address, country, type, industry, rc_number, logo_url, client_id }) => {
+const createOrg = async ({ name, email, address, country, type, industry, rc_number, staff_size, logo_url, client_id }) => {
   const org = await prisma.organisation.create({
     data: {
       name: name, 
@@ -30,6 +30,7 @@ const createOrg = async ({ name, email, address, country, type, industry, rc_num
       type: type,
       industry: industry,
       rc_number: rc_number,
+      staff_size: staff_size,
       logo_url: logo_url,
       client_id: client_id,
     },
@@ -37,7 +38,7 @@ const createOrg = async ({ name, email, address, country, type, industry, rc_num
   return org;
 };
 
-const updateOrg = async (id, { name, email, address, country, type, industry, rc_number, logo_url }) => {
+const updateOrg = async (id, { name, email, address, country, type, industry, rc_number, staff_size, logo_url }) => {
   const updated = await prisma.organisation.update({
     where: { id: parseInt(id) },
     data: {
@@ -48,6 +49,7 @@ const updateOrg = async (id, { name, email, address, country, type, industry, rc
       type: type,
       industry: industry,
       rc_number: rc_number,
+      staff_size: staff_size,
       logo_url: logo_url,
     },
   });
@@ -73,13 +75,9 @@ const createContact = async ({ name, pfp_url, doc_url, organisation_id }) => {
   return contact;
 };
 
-const getContact = async () => {
+const getAllContacts = async () => {
   const contacts = await prisma.contact.findMany({
-    select: {
-      name: true,
-      pfp_url: true, 
-      doc_url: true,
-      organisation_id: true,
+    include: {
       organisation: {
         select: {
           name: true,
@@ -90,6 +88,20 @@ const getContact = async () => {
   return contacts;
 };
 
+const getContact = async (id) => {
+  const contact = await prisma.contact.findUnique({
+    where: { id: parseInt(id) },
+    include: {
+      organisation: {
+        select: {
+          name: true,
+        }
+      },
+    }
+  });
+  return contact;
+};
+
 module.exports = {
   getAllorgs,
   getorgById,
@@ -98,4 +110,5 @@ module.exports = {
   deleteOrg,
   createContact,
   getContact,
+  getAllContacts,
 };
