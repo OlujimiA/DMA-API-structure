@@ -24,10 +24,10 @@ exports.getorgById = async (req, res) => {
 
 exports.createOrg = async (req, res) => {
   try {
-    const { name, email, address, country, type, industry, rc_number, logo_url, client_id } = req.body;
+    const { name, email, address, country, type, industry, rc_number, staff_size, logo_url, client_id } = req.body;
 
-    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !logo_url || !client_id) {
-      return res.status(400).json({ message: 'All fields are required - name, email, address, country, type, industry, rc_number, logo_url, client_id' });
+    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !staff_size || !logo_url || !client_id) {
+      return res.status(400).json({ message: 'All fields are required - name, email, address, country, type, industry, rc_number, staff_size, logo_url, client_id' });
     }
 
     const newOrg = await orgService.createOrg({
@@ -51,14 +51,14 @@ exports.createOrg = async (req, res) => {
 
 exports.updateOrg = async (req, res) => {
   try {
-    const { name, email, address, country, type, industry, rc_number, logo_url } = req.body;
+    const { name, email, address, country, type, industry, rc_number, staff_size, logo_url } = req.body;
     const { id } = req.params;
 
-    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !logo_url ) {
-      return res.status(400).json({ message: 'All fields are required - name, email, address, country, type, industry, rc_number, logo_url' });
+    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !staff_size || !logo_url ) {
+      return res.status(400).json({ message: 'All fields are required - All fields are required - name, email, address, country, type, industry, rc_number, staff_size, logo_url' });
     }
 
-    const updated = await orgService.updateOrg(id, { name, email, address, country, type, industry, rc_number, logo_url });
+    const updated = await orgService.updateOrg(id, { name, email, address, country, type, industry, rc_number, staff_size, logo_url });
 
     if (!updated) {
       return res.status(404).json({ message: 'organisation not found'});
@@ -101,11 +101,21 @@ exports.createContact = async (req, res) => {
   }
 };
 
-exports.getContact = async (req, res) => {
+exports.getAllContacts = async (req, res) => {
   try{
-    const contacts = await orgService.getContact();
+    const contacts = await orgService.getAllContacts();
     res.status(200).json(contacts);
   } catch (err) {
     res.status(500).json({ message: 'Failed to get contacts', Error: err.message});
+  }
+};
+
+exports.getContact = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const contact = await orgService.getContact(id);
+    res.status(200).json(contact);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to get the contact', Error: err.message});
   }
 };
