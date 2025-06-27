@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/authmiddleware');
-const orgController = require('../controllers/orgControllers.js');
+const orgController = require('../controllers/orgControllers');
 
 router.get('/', auth, orgController.getAllorgs);
 router.get('/:id', auth, orgController.getorgById);

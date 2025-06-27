@@ -1,13 +1,13 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const clientModel = require('../models/clientModels.js');
+const clientModel = require('../models/clientModels');
 
 const login = async (email, password) => {
   const user = await clientModel.getclientByEmail(email);
-  if (!user) return res.status(403).json({ message: 'client not found' });
+  if (!user) throw new Error( 'Client not found' );
 
   const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) return res.status(403).json({ message: 'invalid email or password' });
+  if (!passwordMatch) throw new Error ( 'invalid email or password' );
 
   // create token
   const accessToken = jwt.sign(

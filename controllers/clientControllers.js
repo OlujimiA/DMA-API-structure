@@ -211,7 +211,7 @@ exports.resend_otp = async (req, res) => {
     const hashedOTP = await bcrypt.hash(otp, 10);
     const save = await clientService.saveOTP({ hashedOTP, expiresAt, id });
 
-    res.status(200).json({ message: 'OTP has been successfully generated!', OTP: otp, Client: client});
+    res.status(201).json({ message: 'OTP has been successfully generated!', OTP: otp, Client: client});
   } catch (err) {
     res.status(500).json({ message: 'Could not resend an otp', Error: err.message});
   }
@@ -222,7 +222,7 @@ exports.profile = async (req, res) => {
     const id = req.params.id;
     const { pfp_url, doc_url, business_status } = req.body;
     if (!pfp_url || !doc_url || !business_status) {
-      return res.status().json({ message: 'All fields are required - pfp_url, doc_url, business_status'});
+      return res.status(400).json({ message: 'All fields are required - pfp_url, doc_url, business_status'});
     }
 
     const profile = await clientService.profile(id, { pfp_url, doc_url, business_status});

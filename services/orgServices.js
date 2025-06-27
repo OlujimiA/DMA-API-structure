@@ -1,4 +1,4 @@
-const orgModel = require('../models/orgModels.js');
+const orgModel = require('../models/orgModels');
 
 const getAllorgs = async () => {
   return await orgModel.getAllorgs();

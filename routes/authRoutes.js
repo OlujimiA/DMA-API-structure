@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authControllers = require('../controllers/authControllers');
-const clientController = require('../controllers/clientControllers.js');
+const clientController = require('../controllers/clientControllers');
 
 router.post('/refresh', authControllers.refreshToken)
 router.post('/login', clientController.login);

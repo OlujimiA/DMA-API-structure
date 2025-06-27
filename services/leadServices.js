@@ -1,4 +1,4 @@
-const leadModel = require('../models/leadModels.js');
+const leadModel = require('../models/leadModels');
 
 const getAllLeads = async () => {
   return await leadModel.getAllLeads();

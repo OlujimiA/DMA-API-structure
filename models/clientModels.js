@@ -21,10 +21,7 @@ const getclientById = async (id) => {
 
 const getclientByEmail = async (email) => {
   const rows = await prisma.client.findUnique({
-    where: { email: email },
-    omit: {
-      password: true,
-    }
+    where: { email: email }
   });
   return rows;
 }

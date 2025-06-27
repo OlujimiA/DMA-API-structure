@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/authmiddleware');
-const leadController = require('../controllers/leadControllers.js');
+const leadController = require('../controllers/leadControllers');
 
 router.get('/', auth, leadController.getAllLeads);
 router.get('/:id', auth, leadController.getLeadByOrgId);

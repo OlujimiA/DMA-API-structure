@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/authmiddleware');
-const testimonialController = require('../controllers/testimonialControllers.js');
+const testimonialController = require('../controllers/testimonialControllers');
 
 router.get('/', auth, testimonialController.getAlltestimonials);
 router.get('/:id', auth, testimonialController.getTestimonialByOrgId);
