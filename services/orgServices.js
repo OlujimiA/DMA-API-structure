@@ -24,6 +24,10 @@ const createContact = async (id) => {
   return await orgModel.createContact(id);
 };
 
+const getAllContacts = async () => {
+  return await orgModel.getAllContacts();
+};
+
 const getContact = async (id) => {
   return await orgModel.getContact(id);
 };
@@ -37,4 +41,5 @@ module.exports = {
   deleteOrg,
   createContact,
   getContact,
+  getAllContacts,
 };
