@@ -19,7 +19,7 @@ model client {
   role            String        @default("user") @db.VarChar(50)
   pfp_url         String?       @db.Text
   doc_url         String?       @db.Text
-  business_status String?       @db.VarChar(5)
+  business_status Boolean?
   password        String        @db.Text
   status          String        @default("unverified") @db.VarChar(50)
   created_at      DateTime?     @default(now()) @db.Timestamp(0)
