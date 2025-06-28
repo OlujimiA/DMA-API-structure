@@ -58,7 +58,6 @@ model organisation {
   client_id   Int           @db.UnsignedInt
   client      client        @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_org_client_id")
   lead        lead[]
-  service     service[]
   testimonial testimonial[]
   contact     contact[]
 
@@ -68,11 +67,9 @@ model organisation {
 model service {
   id              Int          @id @default(autoincrement()) @db.UnsignedInt
   title           String       @db.Text
+  subtitle        String       @db.Text
   description     String       @db.Text
-  organisation_id Int          @db.UnsignedInt
-  organisation    organisation @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_service_organisation_id")
-
-  @@index([organisation_id], map: "fk_service_organisation_id")
+  imageURL        String       @db.Text
 }
 
 model testimonial {
