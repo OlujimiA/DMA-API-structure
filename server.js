@@ -4,11 +4,12 @@ const app = express();
 const cookieParser = require('cookie-parser');
 
 // Import different route files
-const leadRoutes = require('./routes/leadRoutes');
+const authRoutes = require('./routes/authRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const orgRoutes = require('./routes/orgRoutes');
+const leadRoutes = require('./routes/leadRoutes');
 const testimonialRoutes = require('./routes/testimonialRoutes');
-const authRoutes = require('./routes/authRoutes');
+const serviceRoutes = require('./routes/serviceRoutes');
 
 app.use(express.json());
 app.use(cookieParser());
