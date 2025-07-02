@@ -4,7 +4,7 @@ const auth = require('../middlewares/authmiddleware');
 const serviceController = require('../controllers/serviceControllers');
 
 router.get('/', auth, serviceController.getAllServices);
-router.get('/:id', auth, serviceController.getServiceById);
+router.get('/:id', auth, serviceController.getService);
 router.post('/', auth, serviceController.createService);
 router.put('/:id', auth, serviceController.updateService);
 router.delete('/:id', auth, serviceController.deleteService);

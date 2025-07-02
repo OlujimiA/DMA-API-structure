@@ -1,26 +1,26 @@
 const prisma = require('../config/db');
 
 const getAllclients = async () => {
-  const clients = await prisma.client.findMany({
+  const users = await prisma.user.findMany({
     omit: {
       password: true,
     },
   });
-  return clients;
+  return users;
 };
 
 const getclientById = async (id) => {
-  const client = await prisma.client.findUnique({
+  const user = await prisma.user.findUnique({
     where: { id: parseInt(id) },
     omit: {
       password: true,
     },
   });
-  return client;
+  return user;
 };
 
 const getclientByEmail = async (email) => {
-  const rows = await prisma.client.findUnique({
+  const rows = await prisma.user.findUnique({
     where: { email: email }
   });
   return rows;
@@ -28,7 +28,7 @@ const getclientByEmail = async (email) => {
 
 const createClient = async ({ name, email, tel, country, address, category, password }) => {
 
-  const result = await prisma.client.create({
+  const result = await prisma.user.create({
     data: {
       name: name, email: email, tel: tel, country: country, address: address, category: category, password: password,
     },
@@ -40,7 +40,7 @@ const createClient = async ({ name, email, tel, country, address, category, pass
 };
 
 const updateClient = async (id, { name, email, tel, country, address, category, password }) => {
-  const result = await prisma.client.update({
+  const result = await prisma.user.update({
     where: {id: parseInt(id)},
     data: {
       name: name, email: email, tel: tel, country: country, address: address, category: category, password: password,
@@ -54,19 +54,19 @@ const updateClient = async (id, { name, email, tel, country, address, category, 
 };
 
 const deleteClient = async (id) => {
-  const client = await prisma.client.delete({
+  const user = await prisma.user.delete({
     where: {id: parseInt(id)},
     omit: {
       password: true,
     }
   });
-  return client;
+  return user;
 };
 
 const saveToken = async ({ hashedToken, expiresAt, id }) => {
   const token = await prisma.ptoken.create({
     data: {
-      client_id: id,
+      user_id: id,
       token: hashedToken,
       expires_at: expiresAt,
       created_at: new Date(),
@@ -78,7 +78,7 @@ const saveToken = async ({ hashedToken, expiresAt, id }) => {
 const getToken = async (id) => {
   const token = await prisma.ptoken.findFirst({
     where: {
-      client_id: parseInt(id),
+      user_id: parseInt(id),
       expires_at: {
         gt: new Date(),
       },
@@ -88,7 +88,7 @@ const getToken = async (id) => {
 };
 
 const updatePassword = async (id, password) => {
-  const client = await prisma.client.update({
+  const user = await prisma.user.update({
     where: {id: id},
     data: {
       password: password,
@@ -97,13 +97,13 @@ const updatePassword = async (id, password) => {
       password: true,
     }
   });
-  return client;
+  return user;
 };
 
 const saveOTP = async ({ hashedOTP, expiresAt, id }) => {
   const otp = await prisma.otp.create({
     data: {
-      client_id: id,
+      user_id: id,
       otp: hashedOTP,
       expires_at: expiresAt,
       created_at: new Date(),
@@ -113,7 +113,7 @@ const saveOTP = async ({ hashedOTP, expiresAt, id }) => {
 };
 
 const verifyEmail = async (id) => {
-  const client = await prisma.client.update({
+  const client = await prisma.user.update({
     where: {
       id: parseInt(id),
     },
@@ -130,7 +130,7 @@ const verifyEmail = async (id) => {
 const getOTP = async (id) => {
   const otp = await prisma.otp.findFirst({
     where: {
-      client_id: parseInt(id),
+      user_id: parseInt(id),
       expires_at: {
         gt: new Date(),
       },
@@ -140,7 +140,7 @@ const getOTP = async (id) => {
 };
 
 const profile = async (id, { pfp_url, doc_url, business_status }) => {
-  const profile = await prisma.client.update({
+  const profile = await prisma.user.update({
     where: { id: parseInt(id) },
     data: {
       pfp_url: pfp_url,

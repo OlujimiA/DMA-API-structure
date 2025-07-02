@@ -1,13 +1,21 @@
 const prisma = require('../config/db');
 
-const createService = async ({ title, subtitle, description, imageURL }) => {
+const createService = async ({ title, subtitle, description, imageURL, user_id }) => {
     const service = await prisma.service.create({
         data: {
             title: title,
             subtitle: subtitle,
             description: description,
             imageURL: imageURL,
+            user_id: user_id,
         },
+        include: {
+            user: {
+                select: {
+                    name: true,
+                }
+            }
+        }
     });
     return service;
 };
