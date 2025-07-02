@@ -9,25 +9,26 @@ datasource db {
 }
 
 model user {
-  id              Int           @id @default(autoincrement()) @db.UnsignedInt
-  name            String        @db.VarChar(255)
-  email           String        @unique(map: "email") @db.VarChar(350)
-  tel             String        @unique(map: "tel") @db.VarChar(50)
-  country         String        @db.VarChar(200)
-  address         String        @db.Text
-  category        String        @db.Text
-  role            String        @default("user") @db.VarChar(50)
-  pfp_url         String?       @db.Text
-  doc_url         String?       @db.Text
+  id              Int            @id @default(autoincrement()) @db.UnsignedInt
+  name            String         @db.VarChar(255)
+  email           String         @unique(map: "email") @db.VarChar(350)
+  tel             String         @unique(map: "tel") @db.VarChar(50)
+  country         String         @db.VarChar(200)
+  address         String         @db.Text
+  category        String         @db.Text
+  role            String         @default("user") @db.VarChar(50)
+  pfp_url         String?        @db.Text
+  doc_url         String?        @db.Text
   business_status Boolean?
-  password        String        @db.Text
-  status          String        @default("unverified") @db.VarChar(50)
-  created_at      DateTime?     @default(now()) @db.Timestamp(0)
+  password        String         @db.Text
+  status          String         @default("unverified") @db.VarChar(50)
+  created_at      DateTime?      @default(now()) @db.Timestamp(0)
   lead            lead[]
-  testimonial     testimonial[]
+  organisation    organisation[]
   otp             otp[]
   ptoken          ptoken[]
-  organisation    organisation[]
+  testimonial     testimonial[]
+  service         service []
 
   @@map("user")
 }
@@ -37,9 +38,9 @@ model lead {
   message            String       @db.Text
   service_interested String       @db.Text
   organisation_id    Int          @db.UnsignedInt
-  user_id            Int          @db.UnsignedInt 
-  user               user         @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_id")
+  user_id            Int          @db.UnsignedInt
   organisation       organisation @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_organisation_id")
+  user               user         @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_user_id")
 
   @@index([user_id], map: "fk_user_id")
   @@index([organisation_id], map: "fk_organisation_id")
@@ -51,72 +52,75 @@ model organisation {
   email       String        @unique(map: "email") @db.VarChar(350)
   address     String        @db.Text
   country     String?       @db.Text
-  type        String?       @db.Text
   industry    String?       @db.Text
+  logo_url    String?       @db.Text
   rc_number   String?       @unique(map: "rc_number") @db.VarChar(200)
   staff_size  String?       @db.Text
-  logo_url    String?       @db.Text
+  type        String?       @db.Text
   created_at  DateTime?     @default(now()) @db.Timestamp(0)
-  user_id     Int           @db.UnsignedInt 
-  user        user          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_org_user_id")
-  lead        lead[]
-  testimonial testimonial[]
+  user_id     Int           @db.UnsignedInt
   contact     contact[]
+  lead        lead[]
+  user        user          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_org_user_id")
+  testimonial testimonial[]
 
   @@index([user_id], map: "fk_org_user_id")
 }
 
 model service {
-  id              Int          @id @default(autoincrement()) @db.UnsignedInt
-  title           String       @db.Text
-  subtitle        String       @db.Text
-  description     String       @db.Text
-  imageURL        String       @db.Text
-  created_by      Int          @db.UnsignedInt
-  created_at      DateTime?    @default(now()) @db.Timestamp(0)
+  id          Int       @id @default(autoincrement()) @db.UnsignedInt
+  title       String    @db.Text
+  description String    @db.Text
+  imageURL    String    @db.Text
+  subtitle    String    @db.Text
+  created_at  DateTime? @default(now()) @db.Timestamp(0)
+  user_id     Int       @db.UnsignedInt
+  user        user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_contact_user_id")
+
+  @@index([user_id], map: "fk_contact_user_id")
 }
 
 model testimonial {
-  id               Int          @id @default(autoincrement()) @db.UnsignedInt
-  message          String       @db.Text
-  user_id          Int          @db.UnsignedInt 
-  organisation_id  Int          @db.UnsignedInt
-  user             user         @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_t_user_id")
-  organisation     organisation @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_t_organisation_id")
+  id              Int          @id @default(autoincrement()) @db.UnsignedInt
+  message         String       @db.Text
+  organisation_id Int          @db.UnsignedInt
+  user_id         Int          @db.UnsignedInt
+  organisation    organisation @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_t_organisation_id")
+  user            user         @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_t_user_id")
 
   @@index([user_id], map: "fk_t_user_id")
   @@index([organisation_id], map: "fk_t_organisation_id")
 }
 
-model contact{
-  id               Int           @id @default(autoincrement()) @db.UnsignedInt 
-  name             String        @db.Text
-  pfp_url          String        @db.Text
-  doc_url          String        @db.Text
-  organisation_id  Int           @db.UnsignedInt
-  organisation     organisation  @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_contact_organisation_id")
+model contact {
+  id              Int          @id @default(autoincrement()) @db.UnsignedInt
+  name            String       @db.Text
+  pfp_url         String       @db.Text
+  doc_url         String       @db.Text
+  organisation_id Int          @db.UnsignedInt
+  organisation    organisation @relation(fields: [organisation_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_contact_organisation_id")
 
   @@index([organisation_id], map: "fk_contact_user_id")
 }
 
 model otp {
-  id          String     @id @default(uuid())
-  user_id     Int        @db.UnsignedInt 
-  otp         String     @db.Text
-  expires_at  DateTime?  @db.Timestamp(0)
-  created_at  DateTime?  @default(now()) @db.Timestamp(0)
-  user        user       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_otp_user_id")
+  id         String    @id @default(uuid())
+  otp        String    @db.Text
+  expires_at DateTime? @db.Timestamp(0)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  user_id    Int       @db.UnsignedInt
+  user       user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_otp_user_id")
 
   @@index([user_id], map: "fk_otp_user_id")
 }
 
 model ptoken {
-  id          String     @id @default(uuid())
-  user_id     Int        @db.UnsignedInt 
-  token       String     @db.Text
-  expires_at  DateTime?  @db.Timestamp(0)
-  created_at  DateTime?  @default(now()) @db.Timestamp(0)
-  user        user       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_token_user_id")
+  id         String    @id @default(uuid())
+  token      String    @db.Text
+  expires_at DateTime? @db.Timestamp(0)
+  created_at DateTime? @default(now()) @db.Timestamp(0)
+  user_id    Int       @db.UnsignedInt
+  user       user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_token_user_id")
 
   @@index([user_id], map: "fk_token_user_id")
 }
