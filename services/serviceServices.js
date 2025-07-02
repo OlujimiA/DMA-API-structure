@@ -8,8 +8,8 @@ const getService = async (id) => {
     return await serviceModel.getService(id);
 };
 
-const createService = async (id, serviceData) => {
-    return await serviceModel.createService(id, serviceData);
+const createService = async (serviceData) => {
+    return await serviceModel.createService(serviceData);
 };
 
 const deleteService = async (id) => {
