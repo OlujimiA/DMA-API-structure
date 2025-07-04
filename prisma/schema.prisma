@@ -135,3 +135,12 @@ model notification {
 
   @@index([user_id], map: "fk_n_user_id")
 }
+
+model plan {
+  id             Int     @id @default(autoincrement()) @db.UnsignedInt
+  name           String  @db.VarChar(20)
+  price          Int     @db.Int
+  billing_cycle  String  @db.VarChar(20)
+  description    String  @db.Text
+}
+
