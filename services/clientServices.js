@@ -43,7 +43,7 @@ const createClient = async (ClientData) => {
   const existingUser = await clientModel.getclientByEmail(email);
   if (existingUser) {
     const error = new Error('Email already exists');
-    error.statusCode = 400;  // Bad Request
+    error.statusCode = 400;  
     throw error;
   }
   return await clientModel.createClient(ClientData);
