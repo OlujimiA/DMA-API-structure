@@ -51,7 +51,8 @@ exports.createClient = async (req, res) => {
 
     res.status(201).json({ message: 'Client created successfully', Client: newClient, OTP: otp });
   } catch (err) {
-    res.status(500).json({ message: 'Could not create Client', error: err.message });
+    const statusCode = err.statusCode || 500; // Default to 500 if not set
+    res.status(statusCode).json({ message: 'Could not create Client', error: err.message });
   }
 };
 
