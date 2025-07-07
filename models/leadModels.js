@@ -1,7 +1,7 @@
 const prisma = require('../config/db');
 
 const getAllLeads = async () => {
-  const rows = await prisma.lead.findMany({
+  const rows = await prisma.service_request.findMany({
     select: {
       id: true,
       message: true,
@@ -24,7 +24,7 @@ const getAllLeads = async () => {
 };
 
 const getLeadByOrgId = async (id) => {
-  const lead = await prisma.lead.findMany({
+  const lead = await prisma.service_request.findMany({
     where: { organisation_id: parseInt(id) },
     select: {
       id: true,
@@ -48,7 +48,7 @@ const getLeadByOrgId = async (id) => {
 };
 
 const createLead = async ({ message, service_interested, organisation_id, client_id }) => {
-  const result = await prisma.lead.create({
+  const result = await prisma.service_request.create({
     data: {
       message: message, 
       service_interested: service_interested, 
@@ -77,7 +77,7 @@ const createLead = async ({ message, service_interested, organisation_id, client
 };
 
 const deleteLead = async (id) => {
-  const result = await prisma.lead.delete({
+  const result = await prisma.service_request.delete({
     where: { id: parseInt(id)},
     select: {
       id: true,
@@ -101,7 +101,7 @@ const deleteLead = async (id) => {
 };
 
 const updateLead = async (id, {message, service_interested}) => {
-  const updated = await prisma.lead.update({
+  const updated = await prisma.service_request.update({
     where: { id: parseInt(id) },
     data: {
       message: message,
