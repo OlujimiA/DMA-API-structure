@@ -1,6 +1,6 @@
 const prisma = require('../config/db');
 
-const getAllclients = async () => {
+const getAllusers = async () => {
   const users = await prisma.user.findMany({
     omit: {
       password: true,
@@ -9,7 +9,7 @@ const getAllclients = async () => {
   return users;
 };
 
-const getclientById = async (id) => {
+const getuserById = async (id) => {
   const user = await prisma.user.findUnique({
     where: { id: parseInt(id) },
     omit: {
@@ -19,14 +19,14 @@ const getclientById = async (id) => {
   return user;
 };
 
-const getclientByEmail = async (email) => {
+const getuserByEmail = async (email) => {
   const rows = await prisma.user.findUnique({
     where: { email: email }
   });
   return rows;
 }
 
-const createClient = async ({ name, email, tel, country, address, category, password }) => {
+const createUser = async ({ name, email, tel, country, address, category, password }) => {
 
   const result = await prisma.user.create({
     data: {
@@ -39,7 +39,7 @@ const createClient = async ({ name, email, tel, country, address, category, pass
   return result;
 };
 
-const updateClient = async (id, { name, email, tel, country, address, category, password }) => {
+const updateUser = async (id, { name, email, tel, country, address, category, password }) => {
   const result = await prisma.user.update({
     where: {id: parseInt(id)},
     data: {
@@ -53,7 +53,7 @@ const updateClient = async (id, { name, email, tel, country, address, category, 
 
 };
 
-const deleteClient = async (id) => {
+const deleteUser = async (id) => {
   const user = await prisma.user.delete({
     where: {id: parseInt(id)},
     omit: {
@@ -113,7 +113,7 @@ const saveOTP = async ({ hashedOTP, expiresAt, id }) => {
 };
 
 const verifyEmail = async (id) => {
-  const client = await prisma.user.update({
+  const user = await prisma.user.update({
     where: {
       id: parseInt(id),
     },
@@ -124,7 +124,7 @@ const verifyEmail = async (id) => {
       password: true,
     }
   });
-  return client;
+  return user;
 };
 
 const getOTP = async (id) => {
@@ -155,12 +155,12 @@ const profile = async (id, { pfp_url, doc_url, business_status }) => {
 };
 
 module.exports = {
-  getAllclients,
-  getclientById,
-  getclientByEmail,
-  createClient,
-  updateClient,
-  deleteClient,
+  getAllusers,
+  getuserById,
+  getuserByEmail,
+  createUser,
+  updateUser,
+  deleteUser,
   saveToken,
   getToken,
   updatePassword,

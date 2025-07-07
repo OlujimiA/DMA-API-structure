@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const authControllers = require('../controllers/authControllers');
-const clientController = require('../controllers/clientControllers');
+const userController = require('../controllers/userControllers');
 
 router.post('/refresh', authControllers.refreshToken)
-router.post('/login', clientController.login);
-router.post('/register', clientController.createClient);
-router.post('/forget-password', clientController.forget_password);
-router.post('/forget-password/:token/:id', clientController.reset_password);
-router.post('/verify-email/:id', clientController.verify_email);
-router.post('/resend-otp', clientController.resend_otp);
+router.post('/login', userController.login);
+router.post('/register', userController.createUser);
+router.post('/forget-password', userController.forget_password);
+router.post('/forget-password/:token/:id', userController.reset_password);
+router.post('/verify-email/:id', userController.verify_email);
+router.post('/resend-otp', userController.resend_otp);
 module.exports = router;
 
