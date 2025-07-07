@@ -13,7 +13,7 @@ exports.refreshToken = (req, res) => {
       { expiresIn: '1h' }
     );
 
-    return res.json({ accessToken: newAccessToken });
+    return res.status(200).json({ accessToken: newAccessToken });
   } catch (err) {
     return res.status(403).json({ message: 'Invalid or expired refresh token', error: err.message });
   }
