@@ -32,6 +32,8 @@ model user {
   service_request service_request[]
   notification    notification[]
   subscription    subscription[]
+  notification_settings    notification_settings[]
+  privacy_settings    privacy_settings[]
 }
 
 model organisation {
@@ -139,6 +141,34 @@ model notification {
   user_id      Int        @db.UnsignedInt
   
   user         user       @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+}
+
+model privacy_settings {
+  id               Int       @id @default(autoincrement())@db.UnsignedInt
+  ads              Boolean   @default(true)
+  data_sharing     Boolean   @default(true)
+  marketing_status Boolean   @default(true)
+  activity_status  Boolean   @default(true)
+  user_id          Int       @db.UnsignedInt
+
+  user             user      @relation(fields: [user_id], references: [id])
+
+  @@index([user_id])
+}
+
+model notification_settings {
+  id              Int       @id @default(autoincrement())@db.UnsignedInt
+  alerts          Boolean   @default(true)
+  messages        Boolean   @default(true)
+  updates         Boolean   @default(true)
+  billing_alerts  Boolean   @default(true)
+  email           Boolean   @default(true)
+  in_app          Boolean   @default(true)
+  user_id         Int       @db.UnsignedInt
+
+  user             user      @relation(fields: [user_id], references: [id])
 
   @@index([user_id])
 }
