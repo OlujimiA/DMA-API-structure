@@ -1,5 +1,25 @@
 const prisma = require('../config/db');
 
+const getAllServices = async () => {
+    const services = await prisma.service.findMany({
+        include: {
+            user: {
+                select: {
+                    name: true,
+                }
+            }
+        }
+    });
+    return services;
+};
+
+const getService = async (id) => {
+    const service = await prisma.service.findUnique({
+        where: { id: parseInt(id) },
+    });
+    return service;
+};
+
 const createService = async ({ title, subtitle, description, imageURL, user_id }) => {
     const service = await prisma.service.create({
         data: {
@@ -7,7 +27,7 @@ const createService = async ({ title, subtitle, description, imageURL, user_id }
             subtitle: subtitle,
             description: description,
             imageURL: imageURL,
-            user_id: user_id,
+            admin_id: user_id,
         },
         include: {
             user: {
@@ -20,14 +40,22 @@ const createService = async ({ title, subtitle, description, imageURL, user_id }
     return service;
 };
 
-const getAllServices = async () => {
-    const services = await prisma.service.findMany();
-    return services;
-};
-
-const getService = async (id) => {
-    const service = await prisma.service.findUnique({
+const updateService = async (id, { title, subtitle, description, imageURL }) => {
+    const service = await prisma.service.update({
         where: { id: parseInt(id) },
+        data: {
+            title: title,
+            subtitle: subtitle,
+            description: description,
+            imageURL: imageURL,
+        },
+        include: {
+            user: {
+                select: {
+                    name: true,
+                }
+            }
+        }
     });
     return service;
 };
@@ -40,8 +68,9 @@ const deleteService = async (id) => {
 };
 
 module.exports = {
-    createService,
     getAllServices,
     getService,
+    createService,
+    updateService,
     deleteService,
 }
