@@ -23,16 +23,16 @@ exports.getTestimonialByOrgId = async (req, res) => {
 
 exports.createTestimonial = async (req, res) => {
   try {
-    const { message, organisation_id, client_id } = req.body;
+    const { message, organisation_id, user_id } = req.body;
 
-    if (!message || !organisation_id || !client_id) {
-      return res.status(400).json({ message: 'All fields are required - message, organisation_id, and client_id' });
+    if (!message || !organisation_id || !user_id) {
+      return res.status(400).json({ message: 'All fields are required - message, organisation_id, and user_id' });
     }
 
     const newtestimonial = await testimonialService.createTestimonial({
       message,
       organisation_id,
-      client_id
+      user_id
     });
 
     res.status(201).json({ message: 'testimonial created successfully', testimonial: newtestimonial });
