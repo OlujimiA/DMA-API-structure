@@ -21,14 +21,14 @@ const getuserById = async (id) => {
 
 const getuserByEmail = async (email) => {
   const rows = await prisma.user.findUnique({
-    where: { email: email }
+    where: { email: email },
   });
   return rows;
 }
 
 const createUser = async ({ name, email, tel, country, address, category, password }) => {
 
-  const result = await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       name: name, email: email, tel: tel, country: country, address: address, category: category, password: password,
     },
@@ -36,7 +36,21 @@ const createUser = async ({ name, email, tel, country, address, category, passwo
       password: true,
     },
   });
-  return result;
+
+  const n_settings = await prisma.notification_settings.create({
+    data: {
+      user_id: user.id,
+    }
+  });
+
+  const p_settings = await prisma.privacy_settings.create({
+    data: {
+      user_id: user.id,
+    }
+  });
+
+  return user;
+
 };
 
 const updateUser = async (id, { name, email, tel, country, address, category, password }) => {
