@@ -24,7 +24,7 @@ model user {
   status          String         @default("unverified") @db.VarChar(10)
   created_at      DateTime?      @default(now()) @db.Timestamp(0)
 
-  role            role           @relation(fields: [role_id], references: [id])
+  role            role           @relation("UserRole", fields: [role_id], references: [id])
 
   organisation    organisation[]
   otp             otp[]
@@ -36,6 +36,7 @@ model user {
   subscription    subscription[]
   notification_settings    notification_settings[]
   privacy_settings    privacy_settings[]
+  created_role        role[]     @relation("RoleCreator")
 }
 
 model organisation {
@@ -202,8 +203,14 @@ model subscription {
 }
 
 model role {
-  id           Int     @id @default(autoincrement()) @db.UnsignedInt
-  title        String  @db.VarChar(25)
-  description  String? @db.Text
-  user         user[]
+  id           Int       @id @default(autoincrement()) @db.UnsignedInt
+  title        String    @db.VarChar(25)
+  description  String?   @db.Text
+  created_at   DateTime  @default(now()) @db.Timestamp(0) 
+  created_by   Int       @db.UnsignedInt
+
+  creator      user      @relation("RoleCreator", fields: [created_by], references: [id])
+  user         user[]    @relation("UserRole")
+
+  @@index([created_by])
 }
