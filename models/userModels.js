@@ -5,6 +5,13 @@ const getAllusers = async () => {
     omit: {
       password: true,
     },
+    include: {
+      role: {
+        select: {
+          title: true,
+        }
+      }
+    }
   });
   return users;
 };
@@ -15,6 +22,13 @@ const getuserById = async (id) => {
     omit: {
       password: true,
     },
+    include: {
+      role: {
+        select: {
+          title: true,
+        }
+      }
+    }
   });
   return user;
 };
