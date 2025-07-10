@@ -16,13 +16,15 @@ model user {
   country         String         @db.VarChar(64)
   address         String         @db.Text
   category        String         @db.VarChar(15)
-  role            String         @default("user") @db.VarChar(10)
+  role_id         Int            @db.UnsignedInt @default(1)
   pfp_url         String?        @db.Text
   doc_url         String?        @db.Text
   business_status Boolean?
   password        String         @db.Text
   status          String         @default("unverified") @db.VarChar(10)
   created_at      DateTime?      @default(now()) @db.Timestamp(0)
+
+  role            role           @relation(fields: [role_id], references: [id])
 
   organisation    organisation[]
   otp             otp[]
@@ -197,4 +199,11 @@ model subscription {
   @@index([user_id])
   @@index([plan_id])
 
+}
+
+model role {
+  id           Int     @id @default(autoincrement()) @db.UnsignedInt
+  title        String  @db.VarChar(25)
+  description  String? @db.Text
+  user         user[]
 }
