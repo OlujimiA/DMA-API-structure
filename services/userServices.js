@@ -22,7 +22,8 @@ const login = async (email, password) => {
     { expiresIn: '7d' }
   );
 
-  return { tokens: {accessToken, refreshToken}, user: user };
+  const { password: _, ...safeUser } = user;
+  return { tokens: {accessToken, refreshToken}, user: safeUser };
 };
 
 
@@ -46,15 +47,15 @@ const createUser = async (userData) => {
     error.statusCode = 400;  
     throw error;
   }
-  return await userModel.createuser(userData);
+  return await userModel.createUser(userData);
 };
 
 const updateUser = async (id, updateData) => {
-  return await userModel.updateuser(id, updateData);
+  return await userModel.updateUser(id, updateData);
 };
 
 const deleteUser = async (id) => {
-  return await userModel.deleteuser(id);
+  return await userModel.deleteUser(id);
 };
 
 const saveToken = async (tokenData) => {
