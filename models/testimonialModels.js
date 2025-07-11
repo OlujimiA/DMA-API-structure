@@ -23,9 +23,10 @@ const getAlltestimonials = async () => {
 
 const getTestimonialByOrgId = async (id) => {
   const testimonial = await prisma.testimonial.findMany({
-    where: { organisation_id: parseInt(id) },
+    where: { organisation_id: id },
     select: {
-      id: true, message: true, 
+      id: true, 
+      message: true, 
       user_id: true, 
       user: {
         select: {
@@ -72,7 +73,7 @@ const createTestimonial = async ({ message, organisation_id, user_id }) => {
 
 const deleteTestimonial = async (id) => {
   const deleted = await prisma.testimonial.delete({
-    where: { id: parseInt(id)},
+    where: { id: id },
     select: {
       id: true, message: true, 
       user_id: true, 
@@ -95,7 +96,7 @@ const deleteTestimonial = async (id) => {
 
 const updateTestimonial = async (id, { message }) => {
   const updated = await prisma.testimonial.update({
-    where: { id: parseInt(id)},
+    where: { id: id },
     data: {
       message: message,
     },

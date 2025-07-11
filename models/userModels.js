@@ -1,4 +1,4 @@
-const prisma = require('../config/db');
+const { prisma, defaultUserRoleId } = require('../config/db');
 
 const getAllusers = async () => {
   const users = await prisma.user.findMany({
@@ -18,7 +18,7 @@ const getAllusers = async () => {
 
 const getuserById = async (id) => {
   const user = await prisma.user.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: id },
     omit: {
       password: true,
     },
@@ -45,6 +45,7 @@ const createUser = async ({ name, email, tel, country, address, category, passwo
   const user = await prisma.user.create({
     data: {
       name: name, email: email, tel: tel, country: country, address: address, category: category, password: password,
+      role_id: defaultUserRoleId,
     },
     omit: {
       password: true,
@@ -69,7 +70,7 @@ const createUser = async ({ name, email, tel, country, address, category, passwo
 
 const updateUser = async (id, { name, email, tel, country, address, category, password }) => {
   const result = await prisma.user.update({
-    where: {id: parseInt(id)},
+    where: {id: id},
     data: {
       name: name, email: email, tel: tel, country: country, address: address, category: category, password: password,
     },
@@ -83,7 +84,7 @@ const updateUser = async (id, { name, email, tel, country, address, category, pa
 
 const deleteUser = async (id) => {
   const user = await prisma.user.delete({
-    where: {id: parseInt(id)},
+    where: {id: id},
     omit: {
       password: true,
     }
@@ -106,7 +107,7 @@ const saveToken = async ({ hashedToken, expiresAt, id }) => {
 const getToken = async (id) => {
   const token = await prisma.ptoken.findFirst({
     where: {
-      user_id: parseInt(id),
+      user_id: id,
       expires_at: {
         gt: new Date(),
       },
@@ -143,7 +144,7 @@ const saveOTP = async ({ hashedOTP, expiresAt, id }) => {
 const verifyEmail = async (id) => {
   const user = await prisma.user.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
       status: 'verified',
@@ -158,7 +159,7 @@ const verifyEmail = async (id) => {
 const getOTP = async (id) => {
   const otp = await prisma.otp.findFirst({
     where: {
-      user_id: parseInt(id),
+      user_id: id,
       expires_at: {
         gt: new Date(),
       },
@@ -169,7 +170,7 @@ const getOTP = async (id) => {
 
 const profile = async (id, { pfp_url, doc_url, business_status }) => {
   const profile = await prisma.user.update({
-    where: { id: parseInt(id) },
+    where: { id: id },
     data: {
       pfp_url: pfp_url,
       doc_url: doc_url,

@@ -12,7 +12,7 @@ const getAllAdmins = async (id) => {
 
 const getAdmin = async ({ id, role_id }) => {
     const admin = await prisma.user.findFirst({
-        where: {id: parseInt(id), role_id: role_id},
+        where: {id: id, role_id: role_id},
         omit: {
             password: true,
         }
@@ -36,7 +36,7 @@ const getRoles = async (id) => {
 
 const getRoleById = async (id) => {
     const role = await prisma.role.findUnique({
-        where: {id: parseInt(id)},
+        where: {id: id},
         include: {
             creator: {
                 select: {
@@ -75,7 +75,7 @@ const createRole = async ({ title, description, user_id}) => {
 
 const updateRole = async (id, { title, description }) => {
     const role = await prisma.role.update({
-        where: {id: parseInt(id)},
+        where: {id: id},
         data: {
             title: title,
             description: description,
@@ -106,7 +106,7 @@ const makeAdmin = async ({ user_id, role_id }) => {
 
 const deleteRole = async (id) => {
     const role = await prisma.role.delete({
-        where: {id: parseInt(id)},
+        where: {id: id},
     });
     return role;
 };

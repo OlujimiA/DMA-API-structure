@@ -15,7 +15,7 @@ const getAllServices = async () => {
 
 const getService = async (id) => {
     const service = await prisma.service.findUnique({
-        where: { id: parseInt(id) },
+        where: { id: id },
     });
     return service;
 };
@@ -42,7 +42,7 @@ const createService = async ({ title, subtitle, description, imageURL, user_id }
 
 const updateService = async (id, { title, subtitle, description, imageURL }) => {
     const service = await prisma.service.update({
-        where: { id: parseInt(id) },
+        where: { id: id },
         data: {
             title: title,
             subtitle: subtitle,
@@ -62,7 +62,7 @@ const updateService = async (id, { title, subtitle, description, imageURL }) => 
 
 const deleteService = async (id) => {
     const service = await prisma.service.delete({
-        where: { id: parseInt(id) },
+        where: { id: id },
     });
     return service;
 };

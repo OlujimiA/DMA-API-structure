@@ -15,7 +15,7 @@ const getAllorgs = async () => {
 
 const getorgById = async (id) => {
   const org = await prisma.organisation.findUnique({
-    where: {id: parseInt(id)},
+    where: {id: id},
   });
   return org;
 };
@@ -40,7 +40,7 @@ const createOrg = async ({ name, email, address, country, type, industry, rc_num
 
 const updateOrg = async (id, { name, email, address, country, type, industry, rc_number, staff_size, logo_url }) => {
   const updated = await prisma.organisation.update({
-    where: { id: parseInt(id) },
+    where: { id: id },
     data: {
       name: name, 
       email: email,
@@ -58,7 +58,7 @@ const updateOrg = async (id, { name, email, address, country, type, industry, rc
 
 const deleteOrg = async (id) => {
   const deleted = await prisma.organisation.delete({
-    where: { id: parseInt(id) },
+    where: { id: id },
   });
   return deleted; 
 };
@@ -90,7 +90,7 @@ const getAllContacts = async () => {
 
 const getContact = async (id) => {
   const contact = await prisma.contact.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: id },
     include: {
       organisation: {
         select: {
