@@ -39,11 +39,23 @@ const getuserByEmail = async (email) => {
   return await userModel.getuserByEmail(email);
 };
 
+const getuserByTel = async (tel) => {
+  return await userModel.getuserByTel(tel);
+};
+
 const createUser = async (userData) => {
   const { email } = userData;
   const existingUser = await userModel.getuserByEmail(email);
   if (existingUser) {
     const error = new Error('Email already exists');
+    error.statusCode = 400;  
+    throw error;
+  }
+
+  const { tel } = userData;
+  const existingUserTel = await userModel.getuserByTel(tel);
+  if (existingUserTel) {
+    const error = new Error('Phone Number already exists');
     error.statusCode = 400;  
     throw error;
   }
@@ -90,6 +102,7 @@ module.exports = {
   getAllusers,
   getuserById,
   getuserByEmail,
+  getuserByTel,
   createUser,
   updateUser,
   deleteUser,

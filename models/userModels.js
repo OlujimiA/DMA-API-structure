@@ -40,6 +40,13 @@ const getuserByEmail = async (email) => {
   return rows;
 }
 
+const getuserByTel = async (tel) => {
+  const rows = await prisma.user.findUnique({
+    where: { tel: tel },
+  });
+  return rows;
+}
+
 const createUser = async ({ name, email, tel, country, address, category, password }) => {
 
   const user = await prisma.user.create({
@@ -187,6 +194,7 @@ module.exports = {
   getAllusers,
   getuserById,
   getuserByEmail,
+  getuserByTel,
   createUser,
   updateUser,
   deleteUser,
