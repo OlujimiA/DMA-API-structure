@@ -7,3 +7,5 @@ const authorizeRoles = (...roles) => {
     next();
   };
 };
+
+module.exports = { authorizeRoles };
