@@ -9,14 +9,14 @@ datasource db {
 }
 
 model user {
-  id              Int            @id @default(autoincrement()) @db.UnsignedInt
+  id              String         @id @default(uuid()) @db.Char(36)
   name            String         @db.VarChar(100)
   email           String         @unique(map: "email") @db.VarChar(255)
   tel             String         @unique(map: "tel") @db.VarChar(20)
   country         String         @db.VarChar(64)
   address         String         @db.Text
   category        String         @db.VarChar(15)
-  role_id         Int            @db.UnsignedInt @default(1)
+  role_id         String         @db.Char(36) 
   pfp_url         String?        @db.Text
   doc_url         String?        @db.Text
   business_status Boolean?
@@ -40,7 +40,7 @@ model user {
 }
 
 model organisation {
-  id          Int           @id @default(autoincrement()) @db.UnsignedInt
+  id          String        @id @default(uuid()) @db.Char(36)
   name        String        @db.VarChar(100)
   email       String        @unique(map: "email") @db.VarChar(255)
   address     String        @db.Text
@@ -51,7 +51,7 @@ model organisation {
   staff_size  String        @db.VarChar(15)
   type        String        @db.VarChar(50)
   created_at  DateTime      @default(now()) @db.Timestamp(0)
-  user_id     Int           @db.UnsignedInt
+  user_id     String        @db.Char(36)
 
   user        user          @relation(fields: [user_id], references: [id])
   contact     contact[]
@@ -60,13 +60,13 @@ model organisation {
 }
 
 model service {
-  id               Int                @id @default(autoincrement()) @db.UnsignedInt
+  id               String             @id @default(uuid()) @db.Char(36)
   title            String             @db.VarChar(100)
   subtitle         String             @db.VarChar(100)
   description      String             @db.Text
   imageURL         String             @db.Text
   created_at       DateTime?          @default(now()) @db.Timestamp(0)
-  admin_id         Int                @db.UnsignedInt
+  admin_id         String             @db.Char(36)
 
   user             user               @relation(fields: [admin_id], references: [id])
   service_request  service_request[]
@@ -78,8 +78,8 @@ model service {
 model service_request {
   id              Int          @id @default(autoincrement()) @db.UnsignedInt
   message         String       @db.Text
-  service_id      Int          @db.UnsignedInt
-  user_id         Int          @db.UnsignedInt
+  service_id      String       @db.Char(36)
+  user_id         String       @db.Char(36)
 
   service         service      @relation(fields: [service_id], references: [id])
   user            user         @relation(fields: [user_id], references: [id])
@@ -91,8 +91,8 @@ model service_request {
 model testimonial {
   id              Int          @id @default(autoincrement()) @db.UnsignedInt
   message         String       @db.Text
-  service_id      Int          @db.UnsignedInt
-  user_id         Int          @db.UnsignedInt
+  service_id      String       @db.Char(36)
+  user_id         String       @db.Char(36)
 
   service         service      @relation(fields: [service_id], references: [id])
   user            user         @relation(fields: [user_id], references: [id])
@@ -102,11 +102,11 @@ model testimonial {
 }
 
 model contact {
-  id              Int          @id @default(autoincrement()) @db.UnsignedInt
+  id              String       @id @default(uuid()) @db.Char(36)
   name            String       @db.VarChar(100)
   pfp_url         String       @db.Text
   doc_url         String       @db.Text
-  organisation_id Int          @db.UnsignedInt
+  organisation_id String       @db.Char(36)
   
   organisation    organisation @relation(fields: [organisation_id], references: [id])
 
@@ -118,7 +118,7 @@ model otp {
   otp        String    @db.Text
   created_at DateTime? @default(now()) @db.Timestamp(0)
   expires_at DateTime? @db.Timestamp(0)
-  user_id    Int       @db.UnsignedInt
+  user_id    String    @db.Char(36)
 
   user       user      @relation(fields: [user_id], references: [id])
 
@@ -130,7 +130,7 @@ model password_token {
   token      String    @db.Text
   created_at DateTime? @default(now()) @db.Timestamp(0)
   expires_at DateTime? @db.Timestamp(0)
-  user_id    Int       @db.UnsignedInt
+  user_id    String    @db.Char(36)
 
   user       user      @relation(fields: [user_id], references: [id])
 
@@ -138,10 +138,10 @@ model password_token {
 }
 
 model notification {
-  id           Int        @id @default(autoincrement())@db.UnsignedInt
+  id           String     @id @default(uuid()) @db.Char(36)
   activity     String     @db.Text
   completed_at DateTime?  @default(now()) @db.Timestamp(0) 
-  user_id      Int        @db.UnsignedInt
+  user_id      String     @db.Char(36)
   
   user         user       @relation(fields: [user_id], references: [id])
 
@@ -154,7 +154,7 @@ model privacy_settings {
   data_sharing     Boolean   @default(true)
   marketing_status Boolean   @default(true)
   activity_status  Boolean   @default(true)
-  user_id          Int       @db.UnsignedInt
+  user_id          String    @db.Char(36)
 
   user             user      @relation(fields: [user_id], references: [id])
 
@@ -162,14 +162,14 @@ model privacy_settings {
 }
 
 model notification_settings {
-  id              Int       @id @default(autoincrement())@db.UnsignedInt
+  id              String    @id @default(uuid()) @db.Char(36)
   alerts          Boolean   @default(true)
   messages        Boolean   @default(true)
   updates         Boolean   @default(true)
   billing_alerts  Boolean   @default(true)
   email           Boolean   @default(true)
   in_app          Boolean   @default(true)
-  user_id         Int       @db.UnsignedInt
+  user_id         String    @db.Char(36)
 
   user             user      @relation(fields: [user_id], references: [id])
 
@@ -177,7 +177,7 @@ model notification_settings {
 }
 
 model plan {
-  id             Int     @id @default(autoincrement()) @db.UnsignedInt
+  id             String  @id @default(uuid()) @db.Char(36)
   name           String  @db.VarChar(20)
   price          Int     @db.Int
   billing_cycle  String  @db.VarChar(20)
@@ -187,12 +187,12 @@ model plan {
 }
 
 model subscription {
-  id          Int        @id @default(autoincrement()) @db.UnsignedInt
+  id          String     @id @default(uuid()) @db.Char(36)
   start_date  DateTime?  @db.Timestamp(0) @default(now())
   end_date    DateTime?  @db.Timestamp(0)
   status      String     @db.VarChar(20)
-  user_id     Int        @db.UnsignedInt
-  plan_id     Int        @db.UnsignedInt
+  user_id     String     @db.Char(36)
+  plan_id     String     @db.Char(36)
 
   user        user       @relation(fields: [user_id], references: [id])
   plan        plan       @relation(fields: [plan_id], references: [id])
@@ -203,13 +203,13 @@ model subscription {
 }
 
 model role {
-  id           Int       @id @default(autoincrement()) @db.UnsignedInt
+  id           String    @id @default(uuid()) @db.Char(36)
   title        String    @db.VarChar(25)
   description  String?   @db.Text
   created_at   DateTime  @default(now()) @db.Timestamp(0) 
-  created_by   Int       @db.UnsignedInt
+  created_by   String?   @db.Char(36)
 
-  creator      user      @relation("RoleCreator", fields: [created_by], references: [id])
+  creator      user?     @relation("RoleCreator", fields: [created_by], references: [id])
   user         user[]    @relation("UserRole")
 
   @@index([created_by])
