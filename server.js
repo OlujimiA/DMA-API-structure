@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
+const { authorizeRoles } = require('./middlewares/authenticate');
 
 // Import different route files
 const authRoutes = require('./routes/authRoutes');
@@ -20,7 +21,7 @@ app.use('/api/orgs', orgRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/auth', authRoutes)
-app.use('/api/admin', adminRoutes)
+app.use('/api/admin', authorizeRoles('admin'), adminRoutes)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
