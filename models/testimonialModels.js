@@ -21,9 +21,9 @@ const getAlltestimonials = async () => {
   return testimonial;
 };
 
-const getTestimonialByOrgId = async (id) => {
-  const testimonial = await prisma.testimonial.findMany({
-    where: { organisation_id: id },
+const getTestimonialById = async (id) => {
+  const testimonial = await prisma.testimonial.findUnique({
+    where: { id: id },
     select: {
       id: true, 
       message: true, 
@@ -122,7 +122,7 @@ const updateTestimonial = async (id, { message }) => {
 
 module.exports = {
   getAlltestimonials,
-  getTestimonialByOrgId,
+  getTestimonialById,
   createTestimonial,
   deleteTestimonial,
   updateTestimonial,

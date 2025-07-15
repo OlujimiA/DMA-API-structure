@@ -4,7 +4,7 @@ const getAlltestimonials = async () => {
   return await testimonialModel.getAlltestimonials();
 };
 
-const getTestimonialByOrgId = async (id) => {
+const getTestimonialById = async (id) => {
   return await testimonialModel.getTestimonialByOrgId(id);
 };
 
@@ -22,7 +22,7 @@ const updateTestimonial = async (id, updateData) => {
 
 module.exports = {
   getAlltestimonials,
-  getTestimonialByOrgId,
+  getTestimonialById,
   createTestimonial,
   deleteTestimonial,
   updateTestimonial,

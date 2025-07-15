@@ -9,11 +9,11 @@ exports.getAlltestimonials = async (req, res) => {
   }
 };
 
-exports.getTestimonialByOrgId = async (req, res) => {
+exports.getTestimonialById = async (req, res) => {
   try {
-    const testimonial = await testimonialService.getTestimonialByOrgId(req.params.id);
+    const testimonial = await testimonialService.getTestimonialById(req.params.id);
     if (!testimonial) return res.status(404).json({ message: 'testimonial not found' });
-    res.json(testimonial);
+    res.status(200).json(testimonial);
 
   } catch (err){
     res.status(500).json({ message: 'Server error', error: err.message });
