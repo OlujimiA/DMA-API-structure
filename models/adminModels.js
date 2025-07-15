@@ -1,4 +1,4 @@
-const prisma = require('../config/db');
+const { prisma } = require('../config/db');
 
 const getAllAdmins = async (id) => {
     const admins = await prisma.user.findMany({
@@ -20,9 +20,8 @@ const getAdmin = async ({ id, role_id }) => {
     return admin;
 };
 
-const getRoles = async (id) => {
+const getRoles = async () => {
     const roles = await prisma.role.findMany({
-        where: {id: id},
         include: {
             creator: {
                 select: {

@@ -1,4 +1,4 @@
-const prisma = require('../config/db');
+const { prisma } = require('../config/db');
 
 const getAllorgs = async () => {
   const orgs = await prisma.organisation.findMany({
