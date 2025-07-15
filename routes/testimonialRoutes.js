@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/authmiddleware');
 const testimonialController = require('../controllers/testimonialControllers');
-const { authorizeRoles } = require('../middlewares/authenticate')
+const { authorizeRoles } = require('../middlewares/authenticate');
 
 router.get('/', auth, testimonialController.getAlltestimonials);
 router.get('/:id', auth, testimonialController.getTestimonialById);

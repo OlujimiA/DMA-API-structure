@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/authmiddleware');
 const orgController = require('../controllers/orgControllers');
-const { authorizeRoles }= require('../middlewares/authenticate')
+const { authorizeRoles }= require('../middlewares/authenticate');
 
 router.get('/', authorizeRoles('admin'), auth, orgController.getAllorgs);
 router.get('/contact', authorizeRoles('admin'), auth, orgController.getAllContacts);
