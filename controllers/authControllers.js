@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
+const { sendSuccess, sendError } = require('../utils/response');
 
 exports.refreshToken = (req, res) => {
   const token = req.cookies.refreshToken;
-  if (!token) return res.sendStatus(401);
+  if (!token) return sendError(res, 400, 'No refresh token provided');
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
@@ -13,8 +14,8 @@ exports.refreshToken = (req, res) => {
       { expiresIn: '1h' }
     );
 
-    return res.status(200).json({ accessToken: newAccessToken });
+    return sendSuccess(res, 200, { accessToken: newAccessToken });
   } catch (err) {
-    return res.status(403).json({ message: 'Invalid or expired refresh token', error: err.message });
+    return sendError(res, 401, 'Invalid or expired refresh token', err.message);
   }
 };
