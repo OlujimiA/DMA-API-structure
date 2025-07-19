@@ -2,20 +2,12 @@ const { prisma } = require('../config/db');
 
 const getAlltestimonials = async () => {
   const testimonial = await prisma.testimonial.findMany({
-    select: {
-      id: true, message: true, 
-      user_id: true, 
+    include: {
       user: {
         select: {
           name: true,
         },
       }, 
-      organisation_id: true, 
-      organisation: {
-        select: {
-          name: true,
-        },
-      },
     },
   });
   return testimonial;
@@ -24,24 +16,29 @@ const getAlltestimonials = async () => {
 const getTestimonialById = async (id) => {
   const testimonial = await prisma.testimonial.findUnique({
     where: { id: id },
-    select: {
-      id: true, 
-      message: true, 
-      user_id: true, 
+    include: {
       user: {
         select: {
           name: true,
         },
       }, 
-      organisation_id: true, 
-      organisation: {
-        select: {
-          name: true,
-        },
-      },
     },
   });
   return testimonial;
+};
+
+const getTestimonialsByServiceId = async (id) => {
+  const testimonials = await prisma.testimonial.findMany({
+    where: { service_id: id },
+    include: {
+      user: {
+        select: {
+          name: true,
+        }
+      }
+    },
+  });
+  return testimonials;
 };
 
 const createTestimonial = async ({ message, organisation_id, user_id }) => {
@@ -51,20 +48,12 @@ const createTestimonial = async ({ message, organisation_id, user_id }) => {
       organisation_id: organisation_id,
       user_id: user_id,
     },
-    select: {
-      id: true, message: true, 
-      user_id: true, 
+    include: {
       user: {
         select: {
           name: true,
         },
       }, 
-      organisation_id: true, 
-      organisation: {
-        select: {
-          name: true,
-        },
-      },
     },
   });
   
@@ -74,20 +63,12 @@ const createTestimonial = async ({ message, organisation_id, user_id }) => {
 const deleteTestimonial = async (id) => {
   const deleted = await prisma.testimonial.delete({
     where: { id: id },
-    select: {
-      id: true, message: true, 
-      user_id: true, 
+    include: {
       user: {
         select: {
           name: true,
         },
       }, 
-      organisation_id: true, 
-      organisation: {
-        select: {
-          name: true,
-        },
-      },
     },
   });
 
@@ -100,20 +81,12 @@ const updateTestimonial = async (id, { message }) => {
     data: {
       message: message,
     },
-    select: {
-      id: true, message: true, 
-      user_id: true, 
+    include: {
       user: {
         select: {
           name: true,
         },
       }, 
-      organisation_id: true, 
-      organisation: {
-        select: {
-          name: true,
-        },
-      },
     },
   });
   return updated; 
@@ -123,6 +96,7 @@ const updateTestimonial = async (id, { message }) => {
 module.exports = {
   getAlltestimonials,
   getTestimonialById,
+  getTestimonialsByServiceId,
   createTestimonial,
   deleteTestimonial,
   updateTestimonial,

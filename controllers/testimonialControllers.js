@@ -24,6 +24,18 @@ exports.getTestimonialById = async (req, res) => {
   
 };
 
+exports.getTestimonialsByServiceId = async (req, res) => {
+  try {
+    const testimonials = await testimonialService.getTestimonialsByServiceId(req.params.id);
+    if (testimonials.length===0) return sendError(res, 404, 'testimonials not found');
+    return sendSuccess(res, 200, testimonials);
+
+  } catch (err){
+    return sendError(res, 500, 'Server error', err.message);
+  }
+  
+};
+
 exports.createTestimonial = async (req, res) => {
   try {
     const { message, organisation_id, user_id } = req.body;
