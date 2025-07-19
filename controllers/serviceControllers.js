@@ -1,6 +1,7 @@
 const serviceService = require('../services/serviceServices');
 const getUserId = require('../utils/getUserId');
 const { sendSuccess, sendError } = require('../utils/response');
+const testimonialService = require('../services/testimonialServices');
 
 exports.getAllServices = async (req, res) => {
     try {
@@ -17,7 +18,10 @@ exports.getService = async (req, res) => {
         const id = req.params.id;
         const service = await serviceService.getService(id);
         if (!service) return sendError(res, 404, 'service not found');
-        return sendSuccess(res, 200, { Service: service });
+
+        const testimonials = await testimonialService.getTestimonialsByServiceId(id);
+        if (testimonials.length===0) return sendSuccess(res, 200, { Service: service });
+        return sendSuccess(res, 200, { Service: service, Testimonials: testimonials });
     } catch (err) {
         return sendError(res, 500, 'Could not get your requested service', err.message);
     }
