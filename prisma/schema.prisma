@@ -91,6 +91,8 @@ model service_request {
 model testimonial {
   id              Int          @id @default(autoincrement()) @db.UnsignedInt
   message         String       @db.Text
+  user_title      String       @db.Text
+  stars           Int          @db.Int
   service_id      String       @db.Char(36)
   user_id         String       @db.Char(36)
 
