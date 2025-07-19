@@ -1,5 +1,6 @@
 const testimonialService = require('../services/testimonialServices.js');
 const { sendSuccess, sendError } = require('../utils/response');
+const { getUserIdFromHeader } = require('../utils/getUserId');
 
 exports.getAlltestimonials = async (req, res) => {
   try {
@@ -38,17 +39,14 @@ exports.getTestimonialsByServiceId = async (req, res) => {
 
 exports.createTestimonial = async (req, res) => {
   try {
-    const { message, organisation_id, user_id } = req.body;
+    const { user_title, message, stars, service_id } = req.body;
 
-    if (!message || !organisation_id || !user_id) {
-      return sendError(res, 400, 'All fields are required - message, organisation_id, and user_id');
+    if (!user_title || !message || !stars || !service_id) {
+      return sendError(res, 400, 'All fields are required - user_title, message, stars, and service_id');
     }
 
-    const newtestimonial = await testimonialService.createTestimonial({
-      message,
-      organisation_id,
-      user_id
-    });
+    const user_id = getUserIdFromHeader(req);
+    const newtestimonial = await testimonialService.createTestimonial({ user_id, user_title, message, stars, service_id });
 
     return sendSuccess(res, 201, { testimonial: newtestimonial }, 'testimonial created successfully');
   } catch (err) {

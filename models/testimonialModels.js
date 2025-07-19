@@ -41,12 +41,14 @@ const getTestimonialsByServiceId = async (id) => {
   return testimonials;
 };
 
-const createTestimonial = async ({ message, organisation_id, user_id }) => {
+const createTestimonial = async ({ user_id, user_title, message, stars, service_id }) => {
   const testimonial = await prisma.testimonial.create({
     data: {
-      message: message,
-      organisation_id: organisation_id,
       user_id: user_id,
+      user_title: user_title,
+      message: message,
+      stars: stars,
+      service_id: service_id,
     },
     include: {
       user: {
@@ -57,7 +59,7 @@ const createTestimonial = async ({ message, organisation_id, user_id }) => {
     },
   });
   
-  return  testimonial;
+  return testimonial;
 };
 
 const deleteTestimonial = async (id) => {
