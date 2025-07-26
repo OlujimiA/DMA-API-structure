@@ -76,8 +76,10 @@ model service {
 }
 
 model service_request {
-  id              Int          @id @default(autoincrement()) @db.UnsignedInt
+  id              String       @id @default(uuid()) @db.Char(36)
   message         String       @db.Text
+  status          String       @db.VarChar(15)
+  requested_at    DateTime     @db.Timestamp(0) @default(now())
   service_id      String       @db.Char(36)
   user_id         String       @db.Char(36)
 
@@ -88,8 +90,22 @@ model service_request {
   @@index([service_id])
 }
 
+model case_studies {
+  id              String   @id @default(uuid()) @db.Char(36) 
+  banner          String   @db.Text
+  challenge       String   @db.Text
+  challenge_img   String   @db.Text
+  solution        String   @db.Text
+  solution_img    String   @db.Text
+  result          String   @db.Text
+  result_img      String   @db.Text
+
+  service_id      String   @db.Char(36)
+  organisation_id String   @db.Char(36)
+}
+
 model testimonial {
-  id              Int          @id @default(autoincrement()) @db.UnsignedInt
+  id              String       @id @default(uuid()) @db.Char(36)
   message         String       @db.Text
   user_title      String       @db.Text
   stars           Int          @db.Int
@@ -116,7 +132,7 @@ model contact {
 }
 
 model otp {
-  id         String    @id @default(uuid())
+  id         String    @id @default(uuid()) @db.Char(36)
   otp        String    @db.Text
   created_at DateTime? @default(now()) @db.Timestamp(0)
   expires_at DateTime? @db.Timestamp(0)
@@ -128,7 +144,7 @@ model otp {
 }
 
 model password_token {
-  id         String    @id @default(uuid())
+  id         String    @id @default(uuid()) @db.Char(36)
   token      String    @db.Text
   created_at DateTime? @default(now()) @db.Timestamp(0)
   expires_at DateTime? @db.Timestamp(0)
@@ -151,7 +167,7 @@ model notification {
 }
 
 model privacy_settings {
-  id               Int       @id @default(autoincrement())@db.UnsignedInt
+  id               String    @id @default(uuid()) @db.Char(36)
   ads              Boolean   @default(true)
   data_sharing     Boolean   @default(true)
   marketing_status Boolean   @default(true)
