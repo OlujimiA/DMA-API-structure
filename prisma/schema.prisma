@@ -82,12 +82,15 @@ model service_request {
   requested_at    DateTime     @db.Timestamp(0) @default(now())
   service_id      String       @db.Char(36)
   user_id         String       @db.Char(36)
+  plan_id         String       @db.Char(36)
 
   service         service      @relation(fields: [service_id], references: [id])
   user            user         @relation(fields: [user_id], references: [id])
+  plan            plan         @relation(fields: [plan_id], references: [id])
 
   @@index([user_id])
   @@index([service_id])
+  @@index([plan_id])
 }
 
 model case_studies {
@@ -202,6 +205,7 @@ model plan {
   description    String  @db.Text
 
   subscription   subscription[]
+  service_request service_request[]
 }
 
 model subscription {
