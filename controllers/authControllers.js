@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
       return sendError(res, 400, 'Email and Password required');
     }
 
-    const result = await userService.login(email, password);
+    const result = await authService.login(email, password);
 
     if (!result) {
       return sendError(res, 401, 'Invalid credentials');
