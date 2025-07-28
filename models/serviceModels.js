@@ -67,10 +67,25 @@ const deleteService = async (id) => {
     return service;
 };
 
+const getCaseStudiesByServiceId = async (id) => {
+    const caseStudies = await prisma.case_studies.findMany({
+        where: { service_id: id },
+        include: {
+            organisation: {
+                select: {
+                    name: true,
+                }
+            }
+        }
+    });
+    return caseStudies
+};
+
 module.exports = {
     getAllServices,
     getService,
     createService,
     updateService,
     deleteService,
+    getCaseStudiesByServiceId,
 }

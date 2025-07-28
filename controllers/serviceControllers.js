@@ -1,7 +1,7 @@
 const serviceService = require('../services/serviceServices');
+const testimonialService = require('../services/testimonialServices');
 const getUserId = require('../utils/getUserId');
 const { sendSuccess, sendError } = require('../utils/response');
-const testimonialService = require('../services/testimonialServices');
 
 exports.getAllServices = async (req, res) => {
     try {
@@ -20,8 +20,9 @@ exports.getService = async (req, res) => {
         if (!service) return sendError(res, 404, 'service not found');
 
         const testimonials = await testimonialService.getTestimonialsByServiceId(id);
-        if (testimonials.length===0) return sendSuccess(res, 200, { Service: service });
-        return sendSuccess(res, 200, { Service: service, Testimonials: testimonials });
+        const caseStudies = await serviceService.getCaseStudiesByServiceId(id);
+
+        return sendSuccess(res, 200, { Service: service, Testimonials: testimonials, Case_studies: caseStudies });
     } catch (err) {
         return sendError(res, 500, 'Could not get your requested service', err.message);
     }

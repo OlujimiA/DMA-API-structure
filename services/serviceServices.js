@@ -20,10 +20,15 @@ const deleteService = async (id) => {
     return await serviceModel.deleteService(id);
 };
 
+const getCaseStudiesByServiceId = async (id) => {
+    return await serviceModel.getCaseStudiesByServiceId(id);
+};
+
 module.exports = {
     getAllServices,
     getService,
     createService,
     updateService,
     deleteService,
+    getCaseStudiesByServiceId,
 };
