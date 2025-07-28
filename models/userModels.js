@@ -100,7 +100,7 @@ const deleteUser = async (id) => {
 };
 
 const saveToken = async ({ hashedToken, expiresAt, id }) => {
-  const token = await prisma.ptoken.create({
+  const token = await prisma.password_token.create({
     data: {
       user_id: id,
       token: hashedToken,
@@ -112,7 +112,7 @@ const saveToken = async ({ hashedToken, expiresAt, id }) => {
 };
 
 const getToken = async (id) => {
-  const token = await prisma.ptoken.findFirst({
+  const token = await prisma.password_token.findFirst({
     where: {
       user_id: id,
       expires_at: {

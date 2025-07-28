@@ -154,7 +154,7 @@ exports.forget_password = async (req, res) => {
 exports.reset_password = async (req, res) => {
   try {
     const { password } = req.body;
-    if (!password) return sendError(res, 400, 'Password is required');
+    if (!password) return sendError(res, 400, 'New password is required');
 
     const token = req.params.token;
     const id = req.params.id;
