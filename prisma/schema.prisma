@@ -55,6 +55,7 @@ model organisation {
 
   user        user          @relation(fields: [user_id], references: [id])
   contact     contact[]
+  case_studies  case_studies[]
 
   @@index([user_id])
 }
@@ -71,6 +72,7 @@ model service {
   user             user               @relation(fields: [admin_id], references: [id])
   service_request  service_request[]
   testimonial      testimonial[]
+  case_studies     case_studies[]
 
   @@index([admin_id])
 }
@@ -105,6 +107,12 @@ model case_studies {
 
   service_id      String   @db.Char(36)
   organisation_id String   @db.Char(36)
+
+  service         service      @relation(fields: [service_id], references: [id])
+  organisation    organisation @relation(fields: [organisation_id], references: [id])
+
+  @@index([organisation_id])
+  @@index([service_id])
 }
 
 model testimonial {
