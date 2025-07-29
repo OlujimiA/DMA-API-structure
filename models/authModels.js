@@ -24,7 +24,7 @@ const getToken = async (id) => {
   return token;
 };
 
-const updatePassword = async (id, password) => {
+const updatePassword = async ({ id, password }) => {
   const user = await prisma.user.update({
     where: {id: id},
     data: {
