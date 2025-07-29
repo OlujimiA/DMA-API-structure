@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const userService = require('../services/userServices');
+const authService = require('../services/authServices');
 const generateOTP = require('../utils/generateOTP');
 const { sendSuccess, sendError } = require('../utils/response');
 
@@ -48,7 +49,7 @@ exports.createUser = async (req, res) => {
     const { otp, expiresAt } = await generateOTP();
     const hashedOTP = await bcrypt.hash(otp, 10);
     const id = newUser.id;
-    const save = await userService.saveOTP({ hashedOTP, expiresAt, id });
+    const save = await authService.saveOTP({ hashedOTP, expiresAt, id });
 
     return sendSuccess(res, 201, {user: newUser, otp }, "User created successfully!");
   } catch (err) {
