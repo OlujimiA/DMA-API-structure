@@ -1,5 +1,6 @@
 const orgService = require('../services/orgServices.js');
 const { sendSuccess, sendError } = require('../utils/response');
+const { uploadMultipleToCloudinary, uploadToCloudinary } = require('../services/cloudinaryService');
 
 exports.getAllorgs = async (req, res) => {
   try {
@@ -26,11 +27,13 @@ exports.getorgById = async (req, res) => {
 
 exports.createOrg = async (req, res) => {
   try {
-    const { name, email, address, country, type, industry, rc_number, staff_size, logo_url, user_id } = req.body;
+    const { name, email, address, country, type, industry, rc_number, staff_size, user_id } = req.body;
 
-    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !staff_size || !logo_url || !user_id) {
-      return sendError(res, 400, 'All fields are required - name, email, address, country, type, industry, rc_number, staff_size, logo_url, user_id');
+    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !staff_size || !req.files['logo'] || !user_id) {
+      return sendError(res, 400, 'All fields are required - name, email, address, country, type, industry, rc_number, staff_size, logo, user_id');
     }
+
+    const uploadResult = await uploadToCloudinary(req.file.path, 'orgs/logo');
 
     const newOrg = await orgService.createOrg({
       name,
@@ -41,7 +44,7 @@ exports.createOrg = async (req, res) => {
       industry,
       rc_number,
       staff_size,
-      logo_url,
+      logo_url: uploadResult.secure_url,
       user_id
     });
 
@@ -89,14 +92,19 @@ exports.deleteOrg = async (req, res) => {
 
 exports.createContact = async (req, res) => {
   try {
-    const { name, pfp_url, doc_url, organisation_id } = req.body;
-    if (!name || !pfp_url || !doc_url || !organisation_id){
-      return sendError(res, 400, 'All fields are required - name, pfp_url, doc_url, organisation_id');
+    const { name, organisation_id } = req.body;
+    if (!name || !req.files['profile-pic'] || !req.files['IDs'] || !organisation_id){
+      return sendError(res, 400, 'All fields are required - name, profile picture, ID, organisation_id');
     }
 
-    const newContact = await orgService.createContact({ name, pfp_url, doc_url, organisation_id });
+    const uploadResult = await uploadToCloudinary(req.files['profile-pic'][0].path, 'users/profile-pic');
 
-    return sendSuccess(res, 201, { Contact: newContact }, 'Organisation contact created successfully');
+    const idFiles = req.files['IDs'] || [];
+    const idResults = await uploadMultipleToCloudinary(idFiles, 'users/docs');
+
+    const newContact = await orgService.createContact({ name, pfp_url: uploadResult.secure_url, id_url: idResults.map(img => img.secure_url), organisation_id });
+
+    return sendSuccess(res, 201, { Contact: newContact, image: { pfp: newContact.pfp_url, ID: newContact.id_url } }, 'Organisation contact created successfully');
 
   } catch (err) {
     return sendError(res, 500, 'Failed to create a Contact profile', err.message);
