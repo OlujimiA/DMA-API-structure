@@ -1,6 +1,7 @@
 const orgService = require('../services/orgServices.js');
 const { sendSuccess, sendError } = require('../utils/response');
 const { uploadMultipleToCloudinary, uploadToCloudinary } = require('../services/cloudinaryService');
+const { getUserIdFromHeader } = require('../utils/getUserId');
 
 exports.getAllorgs = async (req, res) => {
   try {
@@ -27,11 +28,13 @@ exports.getorgById = async (req, res) => {
 
 exports.createOrg = async (req, res) => {
   try {
-    const { name, email, address, country, type, industry, rc_number, staff_size, user_id } = req.body;
+    const { name, email, address, country, type, industry, rc_number, staff_size } = req.body;
 
-    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !staff_size || !req.files['logo'] || !user_id) {
-      return sendError(res, 400, 'All fields are required - name, email, address, country, type, industry, rc_number, staff_size, logo, user_id');
+    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !staff_size || !req.file) {
+      return sendError(res, 400, 'All fields are required - name, email, address, country, type, industry, rc_number, staff_size, logo');
     }
+
+    const user_id = getUserIdFromHeader(req);
 
     const uploadResult = await uploadToCloudinary(req.file.path, 'orgs/logo');
 

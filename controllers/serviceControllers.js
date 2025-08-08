@@ -32,7 +32,7 @@ exports.getService = async (req, res) => {
 exports.createService = async (req, res) => {
     try {
         const { title, subtitle, description } = req.body;
-        if (!title || !subtitle || !description || !req.files['banner']) {
+        if (!title || !subtitle || !description || !req.file) {
             return sendError(res, 400, 'All fields are required - title, subtitle, description, banner');
         }
 
