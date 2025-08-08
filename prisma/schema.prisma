@@ -18,7 +18,7 @@ model user {
   category        String         @db.VarChar(15)
   role_id         String         @db.Char(36) 
   pfp_url         String?        @db.Text
-  doc_url         String?        @db.Text
+  id_url          Json?          
   business_status Boolean?
   password        String         @db.Text
   status          String         @default("unverified") @db.VarChar(10)
@@ -65,7 +65,7 @@ model service {
   title            String             @db.VarChar(100)  
   subtitle         String             @db.VarChar(100)
   description      String             @db.Text
-  imageURL         String             @db.Text
+  banner_url       String             @db.Text
   created_at       DateTime?          @default(now()) @db.Timestamp(0)
   admin_id         String             @db.Char(36)
 
@@ -134,7 +134,7 @@ model contact {
   id              String       @id @default(uuid()) @db.Char(36)
   name            String       @db.VarChar(100)
   pfp_url         String       @db.Text
-  doc_url         String       @db.Text
+  id_url          Json       
   organisation_id String       @db.Char(36)
   
   organisation    organisation @relation(fields: [organisation_id], references: [id])

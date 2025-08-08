@@ -20,13 +20,13 @@ const getService = async (id) => {
     return service;
 };
 
-const createService = async ({ title, subtitle, description, imageURL, user_id }) => {
+const createService = async ({ title, subtitle, description, banner_url, user_id }) => {
     const service = await prisma.service.create({
         data: {
             title: title,
             subtitle: subtitle,
             description: description,
-            imageURL: imageURL,
+            banner_url: banner_url,
             admin_id: user_id,
         },
         include: {
@@ -40,14 +40,14 @@ const createService = async ({ title, subtitle, description, imageURL, user_id }
     return service;
 };
 
-const updateService = async (id, { title, subtitle, description, imageURL }) => {
+const updateService = async (id, { title, subtitle, description, banner_url }) => {
     const service = await prisma.service.update({
         where: { id: id },
         data: {
             title: title,
             subtitle: subtitle,
             description: description,
-            imageURL: imageURL,
+            banner_url: banner_url,
         },
         include: {
             user: {
