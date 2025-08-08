@@ -7,12 +7,12 @@ exports.uploadToCloudinary = async (filePath, folder = 'uploads') => {
 
         // Clean up local file after upload
         fs.unlink(filePath, (err) => {
-            if (err) throw new Error('Failed to delete local file:' + err.message);
+            if (err) throw new Error('Failed to delete local file: ' + err.message);
         });
 
         return result;
     } catch (err) {
-        throw new Error('Failed to file to Cloudinary' + err.message);
+        throw new Error('Failed to file to Cloudinary: ' + err.message);
     }
 };
 
