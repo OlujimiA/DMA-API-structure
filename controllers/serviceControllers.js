@@ -2,6 +2,7 @@ const serviceService = require('../services/serviceServices');
 const testimonialService = require('../services/testimonialServices');
 const getUserId = require('../utils/getUserId');
 const { sendSuccess, sendError } = require('../utils/response');
+const { uploadToCloudinary } = require('../services/cloudinaryService');
 
 exports.getAllServices = async (req, res) => {
     try {
@@ -30,14 +31,15 @@ exports.getService = async (req, res) => {
 
 exports.createService = async (req, res) => {
     try {
-        const { title, subtitle, description, imageURL } = req.body;
-        if (!title || !subtitle || !description || !imageURL) {
-            return sendError(res, 400, 'All fields are required - title, subtitle, description, imageURL');
+        const { title, subtitle, description } = req.body;
+        if (!title || !subtitle || !description || !req.file) {
+            return sendError(res, 400, 'All fields are required - title, subtitle, description, banner');
         }
 
         const user_id = await getUserId.getUserIdFromHeader(req);
+        const uploadResult = await uploadToCloudinary(req.file.path, 'services/banner');
 
-        const newService = await serviceService.createService({ title, subtitle, description, imageURL, user_id });
+        const newService = await serviceService.createService({ title, subtitle, description, banner_url: uploadResult.secure_url, user_id });
         return sendSuccess(res, 201, { Service: newService }, 'Service created successfully!');
     } catch (err) {
         return sendError(res, 500, 'Failed to create Service', err.message);
@@ -47,12 +49,12 @@ exports.createService = async (req, res) => {
 exports.updateService = async (req, res) => {
     try {
         const id = req.params.id;
-        const { title, subtitle, description, imageURL } = req.body;
-        if (!title || !subtitle || !description || !imageURL) {
-            return sendError(res, 400, 'All fields are required - title, subtitle, description, imageURL');
+        const { title, subtitle, description, banner_url } = req.body;
+        if (!title || !subtitle || !description || !banner_url) {
+            return sendError(res, 400, 'All fields are required - title, subtitle, description, banner_url');
         }
 
-        const updated = await serviceService.updateService(id, { title, subtitle, description, imageURL });
+        const updated = await serviceService.updateService(id, { title, subtitle, description, banner_url });
         return sendSuccess(res, 200, { service: updated }, 'service was updated successfully!');
     } catch (err) {
         return sendError(res, 500, 'Could not update service', err.message);

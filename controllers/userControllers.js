@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
 const userService = require('../services/userServices');
+const authService = require('../services/authServices');
 const generateOTP = require('../utils/generateOTP');
 const { sendSuccess, sendError } = require('../utils/response');
+const { uploadToCloudinary, uploadMultipleToCloudinary } = require('../services/cloudinaryService');
 
 exports.getAllusers = async (req, res) => {
   try {
@@ -48,7 +50,7 @@ exports.createUser = async (req, res) => {
     const { otp, expiresAt } = await generateOTP();
     const hashedOTP = await bcrypt.hash(otp, 10);
     const id = newUser.id;
-    const save = await userService.saveOTP({ hashedOTP, expiresAt, id });
+    const save = await authService.saveOTP({ hashedOTP, expiresAt, id });
 
     return sendSuccess(res, 201, {user: newUser, otp }, "User created successfully!");
   } catch (err) {
@@ -98,17 +100,27 @@ exports.deleteUser = async (req, res) => {
 exports.profile = async (req, res) => {
   try {
     const id = req.params.id;
-    const { pfp_url, doc_url, business_status } = req.body;
-    if (!pfp_url || !doc_url || !business_status) {
-      return sendError(res, 400, 'All fields are required - pfp_url, doc_url, business_status');
+    let { business_status } = req.body;
+
+    if (!req.files['profile-pic'] || !req.files['IDs'] || !business_status) {
+      return sendError(res, 400, 'Profile picture, ID, and business_status fields are required');
+    }
+    
+    if (business_status.toLowerCase() === "yes") {
+      business_status = true
+    } else {
+      business_status = false
     }
 
-    const profile = await userService.profile(id, { pfp_url, doc_url, business_status});
-    if (!profile) {
-      return sendError(res, 404, 'User not found');
-    }
+    const uploadResult = await uploadToCloudinary(req.files['profile-pic'][0].path, 'users/profile-pic');
 
-    return sendSuccess(res, 200, { user: profile }, 'user profile has been successfully completed!');
+    const idFiles = req.files['IDs'] || [];
+    const idResults = await uploadMultipleToCloudinary(idFiles, 'users/docs');
+
+    const profile = await userService.profile(id, { pfp_url: uploadResult.secure_url, id_url: idResults.map(img => img.secure_url), business_status });
+    if (!profile) return sendError(res, 404, 'User not found');
+
+    return sendSuccess(res, 200, { user: profile, image: { pfp: profile.pfp_url, ID: profile.id_url } }, 'user profile has been successfully completed!');
   } catch (err) {
     return sendError(res, 500, 'Could not complete user profile', err.message);
   }

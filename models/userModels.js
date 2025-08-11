@@ -99,12 +99,12 @@ const deleteUser = async (id) => {
   return user;
 };
 
-const profile = async (id, { pfp_url, doc_url, business_status }) => {
+const profile = async (id, { pfp_url, id_url, business_status }) => {
   const profile = await prisma.user.update({
     where: { id: id },
     data: {
       pfp_url: pfp_url,
-      doc_url: doc_url,
+      id_url: id_url,
       business_status: business_status,
     },
     omit: {

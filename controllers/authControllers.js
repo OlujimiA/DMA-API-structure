@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
   }
 };
 
-exports.forget_password = async (req, res) => {
+exports.forgot_password = async (req, res) => {
   try {
     const { email } = req.body;
     if (!email) return sendError(res, 400, 'Email is required');
@@ -71,9 +71,9 @@ exports.forget_password = async (req, res) => {
     const hashedToken = await bcrypt.hash(token, 10);
     const save = await authService.saveToken({ hashedToken, expiresAt, id });
 
-    let new_token = token + "/" + id;
+    let new_token = "/reset-password/" + token + "/" + id;
 
-    return sendSuccess(res, 200, { token: new_token }, 'Add the token to your URL');
+    return sendSuccess(res, 200, { token: new_token }, 'Add this URL to your /auth path');
   
   } catch (err) {
     return sendError(res, 500, 'Server error', err.message);
@@ -83,7 +83,7 @@ exports.forget_password = async (req, res) => {
 exports.reset_password = async (req, res) => {
   try {
     const { password } = req.body;
-    if (!password) return sendError(res, 400, 'New assword is required');
+    if (!password) return sendError(res, 400, 'New password is required');
 
     const token = req.params.token;
     const id = req.params.id;
@@ -96,7 +96,7 @@ exports.reset_password = async (req, res) => {
 
     const hashed_password = await bcrypt.hash(password, 10);
 
-    const user = await authService.updatePassword(savedToken.user_id, hashed_password);
+    const user = await authService.updatePassword({ id: savedToken.user_id, password: hashed_password });
 
     return sendSuccess(res, 200, {user: user}, 'Password has been updated successfully!');
   } catch (err) {
