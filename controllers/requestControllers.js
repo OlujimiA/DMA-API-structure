@@ -21,7 +21,7 @@ exports.getRequest = async (req, res) => {
 
         return sendSuccess(res, 200, request, 'Request fetched successfully!');
     } catch (err) {
-        return sendError(req, 500, 'Could not fetch your Service request', err.message);
+        return sendError(res, 500, 'Could not fetch your Service request', err.message);
     }
 };
 
@@ -35,7 +35,7 @@ exports.createRequest = async (req, res) => {
 
         return sendSuccess(res, 201, newRequest, 'Created request successfully!');
     } catch (err) {
-        return sendError(req, 500, 'Could not create your Service request', err.message);
+        return sendError(res, 500, 'Could not create your Service request', err.message);
     }
 };
 
@@ -49,7 +49,7 @@ exports.deleteRequest = async (req, res) => {
 
         return sendSuccess(res, 200, deleted, 'Request deleted successfully!');
     } catch (err) {
-        return sendError(req, 500, 'Could not fetch your Service request', err.message);
+        return sendError(res, 500, 'Could not fetch your Service request', err.message);
     }
 };
 
