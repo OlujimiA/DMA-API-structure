@@ -23,7 +23,7 @@ const createUser = async (userData) => {
     const error = new Error('Email already exists');
     error.statusCode = 400;  
     throw error;
-  }
+  };
 
   const { tel } = userData;
   const existingUserTel = await userModel.getuserByTel(tel);
@@ -31,11 +31,18 @@ const createUser = async (userData) => {
     const error = new Error('Phone Number already exists');
     error.statusCode = 400;  
     throw error;
-  }
+  };
   return await userModel.createUser(userData);
 };
 
 const updateUser = async (id, updateData) => {
+    const { email } = updateData;
+    const existingUser = await userModel.getuserByEmail(email);
+    if (existingUser) {
+      const error = new Error('Email already exists');
+      error.statusCode = 400;  
+      throw error;
+    };
   return await userModel.updateUser(id, updateData);
 };
 
