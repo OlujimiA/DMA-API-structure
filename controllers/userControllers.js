@@ -78,7 +78,8 @@ exports.updateUser = async (req, res) => {
 
     return sendSuccess(res, 500, { user: updated }, 'User updated successfully!');
   } catch (err) {
-    return sendError(res, 500, 'Could not update User', err.message);
+    const statusCode = err.statusCode || 500; 
+    return sendError(res, statusCode, 'Could not update User', err.message);
   }
 };
 
