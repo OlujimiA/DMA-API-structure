@@ -59,11 +59,19 @@ exports.createOrg = async (req, res) => {
 
 exports.updateOrg = async (req, res) => {
   try {
-    const { name, email, address, country, type, industry, rc_number, staff_size, logo_url } = req.body;
+    const { name, email, address, country, type, industry, rc_number, staff_size } = req.body;
     const { id } = req.params;
 
-    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !staff_size || !logo_url ) {
-      return sendError(res, 400, 'All fields are required - All fields are required - name, email, address, country, type, industry, rc_number, staff_size, logo_url');
+    if ( !name || !email || !address || !country || !type || !industry || !rc_number || !staff_size ) {
+      return sendError(res, 400, 'All fields are required - All fields are required - name, email, address, country, type, industry, rc_number, staff_size');
+    }
+
+    const org = await orgService.getorgById(id);
+    let logo_url = org.logo_url;
+
+    if (req.file) {
+      const logo = await uploadToCloudinary(req.file.path, 'orgs/logo');
+      logo_url = logo.secure_url;
     }
 
     const updated = await orgService.updateOrg(id, { name, email, address, country, type, industry, rc_number, staff_size, logo_url });

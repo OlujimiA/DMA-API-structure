@@ -49,9 +49,19 @@ exports.createService = async (req, res) => {
 exports.updateService = async (req, res) => {
     try {
         const id = req.params.id;
-        const { title, subtitle, description, banner_url } = req.body;
-        if (!title || !subtitle || !description || !banner_url) {
-            return sendError(res, 400, 'All fields are required - title, subtitle, description, banner_url');
+        const { title, subtitle, description } = req.body;
+        if (!title || !subtitle || !description) {
+            return sendError(res, 400, 'title, subtitle, and description fields are required');
+        }
+
+        const service = await serviceService.getService(id);
+        if (!service) return sendError(res, 404, 'service not found');
+
+        let banner_url = service.banner_url; 
+
+        if (req.file) {
+            const banner = await uploadToCloudinary(req.file.path, 'services/banner');
+            banner_url = banner.secure_url;
         }
 
         const updated = await serviceService.updateService(id, { title, subtitle, description, banner_url });

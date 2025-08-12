@@ -11,7 +11,7 @@ router.get('/contact/:id', auth, orgController.getContact);
 router.get('/:id', auth, orgController.getorgById);
 router.post('/', upload.single('logo'), auth, orgController.createOrg);
 router.post('/contact', upload.fields([ { name: 'profile-pic', maxCount: 1 }, { name: 'IDs', maxCount: 5 } ]), auth, orgController.createContact);
-router.put('/:id', upload.none(), auth, orgController.updateOrg);
+router.put('/:id', upload.single('logo'), auth, orgController.updateOrg);
 router.delete('/:id', auth, orgController.deleteOrg);
 
 module.exports = router;
