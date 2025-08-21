@@ -1,4 +1,4 @@
-const { prisma, defaultUserRoleId } = require('../config/db');
+const { prisma, defaultUserRoleId, defaultAdminRoleId } = require('../config/db');
 
 const getAllusers = async () => {
   const users = await prisma.user.findMany({
@@ -49,6 +49,16 @@ const getuserByTel = async (tel) => {
 
 const createUser = async ({ name, email, tel, country, address, category, password }) => {
 
+  const roles = await prisma.role.findMany();
+  if (roles.length===0) {
+    await prisma.role.createMany({
+      data: [
+        {id: defaultUserRoleId, title: 'user', description: 'default user priveleges'},
+        {id: defaultAdminRoleId, title: 'admin', description: 'default admin priveleges'},
+      ]
+    });
+  }
+
   const user = await prisma.user.create({
     data: {
       name: name, email: email, tel: tel, country: country, address: address, category: category, password: password,
@@ -59,13 +69,13 @@ const createUser = async ({ name, email, tel, country, address, category, passwo
     },
   });
 
-  const n_settings = await prisma.notification_settings.create({
+  await prisma.notification_settings.create({
     data: {
       user_id: user.id,
     }
   });
 
-  const p_settings = await prisma.privacy_settings.create({
+  await prisma.privacy_settings.create({
     data: {
       user_id: user.id,
     }
