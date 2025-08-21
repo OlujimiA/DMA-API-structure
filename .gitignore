@@ -2,4 +2,4 @@
 .env
 
 /generated/prisma
-
+prisma-test.js
