@@ -5,19 +5,19 @@
 
 */
 -- DropForeignKey
-ALTER TABLE `lead` DROP FOREIGN KEY `fk_client_id`;
+-- ALTER TABLE `lead` DROP FOREIGN KEY `fk_client_id`;
 
 -- DropForeignKey
-ALTER TABLE `organisation` DROP FOREIGN KEY `fk_org_client_id`;
+-- ALTER TABLE `organisation` DROP FOREIGN KEY `fk_org_client_id`;
 
 -- DropForeignKey
-ALTER TABLE `otp` DROP FOREIGN KEY `fk_otp_client_id`;
+-- ALTER TABLE `otp` DROP FOREIGN KEY `fk_otp_client_id`;
 
 -- DropForeignKey
-ALTER TABLE `ptoken` DROP FOREIGN KEY `fk_token_client_id`;
+-- ALTER TABLE `ptoken` DROP FOREIGN KEY `fk_token_client_id`;
 
 -- DropForeignKey
-ALTER TABLE `testimonial` DROP FOREIGN KEY `fk_t_client_id`;
+-- ALTER TABLE `testimonial` DROP FOREIGN KEY `fk_t_client_id`;
 
 -- DropTable
 DROP TABLE `client`;

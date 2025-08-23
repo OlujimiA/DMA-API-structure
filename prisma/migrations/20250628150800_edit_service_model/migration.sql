@@ -7,7 +7,7 @@
 
 */
 -- DropForeignKey
-ALTER TABLE `service` DROP FOREIGN KEY `fk_service_organisation_id`;
+-- ALTER TABLE `service` DROP FOREIGN KEY `fk_service_organisation_id`;
 
 -- DropIndex
 DROP INDEX `fk_service_organisation_id` ON `service`;
