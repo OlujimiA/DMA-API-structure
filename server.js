@@ -3,6 +3,29 @@ const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
 const { authorizeRoles } = require('./middlewares/authenticate');
+const PORT = process.env.PORT || 3000;
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
+const options = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "DMA-API",
+            version: "1.0.0",
+            description: "An API for digital marketing agency, Nigeria",
+        },
+        servers: [
+            {
+                url: `http://localhost/${PORT}`
+            }
+        ]
+    },
+    apis: ["./routes/*.js"]
+};
+
+const specs = swaggerJsDoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Import different route files
 const authRoutes = require('./routes/authRoutes');
@@ -25,5 +48,5 @@ app.use('/api/services', serviceRoutes);
 app.use('/api/service-request', requestRoutes);
 app.use('/api/admin', authorizeRoles('admin'), adminRoutes)
 
-const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,3 +1,12 @@
+/**
+ * @swagger
+ * /api/auth/register:
+ *  post:
+ *      tags: [auth]
+ *      summary: Register a user
+ * 
+ */
+
 const express = require('express');
 const router = express.Router();
 const authControllers = require('../controllers/authControllers');
