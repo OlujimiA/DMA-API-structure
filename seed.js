@@ -1,5 +1,5 @@
 const { prisma, defaultUserRoleId, defaultAdminRoleId } = require("./config/db");
-const bcrypt = require("bcryptjs"); // to hash the default user password
+const bcrypt = require("bcrypt"); // to hash the default user password
 
 async function main() {
   // --- Create roles if they don't exist ---
@@ -31,7 +31,7 @@ async function main() {
   const defaultAdminEmail = "admin@dma.com";
 
   const existingUser = await prisma.user.findUnique({
-    where: { email: defaultUserEmail },
+    where: { email: defaultAdminEmail },
   });
 
   if (!existingUser) {
