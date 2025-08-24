@@ -35,7 +35,7 @@ model user {
   service_request       service_request[]
   subscription          subscription[]
   testimonial           testimonial[]
-  role                  role                    @relation("UserRole", fields: [role_id], references: [id], onDelete: NoAction)
+  role                  role                    @relation("UserRole", fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([role_id], map: "user_role_id_fkey")
 }
