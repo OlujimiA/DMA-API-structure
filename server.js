@@ -17,11 +17,11 @@ const options = {
         },
         servers: [
             {
-                url: `http://localhost/${PORT}`
+                url: `http://localhost:${PORT}`
             }
         ]
     },
-    apis: ["./routes/*.js"]
+    apis: ["swagger.yaml"]
 };
 
 const specs = swaggerJsDoc(options);
