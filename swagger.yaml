@@ -1,0 +1,643 @@
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        tel:
+          type: string
+        country:
+          type: string
+        address:
+          type: string
+        category:
+          type: string
+        role_id:
+          type: string
+        status:
+          type: string
+        business_status:
+          type: boolean
+        pfp_url:
+          type: string
+        id_url:
+          type: Json
+        password:
+          type: string
+        created_at:
+          type: string
+    userForm:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        tel:
+          type: string
+        country:
+          type: string
+        address:
+          type: string
+        category:
+          type: string
+        password:
+          type: string
+    login:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    organisation:
+      type: object
+      properties:
+        id: 
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        country:
+          type: string
+        industry:
+          type: string
+        logo_url:
+          type: string
+        rc_number:
+          type: string
+        staff_size:
+          type: string
+        type:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        user_id:
+          type: string
+    contact:
+      type: object
+      properties:
+        id: 
+          type: string
+        name:
+          type: string
+        pfp_url:
+          type: string
+        id_url:
+          type: string
+        organisation_id:
+          type: string
+
+paths:
+  /api/auth/register:
+    post:
+      tags: [auth]
+      summary: Register a user
+      description: register a user and return an otp in an email.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/userForm"
+            example:
+              name: Jane Doe,
+              email: janedoe@gmail.com,
+              tel: +1234567890,
+              country: Nigeria,
+              address: Lagos, Nigeria,
+              category: individual,
+              password: janeisdo
+      responses:
+        200:
+          description: User has been successfully created!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/user"
+              example: 
+                id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
+                name: Jane Doe,
+                email: janedoe@gmail.com,
+                tel: +1234567890,
+                country: Nigeria,
+                address: Lagos, Nigeria,
+                category: individual,
+                pfp_url: null,
+                business_status: null,
+                status: unverified,
+                created_at: 2025-08-24T18:35:34.000Z,
+                role_id: da202b29-8749-4e20-be73-2beafce16951,
+                id_url: null
+
+  /api/auth/login:
+    post:
+      tags: [auth]
+      summary: Login to user account
+      description: Login a user and return an access token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/login"
+            example:
+              email: "janedoe@gmail.com"
+              password: "janeisdoe"
+      responses:
+        200:
+          description: User has been successfully created!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  AccessToken:
+                    type: string
+                    description: JWT Access Token
+                  user: 
+                    $ref: "#/components/schemas/user"
+              example:
+                AccessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZ..."
+                user: 
+                  id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
+                  name: Jane Doe,
+                  email: janedoe@gmail.com,
+                  tel: +1234567890,
+                  country: Nigeria,
+                  address: Lagos, Nigeria,
+                  category: individual,
+                  pfp_url: null,
+                  business_status: null,
+                  status: unverified,
+                  created_at: 2025-08-24T18:35:34.000Z,
+                  role_id: da202b29-8749-4e20-be73-2beafce16951,
+                  id_url: null
+
+  /api/auth/refreshToken:
+    post:
+      tags: [auth]
+      summary: Refresh token 
+      description: Each Access token lasts an hour. Using your refresh token(lasts seven days) you can get another access token.
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  AccessToken:
+                    type: string
+                    description: JWT Access Token
+                  user: 
+                    $ref: "#/components/schemas/user"
+              example:
+                AccessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZ..."
+                user: 
+                  id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
+                  name: Jane Doe,
+                  email: janedoe@gmail.com,
+                  tel: +1234567890,
+                  country: Nigeria,
+                  address: Lagos, Nigeria,
+                  category: individual,
+                  pfp_url: null,
+                  business_status: null,
+                  status: unverified,
+                  created_at: 2025-08-24T18:35:34.000Z,
+                  role_id: da202b29-8749-4e20-be73-2beafce16951,
+                  id_url: null
+
+  /api/auth/verify-email/{id}:
+    post:
+      tags: [auth]
+      summary: Verify a registered user's email
+      description: An OTP is sent to a user's email. They are required to submit the sent OTP. 
+      operationId: verifyEmail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                otp:
+                  type: string
+            example:
+              otp: '839368'
+      responses:
+        200:
+          description: 'Email has been verified succesfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/user'
+      parameters:
+        - in: path
+          name: userID
+          schema:
+            type: string
+          example: 25511d20-9118-4336-8451-7205853223a5
+          required: true
+          description: UUID of the user to verify their email.
+
+  /api/auth/resend-otp:
+    post:
+      tags: [auth]
+      summary: Resend a user's OTP
+      description: This endpoint resends an otp. However there's a 5-minute rate limit.
+      requestBody:
+        required: true
+        content:    
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+            example: 
+              email: janedoe@gmail.com
+      responses:
+        200:
+          description: OTP has been generated successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  otp:
+                    type: integer
+              example:
+                otp: 465884
+        429:
+          description: An OTP has already been sent within the last 5 minutes
+        500:
+          description: Failed to generate OTP
+
+  /api/auth/forgot-password:
+    post:
+      tags: [auth]
+      summary: Returns link to change password
+      description: Description pending...
+      requestBody:
+        required: true
+        content:    
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+            example: 
+              email: janedoe@gmail.com
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  link:
+                    type: string
+              example:
+                link: http:/localhost:3000/api/auth/reset-password/a750f09459e827d87fbe127973a98e09af7abd68189d9ab68303acbede4b240a/6f50a107-81e5-4d57-abe9-90c51cd900cf"
+
+  /api/auth/reset-password/{token}/{id}:
+    post:
+      tags: [auth]
+      summary: Resets a user's password
+      description: A user puts in their new password in the request body.
+      parameters:
+        - in: path
+          name: token
+          schema:
+            type: string
+          example: '750f09459e827d87fbe127973a98e09af7abd68189d9ab68303acbe...'
+          required: true
+          description: Unique generated (crypto) token that lasts for 15 mins.
+        - in: path
+          name: userID
+          schema:
+            type: string
+          example: '25511d20-9118-4336-8451-7205853223a5'
+          required: true
+          description: User UUID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                password:
+                  type: string
+            example:
+              password: password123
+      responses:
+        200:
+          description: Password has been updated successfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+  /api/users:
+    get:
+      tags: [user]
+      summary: Get all users
+      description: Return all users 
+      responses:
+        200:
+          description: Users fetched succesfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+              example:
+                id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
+                name: Jane Doe,
+                email: janedoe@gmail.com,
+                tel: +1234567890,
+                country: Nigeria,
+                address: Lagos, Nigeria,
+                category: individual,
+                pfp_url: null,
+                business_status: null,
+                status: unverified,
+                created_at: 2025-08-24T18:35:34.000Z,
+                role_id: da202b29-8749-4e20-be73-2beafce16951,
+                id_url: null
+
+  /api/users/{id}:
+    get:
+      tags: [user]
+      summary: Get a user
+      description: 
+
+    put:
+      tags: [user]
+      summary: Updates a user
+      responses:
+        200:
+          description: Updated user
+
+    delete:
+      tags: [user]
+      summary: Delete a user
+
+    post: 
+      tags: [user]
+      summary: Complete a user's profile
+
+    parameters:
+    - in: path
+      name: userID
+      schema:
+        type: string
+      example: '25511d20-9118-4336-8451-7205853223a5'     
+      required: true
+      description: User uuid
+
+
+
+  /api/orgs:
+    get:
+      tags: [organisation]
+      summary: Get all organisations
+      description: return all the organisations in the database
+      responses:
+        200:
+          description: Organisations fetched successfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisation'
+    post:
+      tags: [organisation]
+      summary: Create an organisation
+
+  /api/orgs/{id}:
+    get:
+      tags: [organisation]
+      summary: Get a specific organisation
+      description: Fetch the data of a specific organisation using its UUID
+      responses:
+        200:
+          description: Fetched organisation successfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisation'
+      parameters:
+      - in: path
+        name: organisation_id
+        schema:
+          type: string
+        example: '25511d20-9118-4336-8451-7205853223a5'
+        required: true
+        description: Organisation uuid
+
+    put:
+      tags: [organisation]
+      summary: Update an organisation
+      description: Update a specific organisation using its UUID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/organisation'
+      responses:
+        201:
+          description: Organisation has been successfully updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisation'
+
+    delete:
+      tags: [organisation]
+      summary: Delete an organisation
+      description: Delete an organisation using its UUID.
+      responses:
+        204:
+          description: Organisation has been successfully deleted
+
+  /api/orgs/contact:
+    get:
+      tags: [organisation]
+      summary: Get all organisation contacts
+      description: Rdeturns an array of all contacts along with their associated organisation info
+
+      responses:
+        200:
+          description: Contacts fetched succesfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contacts'
+              example:
+                id: 25511d20-9118-4336-8451-7205853223a5
+                name: Jane Doe
+                pfp_url: https://res.cloudinary/user/profile-pic...
+                id_url: https://res.cloudinary/user/id...
+                organisation_id: 25511d20-9118-4336-8451-7205853223a5
+    post:
+      tags: [organisation]
+      summary: Create a contact
+      description: Create an organisation's contact
+
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object 
+              properties:
+                name:
+                  type: string
+                profilePic:
+                  type: string
+                  format: binary
+                IDpic:
+                  type: string
+                  format: binary
+                organisation_id:
+                  type: string
+                  format: uuid
+      
+      responses:
+        200: 
+          description: Created organisation contact successfully!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/contact'
+              example:
+                id: 25511d20-9118-4336-8451-7205853223a5
+                name: Jane Doe
+                pfp_url: https://res.cloudinary/user/profile-pic...
+                id_url: https://res.cloudinary/user/id...
+                organisation_id: 25511d20-9118-4336-8451-7205853223a5
+
+  /api/orgs/contact/{id}:
+    get: 
+      tags: [organisation]
+      summary: Get a specific contact
+      description: Returns a contact using its UUID
+
+      parameters:
+      - in: path
+        name: contactID
+        schema:
+          type: string
+        example: '25511d20-9118-4336-8451-7205853223a5'
+        required: true
+        description: Contact uuid
+
+
+      responses:
+        200:
+          description: Contact fetched successfully!
+
+
+
+  /api/services:
+    get:
+      tags: [service]
+      summary: get-services
+      description: get-services
+      responses:
+        200:
+          description: ''
+
+    post:
+      tags:
+        - service
+      summary: create-service
+      description: create-service
+      operationId: createService
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                banner:
+                  type: string
+                  format: binary
+                description:
+                  type: string
+                  example: long description...
+                subtitle:
+                  type: string
+                  example: Build your dream online presence.
+                title:
+                  type: string
+                  example: Web design & development
+      responses:
+        '200':
+          description: ''
+  /api/services/{id}:
+    get:
+      tags:
+        - service
+      summary: get-service
+      description: get-service
+      operationId: getService
+      responses:
+        '200':
+          description: ''
+    put:
+      tags:
+        - service
+      summary: update-service
+      description: update-service
+      operationId: updateService
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                banner:
+                  type: string
+                  format: binary
+                description:
+                  type: string
+                  example: long description...
+                subtitle:
+                  type: string
+                  example: Build your dream online presence.
+                title:
+                  type: string
+                  example: Web design & development
+      responses:
+        '200':
+          description: ''
+    delete:
+      tags:
+        - service
+      summary: delete-service
+      description: delete-service
+      operationId: deleteService
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: ''
