@@ -1,37 +1,3 @@
-
-/**
- * @swagger
- * /api/users/:
- *  get:
- *      tags: [user]
- *      summary: Returns the list of all users
- *      responses:
- *          200:
- *              description: The list of all users
- */
-
-/**
- * @swagger
- * /api/users/{id}:
- *  get:
- *      tags: [user]
- *      summary: Returns a user
- *      
- *  put:
- *      tags: [user]
- *      summary: Updates a user
- *      responses:
- *          200:
- *              description: Updated user
- *  post: 
- *      tags: [user]
- *      summary: Complete a user's profile
- * 
- *  delete:
- *      tags: [user]
- *      summary: Delete a user
- */
-
 const express = require('express');
 const router = express.Router();
 const auth = require("../middlewares/authmiddleware");
