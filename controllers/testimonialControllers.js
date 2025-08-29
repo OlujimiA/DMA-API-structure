@@ -48,7 +48,7 @@ exports.createTestimonial = async (req, res) => {
     const user_id = getUserIdFromHeader(req);
     const newtestimonial = await testimonialService.createTestimonial({ user_id, user_title, message, stars, service_id });
 
-    return sendSuccess(res, 201, { testimonial: newtestimonial }, 'testimonial created successfully');
+    return sendSuccess(res, 200, { testimonial: newtestimonial }, 'testimonial created successfully');
   } catch (err) {
     return sendError(res, 500, 'Could not create testimonial', err.message);
   }

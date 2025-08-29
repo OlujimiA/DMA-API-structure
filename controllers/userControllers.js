@@ -76,7 +76,7 @@ exports.updateUser = async (req, res) => {
       return sendError(res, 404, 'User not found');
     }
 
-    return sendSuccess(res, 500, { user: updated }, 'User updated successfully!');
+    return sendSuccess(res, 200, { user: updated }, 'User updated successfully!');
   } catch (err) {
     const statusCode = err.statusCode || 500; 
     return sendError(res, statusCode, 'Could not update User', err.message);
