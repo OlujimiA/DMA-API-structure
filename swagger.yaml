@@ -1,8 +1,9 @@
 components:
   securitySchemes:
-    BearerAuth:
+    bearerAuth:
       type: http
       scheme: bearer
+      bearerFormat: JWT
   schemas:
     user:
       type: object
@@ -123,10 +124,14 @@ components:
         organisation_id:
           type: string
 
+security:
+  - bearerAuth: []
+
 paths:
   /api/auth/register:
     post:
       tags: [auth]
+      security: []
       summary: Register a user
       description: register a user and return an otp in an email.
       requestBody:
@@ -136,12 +141,12 @@ paths:
             schema:
               $ref: "#/components/schemas/userForm"
             example:
-              name: Jane Doe,
-              email: janedoe@gmail.com,
-              tel: +1234567890,
-              country: Nigeria,
-              address: Lagos, Nigeria,
-              category: individual,
+              name: Jane Doe
+              email: janedoe@gmail.com
+              tel: +1234567890
+              country: Nigeria
+              address: Lagos, Nigeria
+              category: individual
               password: janeisdo
       responses:
         200:
@@ -151,23 +156,24 @@ paths:
               schema:
                 $ref: "#/components/schemas/user"
               example: 
-                id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
-                name: Jane Doe,
-                email: janedoe@gmail.com,
-                tel: +1234567890,
-                country: Nigeria,
-                address: Lagos, Nigeria,
-                category: individual,
-                pfp_url: null,
-                business_status: null,
-                status: unverified,
-                created_at: 2025-08-24T18:35:34.000Z,
-                role_id: da202b29-8749-4e20-be73-2beafce16951,
+                id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
+                name: Jane Doe
+                email: janedoe@gmail.com
+                tel: +1234567890
+                country: Nigeria
+                address: Lagos, Nigeria
+                category: individual
+                pfp_url: null
+                business_status: null
+                status: unverified
+                created_at: 2025-08-24T18:35:34.000Z
+                role_id: da202b29-8749-4e20-be73-2beafce16951
                 id_url: null
 
   /api/auth/login:
     post:
       tags: [auth]
+      security: []
       summary: Login to user account
       description: Login a user and return an access token.
       requestBody:
@@ -195,18 +201,18 @@ paths:
               example:
                 AccessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZ..."
                 user: 
-                  id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
-                  name: Jane Doe,
-                  email: janedoe@gmail.com,
-                  tel: +1234567890,
-                  country: Nigeria,
-                  address: Lagos, Nigeria,
-                  category: individual,
-                  pfp_url: null,
-                  business_status: null,
-                  status: unverified,
-                  created_at: 2025-08-24T18:35:34.000Z,
-                  role_id: da202b29-8749-4e20-be73-2beafce16951,
+                  id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
+                  name: Jane Doe
+                  email: janedoe@gmail.com
+                  tel: +1234567890
+                  country: Nigeria
+                  address: Lagos, Nigeria
+                  category: individual
+                  pfp_url: null
+                  business_status: null
+                  status: unverified
+                  created_at: 2025-08-24T18:35:34.000Z
+                  role_id: da202b29-8749-4e20-be73-2beafce16951
                   id_url: null
         401: 
           description: Invalid credentials - Worng email or password
@@ -216,6 +222,7 @@ paths:
   /api/auth/refreshToken:
     post:
       tags: [auth]
+      security: []
       summary: Refresh token 
       description: Each Access token lasts an hour. Using your refresh token(lasts seven days) you can get another access token.
       responses:
@@ -234,18 +241,18 @@ paths:
               example:
                 AccessToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZ..."
                 user: 
-                  id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
-                  name: Jane Doe,
-                  email: janedoe@gmail.com,
-                  tel: +1234567890,
-                  country: Nigeria,
-                  address: Lagos, Nigeria,
-                  category: individual,
-                  pfp_url: null,
-                  business_status: null,
-                  status: unverified,
-                  created_at: 2025-08-24T18:35:34.000Z,
-                  role_id: da202b29-8749-4e20-be73-2beafce16951,
+                  id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
+                  name: Jane Doe
+                  email: janedoe@gmail.com
+                  tel: +1234567890
+                  country: Nigeria
+                  address: Lagos, Nigeria
+                  category: individual
+                  pfp_url: null
+                  business_status: null
+                  status: unverified
+                  created_at: 2025-08-24T18:35:34.000Z
+                  role_id: da202b29-8749-4e20-be73-2beafce16951
                   id_url: null
         401:
           description: Invalid or expired refresh token
@@ -253,6 +260,7 @@ paths:
   /api/auth/verify-email/{id}:
     post:
       tags: [auth]
+      security: []
       summary: Verify a registered user's email
       description: An OTP is sent to a user's email. They are required to submit the sent OTP. 
       operationId: verifyEmail
@@ -285,6 +293,7 @@ paths:
   /api/auth/resend-otp:
     post:
       tags: [auth]
+      security: []
       summary: Resend a user's OTP
       description: This endpoint resends an otp. However there's a 5-minute rate limit.
       requestBody:
@@ -318,6 +327,7 @@ paths:
   /api/auth/forgot-password:
     post:
       tags: [auth]
+      security: []
       summary: Returns link to change password
       description: Description pending...
       requestBody:
@@ -347,6 +357,7 @@ paths:
   /api/auth/reset-password/{token}/{id}:
     post:
       tags: [auth]
+      security: []
       summary: Resets a user's password
       description: A user puts in their new password in the request body.
       parameters:
@@ -396,18 +407,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/user'
               example:
-                id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
-                name: Jane Doe,
-                email: janedoe@gmail.com,
-                tel: +1234567890,
-                country: Nigeria,
-                address: Lagos, Nigeria,
-                category: individual,
-                pfp_url: null,
-                business_status: null,
-                status: unverified,
-                created_at: 2025-08-24T18:35:34.000Z,
-                role_id: da202b29-8749-4e20-be73-2beafce16951,
+                id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
+                name: Jane Doe
+                email: janedoe@gmail.com
+                tel: +1234567890
+                country: Nigeria
+                address: Lagos, Nigeria
+                category: individual
+                pfp_url: null
+                business_status: null
+                status: unverified
+                created_at: 2025-08-24T18:35:34.000Z
+                role_id: da202b29-8749-4e20-be73-2beafce16951
                 id_url: null
 
   /api/users/{id}:
@@ -424,19 +435,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/user'
               example:
-                id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
-                name: Jane Doe,
-                email: janedoe@gmail.com,
-                tel: +1234567890,
-                country: Nigeria,
-                address: Lagos, Nigeria,
-                category: individual,
+                id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
+                name: Jane Doe
+                email: janedoe@gmail.com
+                tel: +1234567890
+                country: Nigeria
+                address: Lagos, Nigeria
+                category: individual
                 pfp_url: https://res.cloudinary/user/profile-pic...
                 id_url: https://res.cloudinary/user/id...
-                business_status: 1,
-                status: verified,
-                created_at: 2025-08-24T18:35:34.000Z,
-                role_id: da202b29-8749-4e20-be73-2beafce16951,
+                business_status: 1
+                status: verified
+                created_at: 2025-08-24T18:35:34.000Z
+                role_id: da202b29-8749-4e20-be73-2beafce16951
         404:
           description: User not found
         500:
