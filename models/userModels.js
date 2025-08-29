@@ -36,6 +36,13 @@ const getuserById = async (id) => {
 const getuserByEmail = async (email) => {
   const rows = await prisma.user.findUnique({
     where: { email: email },
+    include: {
+      role: {
+        select: {
+          title: true,
+        }
+      }
+    }
   });
   return rows;
 };
