@@ -8,7 +8,7 @@ router.get('/', auth, testimonialController.getAlltestimonials);
 router.get('/:id', auth, testimonialController.getTestimonialById);
 router.post('/', auth, testimonialController.createTestimonial);
 router.put('/:id', auth, testimonialController.updateTestimonial);
-router.delete('/:id', authorizeRoles('admin'), auth, testimonialController.deleteTestimonial);
+router.delete('/:id', auth, authorizeRoles('admin'), testimonialController.deleteTestimonial);
 
 module.exports = router;
 

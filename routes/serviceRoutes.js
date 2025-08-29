@@ -7,8 +7,8 @@ const upload = require('../middlewares/multer');
 
 router.get('/', auth, serviceController.getAllServices);
 router.get('/:id', auth, serviceController.getService);
-router.post('/', upload.single('banner'), authorizeRoles('admin'), auth, serviceController.createService);
-router.put('/:id', upload.single('banner'), authorizeRoles('admin'), auth, serviceController.updateService);
-router.delete('/:id', authorizeRoles('admin'), auth, serviceController.deleteService);
+router.post('/', auth, authorizeRoles('admin'), upload.single('banner'), serviceController.createService);
+router.put('/:id', auth, authorizeRoles('admin'), upload.single('banner'), serviceController.updateService);
+router.delete('/:id', auth, authorizeRoles('admin'), serviceController.deleteService);
 
 module.exports = router;
