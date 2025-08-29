@@ -12,7 +12,7 @@ const login = async (email, password) => {
 
   // create token
   const accessToken = jwt.sign(
-    { id: user.id, email: user.email, role: user.role },
+    { id: user.id, email: user.email, role: user.role.title },
     process.env.JWT_ACCESS_SECRET,
     { expiresIn: '1h' }
   );
