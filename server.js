@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const cookieParser = require('cookie-parser');
 const { authorizeRoles } = require('./middlewares/authenticate');
@@ -38,6 +39,11 @@ const adminRoutes = require('./routes/adminRoutes');
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({
+    origin: `http://localhost:${PORT}/api-docs`, 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Custom-Header']
+}));
 
 // Mount routes to different paths
 app.use('/api/auth', authRoutes)
