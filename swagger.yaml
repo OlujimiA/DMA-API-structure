@@ -1,4 +1,8 @@
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
   schemas:
     user:
       type: object
@@ -82,6 +86,28 @@ components:
           type: string
           format: date-time
         user_id:
+          type: string
+    organisationForm:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        country:
+          type: string
+        industry:
+          type: string
+        logo_url:
+          type: string
+          format: binary
+        rc_number:
+          type: string
+        staff_size:
+          type: string
+        type:
           type: string
     contact:
       type: object
@@ -182,6 +208,10 @@ paths:
                   created_at: 2025-08-24T18:35:34.000Z,
                   role_id: da202b29-8749-4e20-be73-2beafce16951,
                   id_url: null
+        401: 
+          description: Invalid credentials - Worng email or password
+        500:
+          description: Login failed
 
   /api/auth/refreshToken:
     post:
@@ -217,6 +247,8 @@ paths:
                   created_at: 2025-08-24T18:35:34.000Z,
                   role_id: da202b29-8749-4e20-be73-2beafce16951,
                   id_url: null
+        401:
+          description: Invalid or expired refresh token
 
   /api/auth/verify-email/{id}:
     post:
@@ -382,22 +414,94 @@ paths:
     get:
       tags: [user]
       summary: Get a user
-      description: 
+      description: Return a user using its uuid
+
+      responses:
+        200: 
+          description: Fetched user successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+              example:
+                id: 6f50a107-81e5-4d57-abe9-90c51cd900cf,
+                name: Jane Doe,
+                email: janedoe@gmail.com,
+                tel: +1234567890,
+                country: Nigeria,
+                address: Lagos, Nigeria,
+                category: individual,
+                pfp_url: https://res.cloudinary/user/profile-pic...
+                id_url: https://res.cloudinary/user/id...
+                business_status: 1,
+                status: verified,
+                created_at: 2025-08-24T18:35:34.000Z,
+                role_id: da202b29-8749-4e20-be73-2beafce16951,
+        404:
+          description: User not found
+        500:
+          description: Could not get user
 
     put:
       tags: [user]
       summary: Updates a user
+      description: update a user's info
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userForm'
+
       responses:
         200:
           description: Updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
 
     delete:
       tags: [user]
       summary: Delete a user
+      description: Delete a user using its UUID
+
+      responses:
+        204:
+          description: User has been successfully deleted
+        404: 
+          description: User not found
+        500:
+          description: Could not delete user. Includes error message (err.message)
 
     post: 
       tags: [user]
       summary: Complete a user's profile
+      description: ''
+
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                profilePic: 
+                  type: string
+                  format: binary
+                IDpic:
+                  type: string
+                  format: binary
+                business_status:
+                  type: string
+      responses:
+        200: 
+          description: User profile completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
 
     parameters:
     - in: path
@@ -425,6 +529,22 @@ paths:
     post:
       tags: [organisation]
       summary: Create an organisation
+      description: Create 
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/organisationForm'
+
+      responses:
+        200:
+          description: Organisation created succesfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organisation'
 
   /api/orgs/{id}:
     get:
