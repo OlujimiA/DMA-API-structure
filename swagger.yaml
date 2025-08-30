@@ -14,6 +14,7 @@ components:
           type: string
         email:
           type: string
+          format: email
         tel:
           type: string
         country:
@@ -43,6 +44,7 @@ components:
           type: string
         email:
           type: string
+          format: email
         tel:
           type: string
         country:
@@ -58,6 +60,7 @@ components:
       properties:
         email:
           type: string
+          format: email
         password:
           type: string
     organisation:
@@ -69,6 +72,7 @@ components:
           type: string
         email:
           type: string
+          format: email
         address:
           type: string
         country:
@@ -95,6 +99,7 @@ components:
           type: string
         email:
           type: string
+          format: email
         address:
           type: string
         country:
@@ -124,14 +129,10 @@ components:
         organisation_id:
           type: string
 
-security:
-  - bearerAuth: []
-
 paths:
   /api/auth/register:
     post:
       tags: [auth]
-      security: []
       summary: Register a user
       description: register a user and return an otp in an email.
       requestBody:
@@ -143,7 +144,7 @@ paths:
             example:
               name: Jane Doe
               email: janedoe@gmail.com
-              tel: +1234567890
+              tel: "+1234567890"
               country: Nigeria
               address: Lagos, Nigeria
               category: individual
@@ -159,7 +160,7 @@ paths:
                 id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
                 name: Jane Doe
                 email: janedoe@gmail.com
-                tel: +1234567890
+                tel: "+1234567890"
                 country: Nigeria
                 address: Lagos, Nigeria
                 category: individual
@@ -173,7 +174,6 @@ paths:
   /api/auth/login:
     post:
       tags: [auth]
-      security: []
       summary: Login to user account
       description: Login a user and return an access token.
       requestBody:
@@ -204,7 +204,7 @@ paths:
                   id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
                   name: Jane Doe
                   email: janedoe@gmail.com
-                  tel: +1234567890
+                  tel: "+1234567890"
                   country: Nigeria
                   address: Lagos, Nigeria
                   category: individual
@@ -222,7 +222,6 @@ paths:
   /api/auth/refreshToken:
     post:
       tags: [auth]
-      security: []
       summary: Refresh token 
       description: Each Access token lasts an hour. Using your refresh token(lasts seven days) you can get another access token.
       responses:
@@ -244,7 +243,7 @@ paths:
                   id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
                   name: Jane Doe
                   email: janedoe@gmail.com
-                  tel: +1234567890
+                  tel: "+1234567890"
                   country: Nigeria
                   address: Lagos, Nigeria
                   category: individual
@@ -260,7 +259,6 @@ paths:
   /api/auth/verify-email/{id}:
     post:
       tags: [auth]
-      security: []
       summary: Verify a registered user's email
       description: An OTP is sent to a user's email. They are required to submit the sent OTP. 
       operationId: verifyEmail
@@ -293,7 +291,6 @@ paths:
   /api/auth/resend-otp:
     post:
       tags: [auth]
-      security: []
       summary: Resend a user's OTP
       description: This endpoint resends an otp. However there's a 5-minute rate limit.
       requestBody:
@@ -327,7 +324,6 @@ paths:
   /api/auth/forgot-password:
     post:
       tags: [auth]
-      security: []
       summary: Returns link to change password
       description: Description pending...
       requestBody:
@@ -357,7 +353,6 @@ paths:
   /api/auth/reset-password/{token}/{id}:
     post:
       tags: [auth]
-      security: []
       summary: Resets a user's password
       description: A user puts in their new password in the request body.
       parameters:
@@ -399,6 +394,8 @@ paths:
       tags: [user]
       summary: Get all users
       description: Return all users 
+      security:
+        - bearerAuth: []
       responses:
         200:
           description: Users fetched succesfully!
@@ -410,7 +407,7 @@ paths:
                 id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
                 name: Jane Doe
                 email: janedoe@gmail.com
-                tel: +1234567890
+                tel: "+1234567890"
                 country: Nigeria
                 address: Lagos, Nigeria
                 category: individual
@@ -426,6 +423,8 @@ paths:
       tags: [user]
       summary: Get a user
       description: Return a user using its uuid
+      security:
+        - bearerAuth: []
 
       responses:
         200: 
@@ -438,7 +437,7 @@ paths:
                 id: 6f50a107-81e5-4d57-abe9-90c51cd900cf
                 name: Jane Doe
                 email: janedoe@gmail.com
-                tel: +1234567890
+                tel: "+1234567890"
                 country: Nigeria
                 address: Lagos, Nigeria
                 category: individual
@@ -457,6 +456,8 @@ paths:
       tags: [user]
       summary: Updates a user
       description: update a user's info
+      security:
+        - bearerAuth: []
 
       requestBody:
         required: true
@@ -477,6 +478,8 @@ paths:
       tags: [user]
       summary: Delete a user
       description: Delete a user using its UUID
+      security:
+        - bearerAuth: []
 
       responses:
         204:
@@ -490,6 +493,8 @@ paths:
       tags: [user]
       summary: Complete a user's profile
       description: ''
+      security:
+        - bearerAuth: []
 
       requestBody:
         required: true
@@ -530,6 +535,8 @@ paths:
       tags: [organisation]
       summary: Get all organisations
       description: return all the organisations in the database
+      security:
+        - bearerAuth: []
       responses:
         200:
           description: Organisations fetched successfully!
@@ -541,6 +548,8 @@ paths:
       tags: [organisation]
       summary: Create an organisation
       description: Create 
+      security:
+        - bearerAuth: []
 
       requestBody:
         required: true
@@ -562,6 +571,8 @@ paths:
       tags: [organisation]
       summary: Get a specific organisation
       description: Fetch the data of a specific organisation using its UUID
+      security:
+        - bearerAuth: []
       responses:
         200:
           description: Fetched organisation successfully!
@@ -582,6 +593,8 @@ paths:
       tags: [organisation]
       summary: Update an organisation
       description: Update a specific organisation using its UUID.
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
@@ -600,6 +613,8 @@ paths:
       tags: [organisation]
       summary: Delete an organisation
       description: Delete an organisation using its UUID.
+      security:
+        - bearerAuth: []
       responses:
         204:
           description: Organisation has been successfully deleted
@@ -609,6 +624,8 @@ paths:
       tags: [organisation]
       summary: Get all organisation contacts
       description: Rdeturns an array of all contacts along with their associated organisation info
+      security:
+        - bearerAuth: []
 
       responses:
         200:
@@ -627,6 +644,8 @@ paths:
       tags: [organisation]
       summary: Create a contact
       description: Create an organisation's contact
+      security:
+        - bearerAuth: []
 
       requestBody:
         required: true
@@ -666,6 +685,8 @@ paths:
       tags: [organisation]
       summary: Get a specific contact
       description: Returns a contact using its UUID
+      security:
+        - bearerAuth: []
 
       parameters:
       - in: path
@@ -688,6 +709,8 @@ paths:
       tags: [service]
       summary: get-services
       description: get-services
+      security:
+        - bearerAuth: []
       responses:
         200:
           description: ''
@@ -697,6 +720,8 @@ paths:
         - service
       summary: create-service
       description: create-service
+      security:
+        - bearerAuth: []
       operationId: createService
       requestBody:
         content:
@@ -719,12 +744,15 @@ paths:
       responses:
         '200':
           description: ''
+
   /api/services/{id}:
     get:
       tags:
         - service
       summary: get-service
       description: get-service
+      security:
+        - bearerAuth: []
       operationId: getService
       responses:
         '200':
@@ -734,6 +762,8 @@ paths:
         - service
       summary: update-service
       description: update-service
+      security:
+        - bearerAuth: []
       operationId: updateService
       requestBody:
         content:
@@ -761,6 +791,8 @@ paths:
         - service
       summary: delete-service
       description: delete-service
+      security:
+        - bearerAuth: []
       operationId: deleteService
       responses:
         '200':
