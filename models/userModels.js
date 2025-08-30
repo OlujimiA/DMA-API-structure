@@ -2,6 +2,7 @@ const { prisma, defaultUserRoleId } = require("../config/db");
 
 const getAllusers = async () => {
   const users = await prisma.user.findMany({
+    where: { deleted_at: null },
     omit: {
       password: true,
     },
@@ -18,7 +19,10 @@ const getAllusers = async () => {
 
 const getuserById = async (id) => {
   const user = await prisma.user.findUnique({
-    where: { id: id },
+    where: { 
+      id: id,
+      deleted_at: null,
+    },
     omit: {
       password: true,
     },
@@ -35,7 +39,10 @@ const getuserById = async (id) => {
 
 const getuserByEmail = async (email) => {
   const rows = await prisma.user.findUnique({
-    where: { email: email },
+    where: {
+      email: email,
+      deleted_at: null,
+    },
     include: {
       role: {
         select: {
@@ -49,7 +56,10 @@ const getuserByEmail = async (email) => {
 
 const getuserByTel = async (tel) => {
   const rows = await prisma.user.findUnique({
-    where: { tel: tel },
+    where: {
+      tel: tel,
+      deleted_at: null,
+    },
   });
   return rows;
 };
@@ -79,13 +89,13 @@ const createUser = async ({
     },
   });
 
-  const n_settings = await prisma.notification_settings.create({
+  await prisma.notification_settings.create({
     data: {
       user_id: user.id,
     },
   });
 
-  const p_settings = await prisma.privacy_settings.create({
+  await prisma.privacy_settings.create({
     data: {
       user_id: user.id,
     },
@@ -99,7 +109,10 @@ const updateUser = async (
   { name, email, tel, country, address, category, password }
 ) => {
   const result = await prisma.user.update({
-    where: { id: id },
+    where: {
+      id: id,
+      deleted_at: null,
+    },
     data: {
       name: name,
       email: email,
@@ -117,18 +130,31 @@ const updateUser = async (
 };
 
 const deleteUser = async (id) => {
-  const user = await prisma.user.delete({
-    where: { id: id },
+  const user = await prisma.user.update({
+    where: {
+      id: id,
+      deleted_at: null
+    },
+    data: {
+      deleted_at: new Date()
+    },
     omit: {
       password: true,
     },
   });
+  await prisma.otp.deleteMany({ where: { user_id: id } });
+  await prisma.password_token.deleteMany({ where: { user_id: id } });
+  await prisma.privacy_settings.deleteMany({ where: { user_id: id } });
+  await prisma.notification_settings.deleteMany({ where: { user_id: id } });
   return user;
 };
 
 const profile = async (id, { pfp_url, id_url, business_status }) => {
   const profile = await prisma.user.update({
-    where: { id: id },
+    where: { 
+      id: id,
+      deleted_at: null,
+    },
     data: {
       pfp_url: pfp_url,
       id_url: id_url,

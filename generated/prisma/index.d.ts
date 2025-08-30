@@ -2322,12 +2322,13 @@ export namespace Prisma {
     address: string | null
     category: string | null
     pfp_url: string | null
+    id_url: string | null
     business_status: boolean | null
     password: string | null
     status: string | null
-    created_at: Date | null
     role_id: string | null
-    id_url: string | null
+    created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -2339,12 +2340,13 @@ export namespace Prisma {
     address: string | null
     category: string | null
     pfp_url: string | null
+    id_url: string | null
     business_status: boolean | null
     password: string | null
     status: string | null
-    created_at: Date | null
     role_id: string | null
-    id_url: string | null
+    created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -2356,12 +2358,13 @@ export namespace Prisma {
     address: number
     category: number
     pfp_url: number
+    id_url: number
     business_status: number
     password: number
     status: number
-    created_at: number
     role_id: number
-    id_url: number
+    created_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -2375,12 +2378,13 @@ export namespace Prisma {
     address?: true
     category?: true
     pfp_url?: true
+    id_url?: true
     business_status?: true
     password?: true
     status?: true
-    created_at?: true
     role_id?: true
-    id_url?: true
+    created_at?: true
+    deleted_at?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -2392,12 +2396,13 @@ export namespace Prisma {
     address?: true
     category?: true
     pfp_url?: true
+    id_url?: true
     business_status?: true
     password?: true
     status?: true
-    created_at?: true
     role_id?: true
-    id_url?: true
+    created_at?: true
+    deleted_at?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -2409,12 +2414,13 @@ export namespace Prisma {
     address?: true
     category?: true
     pfp_url?: true
+    id_url?: true
     business_status?: true
     password?: true
     status?: true
-    created_at?: true
     role_id?: true
-    id_url?: true
+    created_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -2499,12 +2505,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url: string | null
+    id_url: string | null
     business_status: boolean | null
     password: string
     status: string
-    created_at: Date | null
     role_id: string
-    id_url: string | null
+    created_at: Date | null
+    deleted_at: Date | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2533,12 +2540,13 @@ export namespace Prisma {
     address?: boolean
     category?: boolean
     pfp_url?: boolean
+    id_url?: boolean
     business_status?: boolean
     password?: boolean
     status?: boolean
-    created_at?: boolean
     role_id?: boolean
-    id_url?: boolean
+    created_at?: boolean
+    deleted_at?: boolean
     notification?: boolean | user$notificationArgs<ExtArgs>
     notification_settings?: boolean | user$notification_settingsArgs<ExtArgs>
     organisation?: boolean | user$organisationArgs<ExtArgs>
@@ -2565,15 +2573,16 @@ export namespace Prisma {
     address?: boolean
     category?: boolean
     pfp_url?: boolean
+    id_url?: boolean
     business_status?: boolean
     password?: boolean
     status?: boolean
-    created_at?: boolean
     role_id?: boolean
-    id_url?: boolean
+    created_at?: boolean
+    deleted_at?: boolean
   }
 
-  export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "tel" | "country" | "address" | "category" | "pfp_url" | "business_status" | "password" | "status" | "created_at" | "role_id" | "id_url", ExtArgs["result"]["user"]>
+  export type userOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "tel" | "country" | "address" | "category" | "pfp_url" | "id_url" | "business_status" | "password" | "status" | "role_id" | "created_at" | "deleted_at", ExtArgs["result"]["user"]>
   export type userInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     notification?: boolean | user$notificationArgs<ExtArgs>
     notification_settings?: boolean | user$notification_settingsArgs<ExtArgs>
@@ -2615,12 +2624,13 @@ export namespace Prisma {
       address: string
       category: string
       pfp_url: string | null
+      id_url: string | null
       business_status: boolean | null
       password: string
       status: string
-      created_at: Date | null
       role_id: string
-      id_url: string | null
+      created_at: Date | null
+      deleted_at: Date | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -3010,12 +3020,13 @@ export namespace Prisma {
     readonly address: FieldRef<"user", 'String'>
     readonly category: FieldRef<"user", 'String'>
     readonly pfp_url: FieldRef<"user", 'String'>
+    readonly id_url: FieldRef<"user", 'String'>
     readonly business_status: FieldRef<"user", 'Boolean'>
     readonly password: FieldRef<"user", 'String'>
     readonly status: FieldRef<"user", 'String'>
-    readonly created_at: FieldRef<"user", 'DateTime'>
     readonly role_id: FieldRef<"user", 'String'>
-    readonly id_url: FieldRef<"user", 'String'>
+    readonly created_at: FieldRef<"user", 'DateTime'>
+    readonly deleted_at: FieldRef<"user", 'DateTime'>
   }
     
 
@@ -3664,6 +3675,7 @@ export namespace Prisma {
     type: string | null
     created_at: Date | null
     user_id: string | null
+    deleted_at: Date | null
   }
 
   export type OrganisationMaxAggregateOutputType = {
@@ -3679,6 +3691,7 @@ export namespace Prisma {
     type: string | null
     created_at: Date | null
     user_id: string | null
+    deleted_at: Date | null
   }
 
   export type OrganisationCountAggregateOutputType = {
@@ -3694,6 +3707,7 @@ export namespace Prisma {
     type: number
     created_at: number
     user_id: number
+    deleted_at: number
     _all: number
   }
 
@@ -3711,6 +3725,7 @@ export namespace Prisma {
     type?: true
     created_at?: true
     user_id?: true
+    deleted_at?: true
   }
 
   export type OrganisationMaxAggregateInputType = {
@@ -3726,6 +3741,7 @@ export namespace Prisma {
     type?: true
     created_at?: true
     user_id?: true
+    deleted_at?: true
   }
 
   export type OrganisationCountAggregateInputType = {
@@ -3741,6 +3757,7 @@ export namespace Prisma {
     type?: true
     created_at?: true
     user_id?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -3829,6 +3846,7 @@ export namespace Prisma {
     type: string
     created_at: Date
     user_id: string
+    deleted_at: Date | null
     _count: OrganisationCountAggregateOutputType | null
     _min: OrganisationMinAggregateOutputType | null
     _max: OrganisationMaxAggregateOutputType | null
@@ -3861,6 +3879,7 @@ export namespace Prisma {
     type?: boolean
     created_at?: boolean
     user_id?: boolean
+    deleted_at?: boolean
     case_studies?: boolean | organisation$case_studiesArgs<ExtArgs>
     contact?: boolean | organisation$contactArgs<ExtArgs>
     user?: boolean | userDefaultArgs<ExtArgs>
@@ -3882,9 +3901,10 @@ export namespace Prisma {
     type?: boolean
     created_at?: boolean
     user_id?: boolean
+    deleted_at?: boolean
   }
 
-  export type organisationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "address" | "country" | "industry" | "logo_url" | "rc_number" | "staff_size" | "type" | "created_at" | "user_id", ExtArgs["result"]["organisation"]>
+  export type organisationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "address" | "country" | "industry" | "logo_url" | "rc_number" | "staff_size" | "type" | "created_at" | "user_id" | "deleted_at", ExtArgs["result"]["organisation"]>
   export type organisationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     case_studies?: boolean | organisation$case_studiesArgs<ExtArgs>
     contact?: boolean | organisation$contactArgs<ExtArgs>
@@ -3912,6 +3932,7 @@ export namespace Prisma {
       type: string
       created_at: Date
       user_id: string
+      deleted_at: Date | null
     }, ExtArgs["result"]["organisation"]>
     composites: {}
   }
@@ -4296,6 +4317,7 @@ export namespace Prisma {
     readonly type: FieldRef<"organisation", 'String'>
     readonly created_at: FieldRef<"organisation", 'DateTime'>
     readonly user_id: FieldRef<"organisation", 'String'>
+    readonly deleted_at: FieldRef<"organisation", 'DateTime'>
   }
     
 
@@ -17236,12 +17258,13 @@ export namespace Prisma {
     address: 'address',
     category: 'category',
     pfp_url: 'pfp_url',
+    id_url: 'id_url',
     business_status: 'business_status',
     password: 'password',
     status: 'status',
-    created_at: 'created_at',
     role_id: 'role_id',
-    id_url: 'id_url'
+    created_at: 'created_at',
+    deleted_at: 'deleted_at'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -17259,7 +17282,8 @@ export namespace Prisma {
     staff_size: 'staff_size',
     type: 'type',
     created_at: 'created_at',
-    user_id: 'user_id'
+    user_id: 'user_id',
+    deleted_at: 'deleted_at'
   };
 
   export type OrganisationScalarFieldEnum = (typeof OrganisationScalarFieldEnum)[keyof typeof OrganisationScalarFieldEnum]
@@ -17447,10 +17471,10 @@ export namespace Prisma {
     address: 'address',
     category: 'category',
     pfp_url: 'pfp_url',
+    id_url: 'id_url',
     password: 'password',
     status: 'status',
-    role_id: 'role_id',
-    id_url: 'id_url'
+    role_id: 'role_id'
   };
 
   export type userOrderByRelevanceFieldEnum = (typeof userOrderByRelevanceFieldEnum)[keyof typeof userOrderByRelevanceFieldEnum]
@@ -17663,12 +17687,13 @@ export namespace Prisma {
     address?: StringFilter<"user"> | string
     category?: StringFilter<"user"> | string
     pfp_url?: StringNullableFilter<"user"> | string | null
+    id_url?: StringNullableFilter<"user"> | string | null
     business_status?: BoolNullableFilter<"user"> | boolean | null
     password?: StringFilter<"user"> | string
     status?: StringFilter<"user"> | string
-    created_at?: DateTimeNullableFilter<"user"> | Date | string | null
     role_id?: StringFilter<"user"> | string
-    id_url?: StringNullableFilter<"user"> | string | null
+    created_at?: DateTimeNullableFilter<"user"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"user"> | Date | string | null
     notification?: NotificationListRelationFilter
     notification_settings?: Notification_settingsListRelationFilter
     organisation?: OrganisationListRelationFilter
@@ -17692,12 +17717,13 @@ export namespace Prisma {
     address?: SortOrder
     category?: SortOrder
     pfp_url?: SortOrderInput | SortOrder
+    id_url?: SortOrderInput | SortOrder
     business_status?: SortOrderInput | SortOrder
     password?: SortOrder
     status?: SortOrder
-    created_at?: SortOrderInput | SortOrder
     role_id?: SortOrder
-    id_url?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     notification?: notificationOrderByRelationAggregateInput
     notification_settings?: notification_settingsOrderByRelationAggregateInput
     organisation?: organisationOrderByRelationAggregateInput
@@ -17725,12 +17751,13 @@ export namespace Prisma {
     address?: StringFilter<"user"> | string
     category?: StringFilter<"user"> | string
     pfp_url?: StringNullableFilter<"user"> | string | null
+    id_url?: StringNullableFilter<"user"> | string | null
     business_status?: BoolNullableFilter<"user"> | boolean | null
     password?: StringFilter<"user"> | string
     status?: StringFilter<"user"> | string
-    created_at?: DateTimeNullableFilter<"user"> | Date | string | null
     role_id?: StringFilter<"user"> | string
-    id_url?: StringNullableFilter<"user"> | string | null
+    created_at?: DateTimeNullableFilter<"user"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"user"> | Date | string | null
     notification?: NotificationListRelationFilter
     notification_settings?: Notification_settingsListRelationFilter
     organisation?: OrganisationListRelationFilter
@@ -17754,12 +17781,13 @@ export namespace Prisma {
     address?: SortOrder
     category?: SortOrder
     pfp_url?: SortOrderInput | SortOrder
+    id_url?: SortOrderInput | SortOrder
     business_status?: SortOrderInput | SortOrder
     password?: SortOrder
     status?: SortOrder
-    created_at?: SortOrderInput | SortOrder
     role_id?: SortOrder
-    id_url?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: userCountOrderByAggregateInput
     _max?: userMaxOrderByAggregateInput
     _min?: userMinOrderByAggregateInput
@@ -17777,12 +17805,13 @@ export namespace Prisma {
     address?: StringWithAggregatesFilter<"user"> | string
     category?: StringWithAggregatesFilter<"user"> | string
     pfp_url?: StringNullableWithAggregatesFilter<"user"> | string | null
+    id_url?: StringNullableWithAggregatesFilter<"user"> | string | null
     business_status?: BoolNullableWithAggregatesFilter<"user"> | boolean | null
     password?: StringWithAggregatesFilter<"user"> | string
     status?: StringWithAggregatesFilter<"user"> | string
-    created_at?: DateTimeNullableWithAggregatesFilter<"user"> | Date | string | null
     role_id?: StringWithAggregatesFilter<"user"> | string
-    id_url?: StringNullableWithAggregatesFilter<"user"> | string | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"user"> | Date | string | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"user"> | Date | string | null
   }
 
   export type organisationWhereInput = {
@@ -17801,6 +17830,7 @@ export namespace Prisma {
     type?: StringFilter<"organisation"> | string
     created_at?: DateTimeFilter<"organisation"> | Date | string
     user_id?: StringFilter<"organisation"> | string
+    deleted_at?: DateTimeNullableFilter<"organisation"> | Date | string | null
     case_studies?: Case_studiesListRelationFilter
     contact?: ContactListRelationFilter
     user?: XOR<UserScalarRelationFilter, userWhereInput>
@@ -17819,6 +17849,7 @@ export namespace Prisma {
     type?: SortOrder
     created_at?: SortOrder
     user_id?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     case_studies?: case_studiesOrderByRelationAggregateInput
     contact?: contactOrderByRelationAggregateInput
     user?: userOrderByWithRelationInput
@@ -17841,6 +17872,7 @@ export namespace Prisma {
     type?: StringFilter<"organisation"> | string
     created_at?: DateTimeFilter<"organisation"> | Date | string
     user_id?: StringFilter<"organisation"> | string
+    deleted_at?: DateTimeNullableFilter<"organisation"> | Date | string | null
     case_studies?: Case_studiesListRelationFilter
     contact?: ContactListRelationFilter
     user?: XOR<UserScalarRelationFilter, userWhereInput>
@@ -17859,6 +17891,7 @@ export namespace Prisma {
     type?: SortOrder
     created_at?: SortOrder
     user_id?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: organisationCountOrderByAggregateInput
     _max?: organisationMaxOrderByAggregateInput
     _min?: organisationMinOrderByAggregateInput
@@ -17880,6 +17913,7 @@ export namespace Prisma {
     type?: StringWithAggregatesFilter<"organisation"> | string
     created_at?: DateTimeWithAggregatesFilter<"organisation"> | Date | string
     user_id?: StringWithAggregatesFilter<"organisation"> | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"organisation"> | Date | string | null
   }
 
   export type serviceWhereInput = {
@@ -18723,11 +18757,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -18751,12 +18786,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -18779,11 +18815,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -18807,12 +18844,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -18835,12 +18873,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
   }
 
   export type userUpdateManyMutationInput = {
@@ -18852,11 +18891,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type userUncheckedUpdateManyInput = {
@@ -18868,12 +18908,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type organisationCreateInput = {
@@ -18888,6 +18929,7 @@ export namespace Prisma {
     staff_size: string
     type: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesCreateNestedManyWithoutOrganisationInput
     contact?: contactCreateNestedManyWithoutOrganisationInput
     user: userCreateNestedOneWithoutOrganisationInput
@@ -18906,6 +18948,7 @@ export namespace Prisma {
     type: string
     created_at?: Date | string
     user_id: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesUncheckedCreateNestedManyWithoutOrganisationInput
     contact?: contactUncheckedCreateNestedManyWithoutOrganisationInput
   }
@@ -18922,6 +18965,7 @@ export namespace Prisma {
     staff_size?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUpdateManyWithoutOrganisationNestedInput
     contact?: contactUpdateManyWithoutOrganisationNestedInput
     user?: userUpdateOneRequiredWithoutOrganisationNestedInput
@@ -18940,6 +18984,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_id?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUncheckedUpdateManyWithoutOrganisationNestedInput
     contact?: contactUncheckedUpdateManyWithoutOrganisationNestedInput
   }
@@ -18957,6 +19002,7 @@ export namespace Prisma {
     type: string
     created_at?: Date | string
     user_id: string
+    deleted_at?: Date | string | null
   }
 
   export type organisationUpdateManyMutationInput = {
@@ -18971,6 +19017,7 @@ export namespace Prisma {
     staff_size?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type organisationUncheckedUpdateManyInput = {
@@ -18986,6 +19033,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_id?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type serviceCreateInput = {
@@ -20002,12 +20050,13 @@ export namespace Prisma {
     address?: SortOrder
     category?: SortOrder
     pfp_url?: SortOrder
+    id_url?: SortOrder
     business_status?: SortOrder
     password?: SortOrder
     status?: SortOrder
-    created_at?: SortOrder
     role_id?: SortOrder
-    id_url?: SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type userMaxOrderByAggregateInput = {
@@ -20019,12 +20068,13 @@ export namespace Prisma {
     address?: SortOrder
     category?: SortOrder
     pfp_url?: SortOrder
+    id_url?: SortOrder
     business_status?: SortOrder
     password?: SortOrder
     status?: SortOrder
-    created_at?: SortOrder
     role_id?: SortOrder
-    id_url?: SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type userMinOrderByAggregateInput = {
@@ -20036,12 +20086,13 @@ export namespace Prisma {
     address?: SortOrder
     category?: SortOrder
     pfp_url?: SortOrder
+    id_url?: SortOrder
     business_status?: SortOrder
     password?: SortOrder
     status?: SortOrder
-    created_at?: SortOrder
     role_id?: SortOrder
-    id_url?: SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -20157,6 +20208,7 @@ export namespace Prisma {
     type?: SortOrder
     created_at?: SortOrder
     user_id?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type organisationMaxOrderByAggregateInput = {
@@ -20172,6 +20224,7 @@ export namespace Prisma {
     type?: SortOrder
     created_at?: SortOrder
     user_id?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type organisationMinOrderByAggregateInput = {
@@ -20187,6 +20240,7 @@ export namespace Prisma {
     type?: SortOrder
     created_at?: SortOrder
     user_id?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -22074,6 +22128,7 @@ export namespace Prisma {
     staff_size: string
     type: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesCreateNestedManyWithoutOrganisationInput
     contact?: contactCreateNestedManyWithoutOrganisationInput
   }
@@ -22090,6 +22145,7 @@ export namespace Prisma {
     staff_size: string
     type: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesUncheckedCreateNestedManyWithoutOrganisationInput
     contact?: contactUncheckedCreateNestedManyWithoutOrganisationInput
   }
@@ -22427,6 +22483,7 @@ export namespace Prisma {
     type?: StringFilter<"organisation"> | string
     created_at?: DateTimeFilter<"organisation"> | Date | string
     user_id?: StringFilter<"organisation"> | string
+    deleted_at?: DateTimeNullableFilter<"organisation"> | Date | string | null
   }
 
   export type otpUpsertWithWhereUniqueWithoutUserInput = {
@@ -22746,11 +22803,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     otp?: otpCreateNestedManyWithoutUserInput
@@ -22773,12 +22831,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     otp?: otpUncheckedCreateNestedManyWithoutUserInput
@@ -22875,11 +22934,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     otp?: otpUpdateManyWithoutUserNestedInput
@@ -22902,12 +22962,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     otp?: otpUncheckedUpdateManyWithoutUserNestedInput
@@ -22963,11 +23024,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -22990,12 +23052,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -23103,11 +23166,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -23130,12 +23194,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -23241,11 +23306,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -23268,12 +23334,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -23375,11 +23442,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -23402,12 +23470,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -23432,6 +23501,7 @@ export namespace Prisma {
     staff_size: string
     type: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     contact?: contactCreateNestedManyWithoutOrganisationInput
     user: userCreateNestedOneWithoutOrganisationInput
   }
@@ -23449,6 +23519,7 @@ export namespace Prisma {
     type: string
     created_at?: Date | string
     user_id: string
+    deleted_at?: Date | string | null
     contact?: contactUncheckedCreateNestedManyWithoutOrganisationInput
   }
 
@@ -23509,6 +23580,7 @@ export namespace Prisma {
     staff_size?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     contact?: contactUpdateManyWithoutOrganisationNestedInput
     user?: userUpdateOneRequiredWithoutOrganisationNestedInput
   }
@@ -23526,6 +23598,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_id?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     contact?: contactUncheckedUpdateManyWithoutOrganisationNestedInput
   }
 
@@ -23602,11 +23675,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -23629,12 +23703,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -23707,11 +23782,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -23734,12 +23810,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -23764,6 +23841,7 @@ export namespace Prisma {
     staff_size: string
     type: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesCreateNestedManyWithoutOrganisationInput
     user: userCreateNestedOneWithoutOrganisationInput
   }
@@ -23781,6 +23859,7 @@ export namespace Prisma {
     type: string
     created_at?: Date | string
     user_id: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesUncheckedCreateNestedManyWithoutOrganisationInput
   }
 
@@ -23812,6 +23891,7 @@ export namespace Prisma {
     staff_size?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUpdateManyWithoutOrganisationNestedInput
     user?: userUpdateOneRequiredWithoutOrganisationNestedInput
   }
@@ -23829,6 +23909,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user_id?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUncheckedUpdateManyWithoutOrganisationNestedInput
   }
 
@@ -23841,11 +23922,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -23868,12 +23950,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -23911,11 +23994,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -23938,12 +24022,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -23965,11 +24050,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -23992,12 +24078,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -24035,11 +24122,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -24062,12 +24150,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -24089,11 +24178,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
     otp?: otpCreateNestedManyWithoutUserInput
@@ -24116,12 +24206,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
     otp?: otpUncheckedCreateNestedManyWithoutUserInput
@@ -24159,11 +24250,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
     otp?: otpUpdateManyWithoutUserNestedInput
@@ -24186,12 +24278,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
     otp?: otpUncheckedUpdateManyWithoutUserNestedInput
@@ -24213,11 +24306,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -24240,12 +24334,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -24283,11 +24378,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -24310,12 +24406,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -24337,11 +24434,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
     otp?: otpCreateNestedManyWithoutUserInput
@@ -24364,12 +24462,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
     otp?: otpUncheckedCreateNestedManyWithoutUserInput
@@ -24407,11 +24506,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
     otp?: otpUpdateManyWithoutUserNestedInput
@@ -24434,12 +24534,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
     otp?: otpUncheckedUpdateManyWithoutUserNestedInput
@@ -24570,11 +24671,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -24597,12 +24699,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -24669,11 +24772,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -24696,12 +24800,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -24723,11 +24828,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -24750,12 +24856,13 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
-    created_at?: Date | string | null
     role_id: string
-    id_url?: string | null
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -24782,11 +24889,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsCreateNestedManyWithoutUserInput
     organisation?: organisationCreateNestedManyWithoutUserInput
@@ -24809,11 +24917,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
     notification?: notificationUncheckedCreateNestedManyWithoutUserInput
     notification_settings?: notification_settingsUncheckedCreateNestedManyWithoutUserInput
     organisation?: organisationUncheckedCreateNestedManyWithoutUserInput
@@ -24857,11 +24966,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -24884,12 +24994,13 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role_id?: StringFieldUpdateOperationsInput | string
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -24930,12 +25041,13 @@ export namespace Prisma {
     address?: StringFilter<"user"> | string
     category?: StringFilter<"user"> | string
     pfp_url?: StringNullableFilter<"user"> | string | null
+    id_url?: StringNullableFilter<"user"> | string | null
     business_status?: BoolNullableFilter<"user"> | boolean | null
     password?: StringFilter<"user"> | string
     status?: StringFilter<"user"> | string
-    created_at?: DateTimeNullableFilter<"user"> | Date | string | null
     role_id?: StringFilter<"user"> | string
-    id_url?: StringNullableFilter<"user"> | string | null
+    created_at?: DateTimeNullableFilter<"user"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"user"> | Date | string | null
   }
 
   export type notificationCreateManyUserInput = {
@@ -24966,6 +25078,7 @@ export namespace Prisma {
     staff_size: string
     type: string
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type otpCreateManyUserInput = {
@@ -25091,6 +25204,7 @@ export namespace Prisma {
     staff_size?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUpdateManyWithoutOrganisationNestedInput
     contact?: contactUpdateManyWithoutOrganisationNestedInput
   }
@@ -25107,6 +25221,7 @@ export namespace Prisma {
     staff_size?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUncheckedUpdateManyWithoutOrganisationNestedInput
     contact?: contactUncheckedUpdateManyWithoutOrganisationNestedInput
   }
@@ -25123,6 +25238,7 @@ export namespace Prisma {
     staff_size?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type otpUpdateWithoutUserInput = {
@@ -25591,11 +25707,12 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
+    id_url?: string | null
     business_status?: boolean | null
     password: string
     status?: string
     created_at?: Date | string | null
-    id_url?: string | null
+    deleted_at?: Date | string | null
   }
 
   export type userUpdateWithoutRoleInput = {
@@ -25607,11 +25724,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUpdateManyWithoutUserNestedInput
     organisation?: organisationUpdateManyWithoutUserNestedInput
@@ -25634,11 +25752,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notification?: notificationUncheckedUpdateManyWithoutUserNestedInput
     notification_settings?: notification_settingsUncheckedUpdateManyWithoutUserNestedInput
     organisation?: organisationUncheckedUpdateManyWithoutUserNestedInput
@@ -25661,11 +25780,12 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableStringFieldUpdateOperationsInput | string | null
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

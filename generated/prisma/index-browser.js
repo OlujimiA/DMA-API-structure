@@ -129,12 +129,13 @@ exports.Prisma.UserScalarFieldEnum = {
   address: 'address',
   category: 'category',
   pfp_url: 'pfp_url',
+  id_url: 'id_url',
   business_status: 'business_status',
   password: 'password',
   status: 'status',
-  created_at: 'created_at',
   role_id: 'role_id',
-  id_url: 'id_url'
+  created_at: 'created_at',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.OrganisationScalarFieldEnum = {
@@ -149,7 +150,8 @@ exports.Prisma.OrganisationScalarFieldEnum = {
   staff_size: 'staff_size',
   type: 'type',
   created_at: 'created_at',
-  user_id: 'user_id'
+  user_id: 'user_id',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -289,10 +291,10 @@ exports.Prisma.userOrderByRelevanceFieldEnum = {
   address: 'address',
   category: 'category',
   pfp_url: 'pfp_url',
+  id_url: 'id_url',
   password: 'password',
   status: 'status',
-  role_id: 'role_id',
-  id_url: 'id_url'
+  role_id: 'role_id'
 };
 
 exports.Prisma.organisationOrderByRelevanceFieldEnum = {
