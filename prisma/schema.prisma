@@ -18,12 +18,14 @@ model user {
   address               String                  @db.Text
   category              String                  @db.VarChar(15)
   pfp_url               String?                 @db.Text
+  id_url                String?                 @db.LongText
   business_status       Boolean?
   password              String                  @db.Text
   status                String                  @default("unverified") @db.VarChar(10)
-  created_at            DateTime?               @default(now()) @db.Timestamp(0)
   role_id               String                  @db.Char(36)
-  id_url                String?                 @db.LongText
+  created_at            DateTime?               @default(now()) @db.Timestamp(0)
+  deleted_at            DateTime?               @db.Timestamp(0)
+
   notification          notification[]
   notification_settings notification_settings[]
   organisation          organisation[]
@@ -53,6 +55,7 @@ model organisation {
   type         String         @db.VarChar(50)
   created_at   DateTime       @default(now()) @db.Timestamp(0)
   user_id      String         @db.Char(36)
+  deleted_at   DateTime?      @db.Timestamp(0)
   case_studies case_studies[]
   contact      contact[]
   user         user           @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
