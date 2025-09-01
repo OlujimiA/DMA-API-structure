@@ -2,9 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const cookieParser = require('cookie-parser');
-const { authorizeRoles } = require('./middlewares/authenticate');
 const PORT = process.env.PORT || 3000;
+const cookieParser = require('cookie-parser');
+const auth = require('./middlewares/authmiddleware');
+const { authorizeRoles } = require('./middlewares/authenticate');
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -52,7 +53,7 @@ app.use('/api/orgs', orgRoutes);
 app.use('/api/testimonials', testimonialRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/service-request', requestRoutes);
-app.use('/api/admin', authorizeRoles('admin'), adminRoutes)
+app.use('/api/admin', auth, authorizeRoles('admin'), adminRoutes)
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
