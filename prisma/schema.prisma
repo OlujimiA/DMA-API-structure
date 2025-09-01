@@ -18,7 +18,7 @@ model user {
   address               String                  @db.Text
   category              String                  @db.VarChar(15)
   pfp_url               String?                 @db.Text
-  id_url                String?                 @db.LongText
+  id_url                Json?                 
   business_status       Boolean?
   password              String                  @db.Text
   status                String                  @default("unverified") @db.VarChar(10)
@@ -71,6 +71,7 @@ model service {
   created_at      DateTime?         @default(now()) @db.Timestamp(0)
   admin_id        String            @db.Char(36)
   banner_url      String            @db.Text
+  deleted_at      DateTime?         @db.Timestamp(0)
   case_studies    case_studies[]
   user            user              @relation(fields: [admin_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   service_request service_request[]
@@ -121,6 +122,7 @@ model testimonial {
   service_id String  @db.Char(36)
   stars      Int
   user_title String  @db.Text
+  deleted_at DateTime? @db.Timestamp(0)
   service    service @relation(fields: [service_id], references: [id])
   user       user    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -133,7 +135,9 @@ model contact {
   name            String       @db.VarChar(100)
   pfp_url         String       @db.Text
   organisation_id String       @db.Char(36)
-  id_url          String       @db.LongText
+  id_url          Json
+  created_at      DateTime?    @default(now()) @db.Timestamp(0)
+  deleted_at      DateTime?    @db.Timestamp(0)
   organisation    organisation @relation(fields: [organisation_id], references: [id])
 
   @@index([organisation_id])
@@ -227,6 +231,7 @@ model role {
   description String?  @db.Text
   created_at  DateTime @default(now()) @db.Timestamp(0)
   created_by  String?  @db.Char(36)
+  deleted_at  DateTime?@db.Timestamp(0)
   creator     user?    @relation("RoleCreator", fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
   user        user[]   @relation("UserRole")
 

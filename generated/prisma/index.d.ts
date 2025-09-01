@@ -2322,7 +2322,6 @@ export namespace Prisma {
     address: string | null
     category: string | null
     pfp_url: string | null
-    id_url: string | null
     business_status: boolean | null
     password: string | null
     status: string | null
@@ -2340,7 +2339,6 @@ export namespace Prisma {
     address: string | null
     category: string | null
     pfp_url: string | null
-    id_url: string | null
     business_status: boolean | null
     password: string | null
     status: string | null
@@ -2378,7 +2376,6 @@ export namespace Prisma {
     address?: true
     category?: true
     pfp_url?: true
-    id_url?: true
     business_status?: true
     password?: true
     status?: true
@@ -2396,7 +2393,6 @@ export namespace Prisma {
     address?: true
     category?: true
     pfp_url?: true
-    id_url?: true
     business_status?: true
     password?: true
     status?: true
@@ -2505,7 +2501,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url: string | null
-    id_url: string | null
+    id_url: JsonValue | null
     business_status: boolean | null
     password: string
     status: string
@@ -2624,7 +2620,7 @@ export namespace Prisma {
       address: string
       category: string
       pfp_url: string | null
-      id_url: string | null
+      id_url: Prisma.JsonValue | null
       business_status: boolean | null
       password: string
       status: string
@@ -3020,7 +3016,7 @@ export namespace Prisma {
     readonly address: FieldRef<"user", 'String'>
     readonly category: FieldRef<"user", 'String'>
     readonly pfp_url: FieldRef<"user", 'String'>
-    readonly id_url: FieldRef<"user", 'String'>
+    readonly id_url: FieldRef<"user", 'Json'>
     readonly business_status: FieldRef<"user", 'Boolean'>
     readonly password: FieldRef<"user", 'String'>
     readonly status: FieldRef<"user", 'String'>
@@ -4745,6 +4741,7 @@ export namespace Prisma {
     created_at: Date | null
     admin_id: string | null
     banner_url: string | null
+    deleted_at: Date | null
   }
 
   export type ServiceMaxAggregateOutputType = {
@@ -4755,6 +4752,7 @@ export namespace Prisma {
     created_at: Date | null
     admin_id: string | null
     banner_url: string | null
+    deleted_at: Date | null
   }
 
   export type ServiceCountAggregateOutputType = {
@@ -4765,6 +4763,7 @@ export namespace Prisma {
     created_at: number
     admin_id: number
     banner_url: number
+    deleted_at: number
     _all: number
   }
 
@@ -4777,6 +4776,7 @@ export namespace Prisma {
     created_at?: true
     admin_id?: true
     banner_url?: true
+    deleted_at?: true
   }
 
   export type ServiceMaxAggregateInputType = {
@@ -4787,6 +4787,7 @@ export namespace Prisma {
     created_at?: true
     admin_id?: true
     banner_url?: true
+    deleted_at?: true
   }
 
   export type ServiceCountAggregateInputType = {
@@ -4797,6 +4798,7 @@ export namespace Prisma {
     created_at?: true
     admin_id?: true
     banner_url?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -4880,6 +4882,7 @@ export namespace Prisma {
     created_at: Date | null
     admin_id: string
     banner_url: string
+    deleted_at: Date | null
     _count: ServiceCountAggregateOutputType | null
     _min: ServiceMinAggregateOutputType | null
     _max: ServiceMaxAggregateOutputType | null
@@ -4907,6 +4910,7 @@ export namespace Prisma {
     created_at?: boolean
     admin_id?: boolean
     banner_url?: boolean
+    deleted_at?: boolean
     case_studies?: boolean | service$case_studiesArgs<ExtArgs>
     user?: boolean | userDefaultArgs<ExtArgs>
     service_request?: boolean | service$service_requestArgs<ExtArgs>
@@ -4924,9 +4928,10 @@ export namespace Prisma {
     created_at?: boolean
     admin_id?: boolean
     banner_url?: boolean
+    deleted_at?: boolean
   }
 
-  export type serviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "subtitle" | "created_at" | "admin_id" | "banner_url", ExtArgs["result"]["service"]>
+  export type serviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "subtitle" | "created_at" | "admin_id" | "banner_url" | "deleted_at", ExtArgs["result"]["service"]>
   export type serviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     case_studies?: boolean | service$case_studiesArgs<ExtArgs>
     user?: boolean | userDefaultArgs<ExtArgs>
@@ -4951,6 +4956,7 @@ export namespace Prisma {
       created_at: Date | null
       admin_id: string
       banner_url: string
+      deleted_at: Date | null
     }, ExtArgs["result"]["service"]>
     composites: {}
   }
@@ -5331,6 +5337,7 @@ export namespace Prisma {
     readonly created_at: FieldRef<"service", 'DateTime'>
     readonly admin_id: FieldRef<"service", 'String'>
     readonly banner_url: FieldRef<"service", 'String'>
+    readonly deleted_at: FieldRef<"service", 'DateTime'>
   }
     
 
@@ -7738,6 +7745,7 @@ export namespace Prisma {
     service_id: string | null
     stars: number | null
     user_title: string | null
+    deleted_at: Date | null
   }
 
   export type TestimonialMaxAggregateOutputType = {
@@ -7747,6 +7755,7 @@ export namespace Prisma {
     service_id: string | null
     stars: number | null
     user_title: string | null
+    deleted_at: Date | null
   }
 
   export type TestimonialCountAggregateOutputType = {
@@ -7756,6 +7765,7 @@ export namespace Prisma {
     service_id: number
     stars: number
     user_title: number
+    deleted_at: number
     _all: number
   }
 
@@ -7775,6 +7785,7 @@ export namespace Prisma {
     service_id?: true
     stars?: true
     user_title?: true
+    deleted_at?: true
   }
 
   export type TestimonialMaxAggregateInputType = {
@@ -7784,6 +7795,7 @@ export namespace Prisma {
     service_id?: true
     stars?: true
     user_title?: true
+    deleted_at?: true
   }
 
   export type TestimonialCountAggregateInputType = {
@@ -7793,6 +7805,7 @@ export namespace Prisma {
     service_id?: true
     stars?: true
     user_title?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -7889,6 +7902,7 @@ export namespace Prisma {
     service_id: string
     stars: number
     user_title: string
+    deleted_at: Date | null
     _count: TestimonialCountAggregateOutputType | null
     _avg: TestimonialAvgAggregateOutputType | null
     _sum: TestimonialSumAggregateOutputType | null
@@ -7917,6 +7931,7 @@ export namespace Prisma {
     service_id?: boolean
     stars?: boolean
     user_title?: boolean
+    deleted_at?: boolean
     service?: boolean | serviceDefaultArgs<ExtArgs>
     user?: boolean | userDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["testimonial"]>
@@ -7930,9 +7945,10 @@ export namespace Prisma {
     service_id?: boolean
     stars?: boolean
     user_title?: boolean
+    deleted_at?: boolean
   }
 
-  export type testimonialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "user_id" | "service_id" | "stars" | "user_title", ExtArgs["result"]["testimonial"]>
+  export type testimonialOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "message" | "user_id" | "service_id" | "stars" | "user_title" | "deleted_at", ExtArgs["result"]["testimonial"]>
   export type testimonialInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     service?: boolean | serviceDefaultArgs<ExtArgs>
     user?: boolean | userDefaultArgs<ExtArgs>
@@ -7951,6 +7967,7 @@ export namespace Prisma {
       service_id: string
       stars: number
       user_title: string
+      deleted_at: Date | null
     }, ExtArgs["result"]["testimonial"]>
     composites: {}
   }
@@ -8328,6 +8345,7 @@ export namespace Prisma {
     readonly service_id: FieldRef<"testimonial", 'String'>
     readonly stars: FieldRef<"testimonial", 'Int'>
     readonly user_title: FieldRef<"testimonial", 'String'>
+    readonly deleted_at: FieldRef<"testimonial", 'DateTime'>
   }
     
 
@@ -8704,7 +8722,8 @@ export namespace Prisma {
     name: string | null
     pfp_url: string | null
     organisation_id: string | null
-    id_url: string | null
+    created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type ContactMaxAggregateOutputType = {
@@ -8712,7 +8731,8 @@ export namespace Prisma {
     name: string | null
     pfp_url: string | null
     organisation_id: string | null
-    id_url: string | null
+    created_at: Date | null
+    deleted_at: Date | null
   }
 
   export type ContactCountAggregateOutputType = {
@@ -8721,6 +8741,8 @@ export namespace Prisma {
     pfp_url: number
     organisation_id: number
     id_url: number
+    created_at: number
+    deleted_at: number
     _all: number
   }
 
@@ -8730,7 +8752,8 @@ export namespace Prisma {
     name?: true
     pfp_url?: true
     organisation_id?: true
-    id_url?: true
+    created_at?: true
+    deleted_at?: true
   }
 
   export type ContactMaxAggregateInputType = {
@@ -8738,7 +8761,8 @@ export namespace Prisma {
     name?: true
     pfp_url?: true
     organisation_id?: true
-    id_url?: true
+    created_at?: true
+    deleted_at?: true
   }
 
   export type ContactCountAggregateInputType = {
@@ -8747,6 +8771,8 @@ export namespace Prisma {
     pfp_url?: true
     organisation_id?: true
     id_url?: true
+    created_at?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -8827,7 +8853,9 @@ export namespace Prisma {
     name: string
     pfp_url: string
     organisation_id: string
-    id_url: string
+    id_url: JsonValue
+    created_at: Date | null
+    deleted_at: Date | null
     _count: ContactCountAggregateOutputType | null
     _min: ContactMinAggregateOutputType | null
     _max: ContactMaxAggregateOutputType | null
@@ -8853,6 +8881,8 @@ export namespace Prisma {
     pfp_url?: boolean
     organisation_id?: boolean
     id_url?: boolean
+    created_at?: boolean
+    deleted_at?: boolean
     organisation?: boolean | organisationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["contact"]>
 
@@ -8864,9 +8894,11 @@ export namespace Prisma {
     pfp_url?: boolean
     organisation_id?: boolean
     id_url?: boolean
+    created_at?: boolean
+    deleted_at?: boolean
   }
 
-  export type contactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "pfp_url" | "organisation_id" | "id_url", ExtArgs["result"]["contact"]>
+  export type contactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "pfp_url" | "organisation_id" | "id_url" | "created_at" | "deleted_at", ExtArgs["result"]["contact"]>
   export type contactInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     organisation?: boolean | organisationDefaultArgs<ExtArgs>
   }
@@ -8881,7 +8913,9 @@ export namespace Prisma {
       name: string
       pfp_url: string
       organisation_id: string
-      id_url: string
+      id_url: Prisma.JsonValue
+      created_at: Date | null
+      deleted_at: Date | null
     }, ExtArgs["result"]["contact"]>
     composites: {}
   }
@@ -9256,7 +9290,9 @@ export namespace Prisma {
     readonly name: FieldRef<"contact", 'String'>
     readonly pfp_url: FieldRef<"contact", 'String'>
     readonly organisation_id: FieldRef<"contact", 'String'>
-    readonly id_url: FieldRef<"contact", 'String'>
+    readonly id_url: FieldRef<"contact", 'Json'>
+    readonly created_at: FieldRef<"contact", 'DateTime'>
+    readonly deleted_at: FieldRef<"contact", 'DateTime'>
   }
     
 
@@ -16273,6 +16309,7 @@ export namespace Prisma {
     description: string | null
     created_at: Date | null
     created_by: string | null
+    deleted_at: Date | null
   }
 
   export type RoleMaxAggregateOutputType = {
@@ -16281,6 +16318,7 @@ export namespace Prisma {
     description: string | null
     created_at: Date | null
     created_by: string | null
+    deleted_at: Date | null
   }
 
   export type RoleCountAggregateOutputType = {
@@ -16289,6 +16327,7 @@ export namespace Prisma {
     description: number
     created_at: number
     created_by: number
+    deleted_at: number
     _all: number
   }
 
@@ -16299,6 +16338,7 @@ export namespace Prisma {
     description?: true
     created_at?: true
     created_by?: true
+    deleted_at?: true
   }
 
   export type RoleMaxAggregateInputType = {
@@ -16307,6 +16347,7 @@ export namespace Prisma {
     description?: true
     created_at?: true
     created_by?: true
+    deleted_at?: true
   }
 
   export type RoleCountAggregateInputType = {
@@ -16315,6 +16356,7 @@ export namespace Prisma {
     description?: true
     created_at?: true
     created_by?: true
+    deleted_at?: true
     _all?: true
   }
 
@@ -16396,6 +16438,7 @@ export namespace Prisma {
     description: string | null
     created_at: Date
     created_by: string | null
+    deleted_at: Date | null
     _count: RoleCountAggregateOutputType | null
     _min: RoleMinAggregateOutputType | null
     _max: RoleMaxAggregateOutputType | null
@@ -16421,6 +16464,7 @@ export namespace Prisma {
     description?: boolean
     created_at?: boolean
     created_by?: boolean
+    deleted_at?: boolean
     creator?: boolean | role$creatorArgs<ExtArgs>
     user?: boolean | role$userArgs<ExtArgs>
     _count?: boolean | RoleCountOutputTypeDefaultArgs<ExtArgs>
@@ -16434,9 +16478,10 @@ export namespace Prisma {
     description?: boolean
     created_at?: boolean
     created_by?: boolean
+    deleted_at?: boolean
   }
 
-  export type roleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "created_at" | "created_by", ExtArgs["result"]["role"]>
+  export type roleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "created_at" | "created_by" | "deleted_at", ExtArgs["result"]["role"]>
   export type roleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     creator?: boolean | role$creatorArgs<ExtArgs>
     user?: boolean | role$userArgs<ExtArgs>
@@ -16455,6 +16500,7 @@ export namespace Prisma {
       description: string | null
       created_at: Date
       created_by: string | null
+      deleted_at: Date | null
     }, ExtArgs["result"]["role"]>
     composites: {}
   }
@@ -16831,6 +16877,7 @@ export namespace Prisma {
     readonly description: FieldRef<"role", 'String'>
     readonly created_at: FieldRef<"role", 'DateTime'>
     readonly created_by: FieldRef<"role", 'String'>
+    readonly deleted_at: FieldRef<"role", 'DateTime'>
   }
     
 
@@ -17296,7 +17343,8 @@ export namespace Prisma {
     subtitle: 'subtitle',
     created_at: 'created_at',
     admin_id: 'admin_id',
-    banner_url: 'banner_url'
+    banner_url: 'banner_url',
+    deleted_at: 'deleted_at'
   };
 
   export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
@@ -17337,7 +17385,8 @@ export namespace Prisma {
     user_id: 'user_id',
     service_id: 'service_id',
     stars: 'stars',
-    user_title: 'user_title'
+    user_title: 'user_title',
+    deleted_at: 'deleted_at'
   };
 
   export type TestimonialScalarFieldEnum = (typeof TestimonialScalarFieldEnum)[keyof typeof TestimonialScalarFieldEnum]
@@ -17348,7 +17397,9 @@ export namespace Prisma {
     name: 'name',
     pfp_url: 'pfp_url',
     organisation_id: 'organisation_id',
-    id_url: 'id_url'
+    id_url: 'id_url',
+    created_at: 'created_at',
+    deleted_at: 'deleted_at'
   };
 
   export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeof ContactScalarFieldEnum]
@@ -17440,7 +17491,8 @@ export namespace Prisma {
     title: 'title',
     description: 'description',
     created_at: 'created_at',
-    created_by: 'created_by'
+    created_by: 'created_by',
+    deleted_at: 'deleted_at'
   };
 
   export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
@@ -17452,6 +17504,38 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
   export const NullsOrder: {
@@ -17471,7 +17555,6 @@ export namespace Prisma {
     address: 'address',
     category: 'category',
     pfp_url: 'pfp_url',
-    id_url: 'id_url',
     password: 'password',
     status: 'status',
     role_id: 'role_id'
@@ -17552,8 +17635,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     pfp_url: 'pfp_url',
-    organisation_id: 'organisation_id',
-    id_url: 'id_url'
+    organisation_id: 'organisation_id'
   };
 
   export type contactOrderByRelevanceFieldEnum = (typeof contactOrderByRelevanceFieldEnum)[keyof typeof contactOrderByRelevanceFieldEnum]
@@ -17645,6 +17727,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -17687,7 +17783,7 @@ export namespace Prisma {
     address?: StringFilter<"user"> | string
     category?: StringFilter<"user"> | string
     pfp_url?: StringNullableFilter<"user"> | string | null
-    id_url?: StringNullableFilter<"user"> | string | null
+    id_url?: JsonNullableFilter<"user">
     business_status?: BoolNullableFilter<"user"> | boolean | null
     password?: StringFilter<"user"> | string
     status?: StringFilter<"user"> | string
@@ -17751,7 +17847,7 @@ export namespace Prisma {
     address?: StringFilter<"user"> | string
     category?: StringFilter<"user"> | string
     pfp_url?: StringNullableFilter<"user"> | string | null
-    id_url?: StringNullableFilter<"user"> | string | null
+    id_url?: JsonNullableFilter<"user">
     business_status?: BoolNullableFilter<"user"> | boolean | null
     password?: StringFilter<"user"> | string
     status?: StringFilter<"user"> | string
@@ -17805,7 +17901,7 @@ export namespace Prisma {
     address?: StringWithAggregatesFilter<"user"> | string
     category?: StringWithAggregatesFilter<"user"> | string
     pfp_url?: StringNullableWithAggregatesFilter<"user"> | string | null
-    id_url?: StringNullableWithAggregatesFilter<"user"> | string | null
+    id_url?: JsonNullableWithAggregatesFilter<"user">
     business_status?: BoolNullableWithAggregatesFilter<"user"> | boolean | null
     password?: StringWithAggregatesFilter<"user"> | string
     status?: StringWithAggregatesFilter<"user"> | string
@@ -17927,6 +18023,7 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"service"> | Date | string | null
     admin_id?: StringFilter<"service"> | string
     banner_url?: StringFilter<"service"> | string
+    deleted_at?: DateTimeNullableFilter<"service"> | Date | string | null
     case_studies?: Case_studiesListRelationFilter
     user?: XOR<UserScalarRelationFilter, userWhereInput>
     service_request?: Service_requestListRelationFilter
@@ -17941,6 +18038,7 @@ export namespace Prisma {
     created_at?: SortOrderInput | SortOrder
     admin_id?: SortOrder
     banner_url?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     case_studies?: case_studiesOrderByRelationAggregateInput
     user?: userOrderByWithRelationInput
     service_request?: service_requestOrderByRelationAggregateInput
@@ -17959,6 +18057,7 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"service"> | Date | string | null
     admin_id?: StringFilter<"service"> | string
     banner_url?: StringFilter<"service"> | string
+    deleted_at?: DateTimeNullableFilter<"service"> | Date | string | null
     case_studies?: Case_studiesListRelationFilter
     user?: XOR<UserScalarRelationFilter, userWhereInput>
     service_request?: Service_requestListRelationFilter
@@ -17973,6 +18072,7 @@ export namespace Prisma {
     created_at?: SortOrderInput | SortOrder
     admin_id?: SortOrder
     banner_url?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: serviceCountOrderByAggregateInput
     _max?: serviceMaxOrderByAggregateInput
     _min?: serviceMinOrderByAggregateInput
@@ -17989,6 +18089,7 @@ export namespace Prisma {
     created_at?: DateTimeNullableWithAggregatesFilter<"service"> | Date | string | null
     admin_id?: StringWithAggregatesFilter<"service"> | string
     banner_url?: StringWithAggregatesFilter<"service"> | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"service"> | Date | string | null
   }
 
   export type service_requestWhereInput = {
@@ -18157,6 +18258,7 @@ export namespace Prisma {
     service_id?: StringFilter<"testimonial"> | string
     stars?: IntFilter<"testimonial"> | number
     user_title?: StringFilter<"testimonial"> | string
+    deleted_at?: DateTimeNullableFilter<"testimonial"> | Date | string | null
     service?: XOR<ServiceScalarRelationFilter, serviceWhereInput>
     user?: XOR<UserScalarRelationFilter, userWhereInput>
   }
@@ -18168,6 +18270,7 @@ export namespace Prisma {
     service_id?: SortOrder
     stars?: SortOrder
     user_title?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     service?: serviceOrderByWithRelationInput
     user?: userOrderByWithRelationInput
     _relevance?: testimonialOrderByRelevanceInput
@@ -18183,6 +18286,7 @@ export namespace Prisma {
     service_id?: StringFilter<"testimonial"> | string
     stars?: IntFilter<"testimonial"> | number
     user_title?: StringFilter<"testimonial"> | string
+    deleted_at?: DateTimeNullableFilter<"testimonial"> | Date | string | null
     service?: XOR<ServiceScalarRelationFilter, serviceWhereInput>
     user?: XOR<UserScalarRelationFilter, userWhereInput>
   }, "id">
@@ -18194,6 +18298,7 @@ export namespace Prisma {
     service_id?: SortOrder
     stars?: SortOrder
     user_title?: SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: testimonialCountOrderByAggregateInput
     _avg?: testimonialAvgOrderByAggregateInput
     _max?: testimonialMaxOrderByAggregateInput
@@ -18211,6 +18316,7 @@ export namespace Prisma {
     service_id?: StringWithAggregatesFilter<"testimonial"> | string
     stars?: IntWithAggregatesFilter<"testimonial"> | number
     user_title?: StringWithAggregatesFilter<"testimonial"> | string
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"testimonial"> | Date | string | null
   }
 
   export type contactWhereInput = {
@@ -18221,7 +18327,9 @@ export namespace Prisma {
     name?: StringFilter<"contact"> | string
     pfp_url?: StringFilter<"contact"> | string
     organisation_id?: StringFilter<"contact"> | string
-    id_url?: StringFilter<"contact"> | string
+    id_url?: JsonFilter<"contact">
+    created_at?: DateTimeNullableFilter<"contact"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"contact"> | Date | string | null
     organisation?: XOR<OrganisationScalarRelationFilter, organisationWhereInput>
   }
 
@@ -18231,6 +18339,8 @@ export namespace Prisma {
     pfp_url?: SortOrder
     organisation_id?: SortOrder
     id_url?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     organisation?: organisationOrderByWithRelationInput
     _relevance?: contactOrderByRelevanceInput
   }
@@ -18243,7 +18353,9 @@ export namespace Prisma {
     name?: StringFilter<"contact"> | string
     pfp_url?: StringFilter<"contact"> | string
     organisation_id?: StringFilter<"contact"> | string
-    id_url?: StringFilter<"contact"> | string
+    id_url?: JsonFilter<"contact">
+    created_at?: DateTimeNullableFilter<"contact"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"contact"> | Date | string | null
     organisation?: XOR<OrganisationScalarRelationFilter, organisationWhereInput>
   }, "id">
 
@@ -18253,6 +18365,8 @@ export namespace Prisma {
     pfp_url?: SortOrder
     organisation_id?: SortOrder
     id_url?: SortOrder
+    created_at?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: contactCountOrderByAggregateInput
     _max?: contactMaxOrderByAggregateInput
     _min?: contactMinOrderByAggregateInput
@@ -18266,7 +18380,9 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"contact"> | string
     pfp_url?: StringWithAggregatesFilter<"contact"> | string
     organisation_id?: StringWithAggregatesFilter<"contact"> | string
-    id_url?: StringWithAggregatesFilter<"contact"> | string
+    id_url?: JsonWithAggregatesFilter<"contact">
+    created_at?: DateTimeNullableWithAggregatesFilter<"contact"> | Date | string | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"contact"> | Date | string | null
   }
 
   export type otpWhereInput = {
@@ -18698,6 +18814,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"role"> | string | null
     created_at?: DateTimeFilter<"role"> | Date | string
     created_by?: StringNullableFilter<"role"> | string | null
+    deleted_at?: DateTimeNullableFilter<"role"> | Date | string | null
     creator?: XOR<UserNullableScalarRelationFilter, userWhereInput> | null
     user?: UserListRelationFilter
   }
@@ -18708,6 +18825,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     created_at?: SortOrder
     created_by?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     creator?: userOrderByWithRelationInput
     user?: userOrderByRelationAggregateInput
     _relevance?: roleOrderByRelevanceInput
@@ -18722,6 +18840,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"role"> | string | null
     created_at?: DateTimeFilter<"role"> | Date | string
     created_by?: StringNullableFilter<"role"> | string | null
+    deleted_at?: DateTimeNullableFilter<"role"> | Date | string | null
     creator?: XOR<UserNullableScalarRelationFilter, userWhereInput> | null
     user?: UserListRelationFilter
   }, "id">
@@ -18732,6 +18851,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     created_at?: SortOrder
     created_by?: SortOrderInput | SortOrder
+    deleted_at?: SortOrderInput | SortOrder
     _count?: roleCountOrderByAggregateInput
     _max?: roleMaxOrderByAggregateInput
     _min?: roleMinOrderByAggregateInput
@@ -18746,6 +18866,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"role"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"role"> | Date | string
     created_by?: StringNullableWithAggregatesFilter<"role"> | string | null
+    deleted_at?: DateTimeNullableWithAggregatesFilter<"role"> | Date | string | null
   }
 
   export type userCreateInput = {
@@ -18757,7 +18878,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -18786,7 +18907,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -18815,7 +18936,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -18844,7 +18965,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -18873,7 +18994,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -18891,7 +19012,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -18908,7 +19029,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -19043,6 +19164,7 @@ export namespace Prisma {
     subtitle: string
     created_at?: Date | string | null
     banner_url: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesCreateNestedManyWithoutServiceInput
     user: userCreateNestedOneWithoutServiceInput
     service_request?: service_requestCreateNestedManyWithoutServiceInput
@@ -19057,6 +19179,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     admin_id: string
     banner_url: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesUncheckedCreateNestedManyWithoutServiceInput
     service_request?: service_requestUncheckedCreateNestedManyWithoutServiceInput
     testimonial?: testimonialUncheckedCreateNestedManyWithoutServiceInput
@@ -19069,6 +19192,7 @@ export namespace Prisma {
     subtitle?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUpdateManyWithoutServiceNestedInput
     user?: userUpdateOneRequiredWithoutServiceNestedInput
     service_request?: service_requestUpdateManyWithoutServiceNestedInput
@@ -19083,6 +19207,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     admin_id?: StringFieldUpdateOperationsInput | string
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUncheckedUpdateManyWithoutServiceNestedInput
     service_request?: service_requestUncheckedUpdateManyWithoutServiceNestedInput
     testimonial?: testimonialUncheckedUpdateManyWithoutServiceNestedInput
@@ -19096,6 +19221,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     admin_id: string
     banner_url: string
+    deleted_at?: Date | string | null
   }
 
   export type serviceUpdateManyMutationInput = {
@@ -19105,6 +19231,7 @@ export namespace Prisma {
     subtitle?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type serviceUncheckedUpdateManyInput = {
@@ -19115,6 +19242,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     admin_id?: StringFieldUpdateOperationsInput | string
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type service_requestCreateInput = {
@@ -19278,6 +19406,7 @@ export namespace Prisma {
     message: string
     stars: number
     user_title: string
+    deleted_at?: Date | string | null
     service: serviceCreateNestedOneWithoutTestimonialInput
     user: userCreateNestedOneWithoutTestimonialInput
   }
@@ -19289,6 +19418,7 @@ export namespace Prisma {
     service_id: string
     stars: number
     user_title: string
+    deleted_at?: Date | string | null
   }
 
   export type testimonialUpdateInput = {
@@ -19296,6 +19426,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     service?: serviceUpdateOneRequiredWithoutTestimonialNestedInput
     user?: userUpdateOneRequiredWithoutTestimonialNestedInput
   }
@@ -19307,6 +19438,7 @@ export namespace Prisma {
     service_id?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type testimonialCreateManyInput = {
@@ -19316,6 +19448,7 @@ export namespace Prisma {
     service_id: string
     stars: number
     user_title: string
+    deleted_at?: Date | string | null
   }
 
   export type testimonialUpdateManyMutationInput = {
@@ -19323,6 +19456,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type testimonialUncheckedUpdateManyInput = {
@@ -19332,13 +19466,16 @@ export namespace Prisma {
     service_id?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type contactCreateInput = {
     id?: string
     name: string
     pfp_url: string
-    id_url: string
+    id_url: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
     organisation: organisationCreateNestedOneWithoutContactInput
   }
 
@@ -19347,14 +19484,18 @@ export namespace Prisma {
     name: string
     pfp_url: string
     organisation_id: string
-    id_url: string
+    id_url: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
   }
 
   export type contactUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pfp_url?: StringFieldUpdateOperationsInput | string
-    id_url?: StringFieldUpdateOperationsInput | string
+    id_url?: JsonNullValueInput | InputJsonValue
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     organisation?: organisationUpdateOneRequiredWithoutContactNestedInput
   }
 
@@ -19363,7 +19504,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     pfp_url?: StringFieldUpdateOperationsInput | string
     organisation_id?: StringFieldUpdateOperationsInput | string
-    id_url?: StringFieldUpdateOperationsInput | string
+    id_url?: JsonNullValueInput | InputJsonValue
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type contactCreateManyInput = {
@@ -19371,14 +19514,18 @@ export namespace Prisma {
     name: string
     pfp_url: string
     organisation_id: string
-    id_url: string
+    id_url: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
   }
 
   export type contactUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pfp_url?: StringFieldUpdateOperationsInput | string
-    id_url?: StringFieldUpdateOperationsInput | string
+    id_url?: JsonNullValueInput | InputJsonValue
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type contactUncheckedUpdateManyInput = {
@@ -19386,7 +19533,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     pfp_url?: StringFieldUpdateOperationsInput | string
     organisation_id?: StringFieldUpdateOperationsInput | string
-    id_url?: StringFieldUpdateOperationsInput | string
+    id_url?: JsonNullValueInput | InputJsonValue
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type otpCreateInput = {
@@ -19815,6 +19964,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     created_at?: Date | string
+    deleted_at?: Date | string | null
     creator?: userCreateNestedOneWithoutCreated_roleInput
     user?: userCreateNestedManyWithoutRoleInput
   }
@@ -19825,6 +19975,7 @@ export namespace Prisma {
     description?: string | null
     created_at?: Date | string
     created_by?: string | null
+    deleted_at?: Date | string | null
     user?: userUncheckedCreateNestedManyWithoutRoleInput
   }
 
@@ -19833,6 +19984,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: userUpdateOneWithoutCreated_roleNestedInput
     user?: userUpdateManyWithoutRoleNestedInput
   }
@@ -19843,6 +19995,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: userUncheckedUpdateManyWithoutRoleNestedInput
   }
 
@@ -19852,6 +20005,7 @@ export namespace Prisma {
     description?: string | null
     created_at?: Date | string
     created_by?: string | null
+    deleted_at?: Date | string | null
   }
 
   export type roleUpdateManyMutationInput = {
@@ -19859,6 +20013,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type roleUncheckedUpdateManyInput = {
@@ -19867,6 +20022,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -19897,6 +20053,29 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type BoolNullableFilter<$PrismaModel = never> = {
@@ -20068,7 +20247,6 @@ export namespace Prisma {
     address?: SortOrder
     category?: SortOrder
     pfp_url?: SortOrder
-    id_url?: SortOrder
     business_status?: SortOrder
     password?: SortOrder
     status?: SortOrder
@@ -20086,7 +20264,6 @@ export namespace Prisma {
     address?: SortOrder
     category?: SortOrder
     pfp_url?: SortOrder
-    id_url?: SortOrder
     business_status?: SortOrder
     password?: SortOrder
     status?: SortOrder
@@ -20129,6 +20306,32 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -20271,6 +20474,7 @@ export namespace Prisma {
     created_at?: SortOrder
     admin_id?: SortOrder
     banner_url?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type serviceMaxOrderByAggregateInput = {
@@ -20281,6 +20485,7 @@ export namespace Prisma {
     created_at?: SortOrder
     admin_id?: SortOrder
     banner_url?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type serviceMinOrderByAggregateInput = {
@@ -20291,6 +20496,7 @@ export namespace Prisma {
     created_at?: SortOrder
     admin_id?: SortOrder
     banner_url?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type PlanScalarRelationFilter = {
@@ -20413,6 +20619,7 @@ export namespace Prisma {
     service_id?: SortOrder
     stars?: SortOrder
     user_title?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type testimonialAvgOrderByAggregateInput = {
@@ -20426,6 +20633,7 @@ export namespace Prisma {
     service_id?: SortOrder
     stars?: SortOrder
     user_title?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type testimonialMinOrderByAggregateInput = {
@@ -20435,6 +20643,7 @@ export namespace Prisma {
     service_id?: SortOrder
     stars?: SortOrder
     user_title?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type testimonialSumOrderByAggregateInput = {
@@ -20456,6 +20665,29 @@ export namespace Prisma {
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type contactOrderByRelevanceInput = {
     fields: contactOrderByRelevanceFieldEnum | contactOrderByRelevanceFieldEnum[]
@@ -20469,6 +20701,8 @@ export namespace Prisma {
     pfp_url?: SortOrder
     organisation_id?: SortOrder
     id_url?: SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type contactMaxOrderByAggregateInput = {
@@ -20476,7 +20710,8 @@ export namespace Prisma {
     name?: SortOrder
     pfp_url?: SortOrder
     organisation_id?: SortOrder
-    id_url?: SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type contactMinOrderByAggregateInput = {
@@ -20484,7 +20719,34 @@ export namespace Prisma {
     name?: SortOrder
     pfp_url?: SortOrder
     organisation_id?: SortOrder
-    id_url?: SortOrder
+    created_at?: SortOrder
+    deleted_at?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type otpOrderByRelevanceInput = {
@@ -20757,6 +21019,7 @@ export namespace Prisma {
     description?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type roleMaxOrderByAggregateInput = {
@@ -20765,6 +21028,7 @@ export namespace Prisma {
     description?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type roleMinOrderByAggregateInput = {
@@ -20773,6 +21037,7 @@ export namespace Prisma {
     description?: SortOrder
     created_at?: SortOrder
     created_by?: SortOrder
+    deleted_at?: SortOrder
   }
 
   export type notificationCreateNestedManyWithoutUserInput = {
@@ -21976,6 +22241,29 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
@@ -22049,6 +22337,29 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue
+    lte?: InputJsonValue
+    gt?: InputJsonValue
+    gte?: InputJsonValue
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -22239,6 +22550,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     created_at?: Date | string
+    deleted_at?: Date | string | null
     user?: userCreateNestedManyWithoutRoleInput
   }
 
@@ -22247,6 +22559,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     created_at?: Date | string
+    deleted_at?: Date | string | null
     user?: userUncheckedCreateNestedManyWithoutRoleInput
   }
 
@@ -22267,6 +22580,7 @@ export namespace Prisma {
     subtitle: string
     created_at?: Date | string | null
     banner_url: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesCreateNestedManyWithoutServiceInput
     service_request?: service_requestCreateNestedManyWithoutServiceInput
     testimonial?: testimonialCreateNestedManyWithoutServiceInput
@@ -22279,6 +22593,7 @@ export namespace Prisma {
     subtitle: string
     created_at?: Date | string | null
     banner_url: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesUncheckedCreateNestedManyWithoutServiceInput
     service_request?: service_requestUncheckedCreateNestedManyWithoutServiceInput
     testimonial?: testimonialUncheckedCreateNestedManyWithoutServiceInput
@@ -22353,6 +22668,7 @@ export namespace Prisma {
     message: string
     stars: number
     user_title: string
+    deleted_at?: Date | string | null
     service: serviceCreateNestedOneWithoutTestimonialInput
   }
 
@@ -22362,6 +22678,7 @@ export namespace Prisma {
     service_id: string
     stars: number
     user_title: string
+    deleted_at?: Date | string | null
   }
 
   export type testimonialCreateOrConnectWithoutUserInput = {
@@ -22379,6 +22696,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     created_at?: Date | string
+    deleted_at?: Date | string | null
     creator?: userCreateNestedOneWithoutCreated_roleInput
   }
 
@@ -22388,6 +22706,7 @@ export namespace Prisma {
     description?: string | null
     created_at?: Date | string
     created_by?: string | null
+    deleted_at?: Date | string | null
   }
 
   export type roleCreateOrConnectWithoutUserInput = {
@@ -22593,6 +22912,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"role"> | string | null
     created_at?: DateTimeFilter<"role"> | Date | string
     created_by?: StringNullableFilter<"role"> | string | null
+    deleted_at?: DateTimeNullableFilter<"role"> | Date | string | null
   }
 
   export type serviceUpsertWithWhereUniqueWithoutUserInput = {
@@ -22622,6 +22942,7 @@ export namespace Prisma {
     created_at?: DateTimeNullableFilter<"service"> | Date | string | null
     admin_id?: StringFilter<"service"> | string
     banner_url?: StringFilter<"service"> | string
+    deleted_at?: DateTimeNullableFilter<"service"> | Date | string | null
   }
 
   export type service_requestUpsertWithWhereUniqueWithoutUserInput = {
@@ -22707,6 +23028,7 @@ export namespace Prisma {
     service_id?: StringFilter<"testimonial"> | string
     stars?: IntFilter<"testimonial"> | number
     user_title?: StringFilter<"testimonial"> | string
+    deleted_at?: DateTimeNullableFilter<"testimonial"> | Date | string | null
   }
 
   export type roleUpsertWithoutUserInput = {
@@ -22725,6 +23047,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     creator?: userUpdateOneWithoutCreated_roleNestedInput
   }
 
@@ -22734,6 +23057,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     created_by?: NullableStringFieldUpdateOperationsInput | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type case_studiesCreateWithoutOrganisationInput = {
@@ -22774,14 +23098,18 @@ export namespace Prisma {
     id?: string
     name: string
     pfp_url: string
-    id_url: string
+    id_url: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
   }
 
   export type contactUncheckedCreateWithoutOrganisationInput = {
     id?: string
     name: string
     pfp_url: string
-    id_url: string
+    id_url: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
   }
 
   export type contactCreateOrConnectWithoutOrganisationInput = {
@@ -22803,7 +23131,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -22831,7 +23159,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -22911,7 +23239,9 @@ export namespace Prisma {
     name?: StringFilter<"contact"> | string
     pfp_url?: StringFilter<"contact"> | string
     organisation_id?: StringFilter<"contact"> | string
-    id_url?: StringFilter<"contact"> | string
+    id_url?: JsonFilter<"contact">
+    created_at?: DateTimeNullableFilter<"contact"> | Date | string | null
+    deleted_at?: DateTimeNullableFilter<"contact"> | Date | string | null
   }
 
   export type userUpsertWithoutOrganisationInput = {
@@ -22934,7 +23264,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -22962,7 +23292,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -23024,7 +23354,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -23052,7 +23382,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -23109,6 +23439,7 @@ export namespace Prisma {
     message: string
     stars: number
     user_title: string
+    deleted_at?: Date | string | null
     user: userCreateNestedOneWithoutTestimonialInput
   }
 
@@ -23118,6 +23449,7 @@ export namespace Prisma {
     user_id: string
     stars: number
     user_title: string
+    deleted_at?: Date | string | null
   }
 
   export type testimonialCreateOrConnectWithoutServiceInput = {
@@ -23166,7 +23498,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -23194,7 +23526,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -23275,6 +23607,7 @@ export namespace Prisma {
     subtitle: string
     created_at?: Date | string | null
     banner_url: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesCreateNestedManyWithoutServiceInput
     user: userCreateNestedOneWithoutServiceInput
     testimonial?: testimonialCreateNestedManyWithoutServiceInput
@@ -23288,6 +23621,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     admin_id: string
     banner_url: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesUncheckedCreateNestedManyWithoutServiceInput
     testimonial?: testimonialUncheckedCreateNestedManyWithoutServiceInput
   }
@@ -23306,7 +23640,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -23334,7 +23668,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -23405,6 +23739,7 @@ export namespace Prisma {
     subtitle?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUpdateManyWithoutServiceNestedInput
     user?: userUpdateOneRequiredWithoutServiceNestedInput
     testimonial?: testimonialUpdateManyWithoutServiceNestedInput
@@ -23418,6 +23753,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     admin_id?: StringFieldUpdateOperationsInput | string
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUncheckedUpdateManyWithoutServiceNestedInput
     testimonial?: testimonialUncheckedUpdateManyWithoutServiceNestedInput
   }
@@ -23442,7 +23778,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -23470,7 +23806,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -23535,6 +23871,7 @@ export namespace Prisma {
     subtitle: string
     created_at?: Date | string | null
     banner_url: string
+    deleted_at?: Date | string | null
     user: userCreateNestedOneWithoutServiceInput
     service_request?: service_requestCreateNestedManyWithoutServiceInput
     testimonial?: testimonialCreateNestedManyWithoutServiceInput
@@ -23548,6 +23885,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     admin_id: string
     banner_url: string
+    deleted_at?: Date | string | null
     service_request?: service_requestUncheckedCreateNestedManyWithoutServiceInput
     testimonial?: testimonialUncheckedCreateNestedManyWithoutServiceInput
   }
@@ -23620,6 +23958,7 @@ export namespace Prisma {
     subtitle?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: userUpdateOneRequiredWithoutServiceNestedInput
     service_request?: service_requestUpdateManyWithoutServiceNestedInput
     testimonial?: testimonialUpdateManyWithoutServiceNestedInput
@@ -23633,6 +23972,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     admin_id?: StringFieldUpdateOperationsInput | string
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     service_request?: service_requestUncheckedUpdateManyWithoutServiceNestedInput
     testimonial?: testimonialUncheckedUpdateManyWithoutServiceNestedInput
   }
@@ -23644,6 +23984,7 @@ export namespace Prisma {
     subtitle: string
     created_at?: Date | string | null
     banner_url: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesCreateNestedManyWithoutServiceInput
     user: userCreateNestedOneWithoutServiceInput
     service_request?: service_requestCreateNestedManyWithoutServiceInput
@@ -23657,6 +23998,7 @@ export namespace Prisma {
     created_at?: Date | string | null
     admin_id: string
     banner_url: string
+    deleted_at?: Date | string | null
     case_studies?: case_studiesUncheckedCreateNestedManyWithoutServiceInput
     service_request?: service_requestUncheckedCreateNestedManyWithoutServiceInput
   }
@@ -23675,7 +24017,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -23703,7 +24045,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -23745,6 +24087,7 @@ export namespace Prisma {
     subtitle?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUpdateManyWithoutServiceNestedInput
     user?: userUpdateOneRequiredWithoutServiceNestedInput
     service_request?: service_requestUpdateManyWithoutServiceNestedInput
@@ -23758,6 +24101,7 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     admin_id?: StringFieldUpdateOperationsInput | string
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUncheckedUpdateManyWithoutServiceNestedInput
     service_request?: service_requestUncheckedUpdateManyWithoutServiceNestedInput
   }
@@ -23782,7 +24126,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -23810,7 +24154,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -23922,7 +24266,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -23950,7 +24294,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -23994,7 +24338,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24022,7 +24366,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24050,7 +24394,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24078,7 +24422,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24122,7 +24466,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24150,7 +24494,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24178,7 +24522,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24206,7 +24550,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24250,7 +24594,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24278,7 +24622,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24306,7 +24650,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24334,7 +24678,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24378,7 +24722,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24406,7 +24750,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24434,7 +24778,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24462,7 +24806,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24506,7 +24850,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24534,7 +24878,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24671,7 +25015,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24699,7 +25043,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24772,7 +25116,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24800,7 +25144,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24828,7 +25172,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24856,7 +25200,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24889,7 +25233,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24917,7 +25261,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -24966,7 +25310,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -24994,7 +25338,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -25041,7 +25385,7 @@ export namespace Prisma {
     address?: StringFilter<"user"> | string
     category?: StringFilter<"user"> | string
     pfp_url?: StringNullableFilter<"user"> | string | null
-    id_url?: StringNullableFilter<"user"> | string | null
+    id_url?: JsonNullableFilter<"user">
     business_status?: BoolNullableFilter<"user"> | boolean | null
     password?: StringFilter<"user"> | string
     status?: StringFilter<"user"> | string
@@ -25108,6 +25452,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     created_at?: Date | string
+    deleted_at?: Date | string | null
   }
 
   export type serviceCreateManyUserInput = {
@@ -25117,6 +25462,7 @@ export namespace Prisma {
     subtitle: string
     created_at?: Date | string | null
     banner_url: string
+    deleted_at?: Date | string | null
   }
 
   export type service_requestCreateManyUserInput = {
@@ -25142,6 +25488,7 @@ export namespace Prisma {
     service_id: string
     stars: number
     user_title: string
+    deleted_at?: Date | string | null
   }
 
   export type notificationUpdateWithoutUserInput = {
@@ -25312,6 +25659,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: userUpdateManyWithoutRoleNestedInput
   }
 
@@ -25320,6 +25668,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: userUncheckedUpdateManyWithoutRoleNestedInput
   }
 
@@ -25328,6 +25677,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type serviceUpdateWithoutUserInput = {
@@ -25337,6 +25687,7 @@ export namespace Prisma {
     subtitle?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUpdateManyWithoutServiceNestedInput
     service_request?: service_requestUpdateManyWithoutServiceNestedInput
     testimonial?: testimonialUpdateManyWithoutServiceNestedInput
@@ -25349,6 +25700,7 @@ export namespace Prisma {
     subtitle?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     case_studies?: case_studiesUncheckedUpdateManyWithoutServiceNestedInput
     service_request?: service_requestUncheckedUpdateManyWithoutServiceNestedInput
     testimonial?: testimonialUncheckedUpdateManyWithoutServiceNestedInput
@@ -25361,6 +25713,7 @@ export namespace Prisma {
     subtitle?: StringFieldUpdateOperationsInput | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     banner_url?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type service_requestUpdateWithoutUserInput = {
@@ -25419,6 +25772,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     service?: serviceUpdateOneRequiredWithoutTestimonialNestedInput
   }
 
@@ -25428,6 +25782,7 @@ export namespace Prisma {
     service_id?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type testimonialUncheckedUpdateManyWithoutUserInput = {
@@ -25436,6 +25791,7 @@ export namespace Prisma {
     service_id?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type case_studiesCreateManyOrganisationInput = {
@@ -25454,7 +25810,9 @@ export namespace Prisma {
     id?: string
     name: string
     pfp_url: string
-    id_url: string
+    id_url: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string | null
+    deleted_at?: Date | string | null
   }
 
   export type case_studiesUpdateWithoutOrganisationInput = {
@@ -25497,21 +25855,27 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pfp_url?: StringFieldUpdateOperationsInput | string
-    id_url?: StringFieldUpdateOperationsInput | string
+    id_url?: JsonNullValueInput | InputJsonValue
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type contactUncheckedUpdateWithoutOrganisationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pfp_url?: StringFieldUpdateOperationsInput | string
-    id_url?: StringFieldUpdateOperationsInput | string
+    id_url?: JsonNullValueInput | InputJsonValue
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type contactUncheckedUpdateManyWithoutOrganisationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     pfp_url?: StringFieldUpdateOperationsInput | string
-    id_url?: StringFieldUpdateOperationsInput | string
+    id_url?: JsonNullValueInput | InputJsonValue
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type case_studiesCreateManyServiceInput = {
@@ -25541,6 +25905,7 @@ export namespace Prisma {
     user_id: string
     stars: number
     user_title: string
+    deleted_at?: Date | string | null
   }
 
   export type case_studiesUpdateWithoutServiceInput = {
@@ -25611,6 +25976,7 @@ export namespace Prisma {
     message?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: userUpdateOneRequiredWithoutTestimonialNestedInput
   }
 
@@ -25620,6 +25986,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type testimonialUncheckedUpdateManyWithoutServiceInput = {
@@ -25628,6 +25995,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     stars?: IntFieldUpdateOperationsInput | number
     user_title?: StringFieldUpdateOperationsInput | string
+    deleted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type service_requestCreateManyPlanInput = {
@@ -25707,7 +26075,7 @@ export namespace Prisma {
     address: string
     category: string
     pfp_url?: string | null
-    id_url?: string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: boolean | null
     password: string
     status?: string
@@ -25724,7 +26092,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -25752,7 +26120,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
@@ -25780,7 +26148,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     pfp_url?: NullableStringFieldUpdateOperationsInput | string | null
-    id_url?: NullableStringFieldUpdateOperationsInput | string | null
+    id_url?: NullableJsonNullValueInput | InputJsonValue
     business_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     password?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string

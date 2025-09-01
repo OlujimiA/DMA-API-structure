@@ -161,7 +161,8 @@ exports.Prisma.ServiceScalarFieldEnum = {
   subtitle: 'subtitle',
   created_at: 'created_at',
   admin_id: 'admin_id',
-  banner_url: 'banner_url'
+  banner_url: 'banner_url',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.Service_requestScalarFieldEnum = {
@@ -193,7 +194,8 @@ exports.Prisma.TestimonialScalarFieldEnum = {
   user_id: 'user_id',
   service_id: 'service_id',
   stars: 'stars',
-  user_title: 'user_title'
+  user_title: 'user_title',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.ContactScalarFieldEnum = {
@@ -201,7 +203,9 @@ exports.Prisma.ContactScalarFieldEnum = {
   name: 'name',
   pfp_url: 'pfp_url',
   organisation_id: 'organisation_id',
-  id_url: 'id_url'
+  id_url: 'id_url',
+  created_at: 'created_at',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.OtpScalarFieldEnum = {
@@ -269,12 +273,33 @@ exports.Prisma.RoleScalarFieldEnum = {
   title: 'title',
   description: 'description',
   created_at: 'created_at',
-  created_by: 'created_by'
+  created_by: 'created_by',
+  deleted_at: 'deleted_at'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 exports.Prisma.NullsOrder = {
@@ -291,7 +316,6 @@ exports.Prisma.userOrderByRelevanceFieldEnum = {
   address: 'address',
   category: 'category',
   pfp_url: 'pfp_url',
-  id_url: 'id_url',
   password: 'password',
   status: 'status',
   role_id: 'role_id'
@@ -354,8 +378,7 @@ exports.Prisma.contactOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
   pfp_url: 'pfp_url',
-  organisation_id: 'organisation_id',
-  id_url: 'id_url'
+  organisation_id: 'organisation_id'
 };
 
 exports.Prisma.otpOrderByRelevanceFieldEnum = {
