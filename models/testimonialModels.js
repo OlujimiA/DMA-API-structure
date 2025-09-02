@@ -2,7 +2,13 @@ const { prisma } = require('../config/db');
 
 const getAlltestimonials = async () => {
   const testimonial = await prisma.testimonial.findMany({
+    where: { deleted_at: null },
     include: {
+      service: {
+        select: {
+          title: true
+        },
+      },
       user: {
         select: {
           name: true,
@@ -15,8 +21,13 @@ const getAlltestimonials = async () => {
 
 const getTestimonialById = async (id) => {
   const testimonial = await prisma.testimonial.findUnique({
-    where: { id: id },
+    where: { id: id, deleted_at: null },
     include: {
+      service: {
+        select: {
+          title: true
+        },
+      },
       user: {
         select: {
           name: true,
@@ -29,13 +40,18 @@ const getTestimonialById = async (id) => {
 
 const getTestimonialsByServiceId = async (id) => {
   const testimonials = await prisma.testimonial.findMany({
-    where: { service_id: id },
+    where: { service_id: id, deleted_at: null },
     include: {
+      service: {
+        select: {
+          title: true
+        },
+      },
       user: {
         select: {
           name: true,
-        }
-      }
+        },
+      }, 
     },
   });
   return testimonials;
@@ -51,6 +67,11 @@ const createTestimonial = async ({ user_id, user_title, message, stars, service_
       service_id: service_id,
     },
     include: {
+      service: {
+        select: {
+          title: true
+        },
+      },
       user: {
         select: {
           name: true,
@@ -63,9 +84,17 @@ const createTestimonial = async ({ user_id, user_title, message, stars, service_
 };
 
 const deleteTestimonial = async (id) => {
-  const deleted = await prisma.testimonial.delete({
-    where: { id: id },
+  const deleted = await prisma.testimonial.update({
+    where: { id: id, deleted_at: null },
+    data: {
+      deleted_at: new Date()
+    },
     include: {
+      service: {
+        select: {
+          title: true
+        },
+      },
       user: {
         select: {
           name: true,
@@ -79,11 +108,16 @@ const deleteTestimonial = async (id) => {
 
 const updateTestimonial = async (id, { message }) => {
   const updated = await prisma.testimonial.update({
-    where: { id: id },
+    where: { id: id, deleted_at: null },
     data: {
       message: message,
     },
     include: {
+      service: {
+        select: {
+          title: true
+        },
+      },
       user: {
         select: {
           name: true,
