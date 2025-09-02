@@ -7,8 +7,8 @@ router.post('/refresh-token', authControllers.refreshToken)
 router.post('/login', authControllers.login);
 router.post('/register', userControllers.createUser);
 router.post('/forgot-password', authControllers.forgot_password);
+router.post('/resend-otp', authControllers.resend_otp);
 router.post('/reset-password/:token/:id', authControllers.reset_password);
 router.post('/verify-email/:id', authControllers.verify_email);
-router.post('/resend-otp', authControllers.resend_otp);
 module.exports = router;
 

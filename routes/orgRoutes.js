@@ -6,15 +6,24 @@ const { authorizeRoles }= require('../middlewares/authenticate');
 const upload = require('../middlewares/multer');
 
 router.get('/', auth, authorizeRoles('admin'), orgController.getAllorgs);
-router.get('/:id', auth, orgController.getorgById);
 router.post('/', auth, upload.single('logo'), orgController.createOrg);
-router.put('/:id', auth, upload.single('logo'), orgController.updateOrg);
-router.delete('/:id', auth, orgController.deleteOrg);
 router.get('/contact', auth, authorizeRoles('admin'), orgController.getAllContacts);
 router.get('/contact/:id', auth, orgController.getContact);
-router.post('/contact', auth, upload.fields([ { name: 'profile-pic', maxCount: 1 }, { name: 'IDs', maxCount: 5 } ]), orgController.createContact);
+router.post(
+  '/contact',
+  auth,
+  upload.fields([
+    { name: 'profile-pic', maxCount: 1 },
+    { name: 'IDs', maxCount: 5 },
+  ]),
+  orgController.createContact
+);
 router.put('/contact/:id', auth, orgController.updateContact);
 router.delete('/contact/:id', auth, orgController.deleteContact);
+
+router.get('/:id', auth, orgController.getorgById);
+router.put('/:id', auth, upload.single('logo'), orgController.updateOrg);
+router.delete('/:id', auth, orgController.deleteOrg);
 
 module.exports = router;
 
