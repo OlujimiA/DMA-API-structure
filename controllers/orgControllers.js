@@ -6,8 +6,8 @@ const { getUserIdFromHeader } = require('../utils/getUserId');
 exports.getAllorgs = async (req, res) => {
   try {
     const orgs = await orgService.getAllorgs();
-    if (!orgs) return sendError(res, 404, 'Oganisations not found');
-    return sendSuccess(res, 200, orgs);
+    if (orgs.length===0) return sendError(res, 404, 'Oganisations not found');
+    return sendSuccess(res, 200, orgs, 'Organisation fetched successfully');
   } catch (err) {
     return sendError(res, 500, 'Could not fetch organisations', err.message);
   }
@@ -15,10 +15,11 @@ exports.getAllorgs = async (req, res) => {
 
 exports.getorgById = async (req, res) => {
   try {
-    const org = await orgService.getorgById(req.params.id);
+    const id = req.params.id
+    const org = await orgService.getorgById(id);
     if (!org) return sendError(res, 404, 'organisation not found');
     
-    return sendSuccess(res, 200, org);
+    return sendSuccess(res, 200, org, 'Organisation fetched successfully');
 
   } catch (err){
     return sendError(res, 500, 'Server error', err.message);
@@ -106,7 +107,7 @@ exports.getAllContacts = async (req, res) => {
     const contacts = await orgService.getAllContacts();
     if (contacts.length===0) return sendError(res, 404, 'No contacts found');
 
-    return sendSuccess(res, 200, contacts);
+    return sendSuccess(res, 200, contacts, 'Contacts found');
   } catch (err) {
     return sendError(res, 500, 'Failed to get contacts', err.message);
   }
