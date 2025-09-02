@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
+const { sendSuccess, sendError } = require('../utils/response');
 
 module.exports = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  if (!authHeader) return res.status(401).json({ message: 'No token provided' });
+  if (!authHeader) return sendError(res, 401, 'No token provided');
 
   const token = authHeader.split(' ')[1];
 
@@ -11,6 +12,6 @@ module.exports = (req, res, next) => {
     req.user = decoded; // attach user to request
     next();
   } catch (err) {
-    res.status(401).json({ message: 'Invalid or expired token' });
+    return sendError(res, 401, 'Invalid or expired token', err.message);
   }
 };
