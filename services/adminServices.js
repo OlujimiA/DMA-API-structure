@@ -4,8 +4,8 @@ const getAllAdmins = async (id) => {
     return await adminModel.getAllAdmins(id);
 };
 
-const getAdmin = async (adminData) => {
-    return await adminModel.getAdmin(adminData);
+const getAdmin = async (id) => {
+    return await adminModel.getAdmin(id);
 };
 
 const getRoles = async () => {
