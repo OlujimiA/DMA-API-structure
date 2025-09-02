@@ -54,6 +54,26 @@ const getuserByEmail = async (email) => {
   return rows;
 };
 
+const getupdateUserByEmail = async (id, email) => {
+  const rows = await prisma.user.findUnique({
+    where: {
+      email: email,
+      deleted_at: null,
+    },
+    NOT: {
+      id: id
+    },
+    include: {
+      role: {
+        select: {
+          title: true,
+        }
+      }
+    }
+  });
+  return rows;
+};
+
 const getuserByTel = async (tel) => {
   const rows = await prisma.user.findUnique({
     where: {
@@ -171,6 +191,7 @@ module.exports = {
   getAllusers,
   getuserById,
   getuserByEmail,
+  getupdateUserByEmail,
   getuserByTel,
   createUser,
   updateUser,

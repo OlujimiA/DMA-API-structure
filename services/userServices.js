@@ -37,7 +37,7 @@ const createUser = async (userData) => {
 
 const updateUser = async (id, updateData) => {
     const { email } = updateData;
-    const existingUser = await userModel.getuserByEmail(email);
+    const existingUser = await userModel.getupdateUserByEmail(id, email);
     if (existingUser) {
       const error = new Error('Email already exists');
       error.statusCode = 400;  
