@@ -76,7 +76,7 @@ exports.forgot_password = async (req, res) => {
     return sendSuccess(res, 200, { token: new_token }, 'Add this URL to your /auth path');
   
   } catch (err) {
-    return sendError(res, 500, 'Server error', err.message);
+    return sendError(res, 500, 'Could not reset password', err.message);
   }
 };
 
