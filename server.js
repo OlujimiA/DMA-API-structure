@@ -27,7 +27,11 @@ const options = {
 };
 
 const specs = swaggerJsDoc(options);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
+    swaggerOptions: {
+        persistAuthorization: true,
+    }
+}));
 
 // Import different route files
 const authRoutes = require('./routes/authRoutes');
