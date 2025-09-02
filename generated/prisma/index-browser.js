@@ -251,11 +251,28 @@ exports.Prisma.Notification_settingsScalarFieldEnum = {
   user_id: 'user_id'
 };
 
-exports.Prisma.PlanScalarFieldEnum = {
+exports.Prisma.Plan_typeScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  created_at: 'created_at',
+  created_by: 'created_by',
+  deleted_at: 'deleted_at'
+};
+
+exports.Prisma.Billing_cycleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  duration_in_days: 'duration_in_days',
+  created_at: 'created_at',
+  deleted_at: 'deleted_at'
+};
+
+exports.Prisma.PlanScalarFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  plan_type_id: 'plan_type_id',
+  billing_cycle_id: 'billing_cycle_id',
   price: 'price',
-  billing_cycle: 'billing_cycle',
   description: 'description'
 };
 
@@ -409,10 +426,22 @@ exports.Prisma.notification_settingsOrderByRelevanceFieldEnum = {
   user_id: 'user_id'
 };
 
-exports.Prisma.planOrderByRelevanceFieldEnum = {
+exports.Prisma.plan_typeOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
-  billing_cycle: 'billing_cycle',
+  created_by: 'created_by'
+};
+
+exports.Prisma.billing_cycleOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.planOrderByRelevanceFieldEnum = {
+  id: 'id',
+  service_id: 'service_id',
+  plan_type_id: 'plan_type_id',
+  billing_cycle_id: 'billing_cycle_id',
   description: 'description'
 };
 
@@ -444,6 +473,8 @@ exports.Prisma.ModelName = {
   notification: 'notification',
   privacy_settings: 'privacy_settings',
   notification_settings: 'notification_settings',
+  plan_type: 'plan_type',
+  billing_cycle: 'billing_cycle',
   plan: 'plan',
   subscription: 'subscription',
   role: 'role'
