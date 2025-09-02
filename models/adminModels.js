@@ -10,9 +10,15 @@ const getAllAdmins = async (id) => {
     return admins;
 };
 
-const getAdmin = async ({ id }) => {
+const getAdmin = async (id) => {
     const admin = await prisma.user.findFirst({
-        where: {id: id, role_id: defaultAdminRoleId, deleted_at: null},
+        where: {
+            id: id, 
+            deleted_at: null,
+            NOT: {
+                role_id: defaultUserRoleId,
+            },
+        },
         omit: {
             password: true,
         }
