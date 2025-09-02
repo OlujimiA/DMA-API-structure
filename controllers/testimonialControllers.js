@@ -71,14 +71,15 @@ exports.deleteTestimonial = async (req, res) => {
 
 exports.updateTestimonial = async (req, res) => {
   try {
-    const { message } = req.body;
+    const { user_title, message, stars, service_id } = req.body;
     const { id } = req.params;
 
-    if (!message) {
-      return sendError(res, 400, 'All fields are required - message');
+    if (!user_title || !message || !stars || !service_id) {
+      return sendError(res, 400, 'All fields are required - user_title, message, stars, and service_id');
     }
 
-    const updated = await testimonialService.updateTestimonial(id, { message });
+    const user_id = getUserIdFromHeader(req);
+    const updated = await testimonialService.updateTestimonial(id, { user_id, user_title, message, stars, service_id });
 
     if (!updated) {
       return sendError(res, 404, 'testimonial not found');

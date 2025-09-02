@@ -27,10 +27,10 @@ exports.getRequest = async (req, res) => {
 
 exports.createRequest = async (req, res) => {
     try {
-        const { message, status, service_id, plan_id } = req.body;
-        if (!message || !status || !service_id || plan_id) return sendError(res, 400, 'All fields are required - message, status, service_id, plan_id');
+        const { message, service_id, plan_id } = req.body;
+        if (!message || !service_id || plan_id) return sendError(res, 400, 'All fields are required - message, service_id, plan_id');
         const user_id = getUserIdFromHeader(req);
-        const newRequest = await requestService.createRequest({ message, status, service_id, plan_id, user_id });
+        const newRequest = await requestService.createRequest({ message, service_id, plan_id, user_id });
         if (!newRequest) return sendError(res, 404, 'Could not create Service request');
 
         return sendSuccess(res, 201, newRequest, 'Created request successfully!');
