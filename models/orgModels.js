@@ -2,6 +2,7 @@ const { prisma } = require('../config/db');
 
 const getAllorgs = async () => {
   const orgs = await prisma.organisation.findMany({
+    where: { deleted_at: null },
     include: {
       user: {
         select: {
@@ -15,7 +16,10 @@ const getAllorgs = async () => {
 
 const getorgById = async (id) => {
   const org = await prisma.organisation.findUnique({
-    where: {id: id},
+    where: {
+      id: id,
+      deleted_at: null,
+    },
   });
   return org;
 };
@@ -40,7 +44,10 @@ const createOrg = async ({ name, email, address, country, type, industry, rc_num
 
 const updateOrg = async (id, { name, email, address, country, type, industry, rc_number, staff_size, logo_url }) => {
   const updated = await prisma.organisation.update({
-    where: { id: id },
+    where: { 
+      id: id,
+      deleted_at: null,
+    },
     data: {
       name: name, 
       email: email,
@@ -57,10 +64,47 @@ const updateOrg = async (id, { name, email, address, country, type, industry, rc
 };
 
 const deleteOrg = async (id) => {
-  const deleted = await prisma.organisation.delete({
-    where: { id: id },
+  const deleted = await prisma.organisation.update({
+    where: { 
+      id: id,
+      deleted_at: null
+    },
+    data: {
+      deleted_at: new Date()
+    }
   });
   return deleted; 
+};
+
+const getAllContacts = async () => {
+  const contacts = await prisma.contact.findMany({
+    where: { deleted_at: null },
+    include: {
+      organisation: {
+        select: {
+          name: true,
+        }
+      },
+    }
+  });
+  return contacts;
+};
+
+const getContact = async (id) => {
+  const contact = await prisma.contact.findUnique({
+    where: {
+      id: id,
+      deleted_at: null,
+    },
+    include: {
+      organisation: {
+        select: {
+          name: true,
+        }
+      },
+    }
+  });
+  return contact;
 };
 
 const createContact = async ({ name, pfp_url, id_url, organisation_id }) => {
@@ -75,32 +119,35 @@ const createContact = async ({ name, pfp_url, id_url, organisation_id }) => {
   return contact;
 };
 
-const getAllContacts = async () => {
-  const contacts = await prisma.contact.findMany({
-    include: {
-      organisation: {
-        select: {
-          name: true,
-        }
-      },
-    }
-  });
-  return contacts;
-};
-
-const getContact = async (id) => {
-  const contact = await prisma.contact.findUnique({
-    where: { id: id },
-    include: {
-      organisation: {
-        select: {
-          name: true,
-        }
-      },
+const updateContact = async ({ id, name, pfp_url, id_url, organisation_id }) => {
+  const contact = await prisma.contact.update({
+    where: {
+      id: id,
+      deleted_at: null,
+    },
+    data: {
+      name: name,
+      pfp_url: pfp_url,
+      id_url: id_url,
+      organisation_id: organisation_id,
     }
   });
   return contact;
 };
+
+const deleteContact = async (id) => {
+  const contact = await prisma.contact.update({
+    where: {
+      id: id,
+      deleted_at: null,
+    },
+    data: {
+      deleted_at: new Date()
+    }
+  });
+  return contact;
+};
+
 
 module.exports = {
   getAllorgs,
@@ -111,4 +158,6 @@ module.exports = {
   createContact,
   getContact,
   getAllContacts,
+  updateContact,
+  deleteContact,
 };

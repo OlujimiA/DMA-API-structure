@@ -13,7 +13,8 @@ router.delete('/:id', auth, orgController.deleteOrg);
 router.get('/contact', auth, authorizeRoles('admin'), orgController.getAllContacts);
 router.get('/contact/:id', auth, orgController.getContact);
 router.post('/contact', auth, upload.fields([ { name: 'profile-pic', maxCount: 1 }, { name: 'IDs', maxCount: 5 } ]), orgController.createContact);
-
+router.put('/contact/:id', auth, orgController.updateContact);
+router.delete('/contact/:id', auth, orgController.deleteContact);
 
 module.exports = router;
 

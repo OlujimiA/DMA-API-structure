@@ -101,6 +101,30 @@ exports.deleteOrg = async (req, res) => {
   }
 };
 
+exports.getAllContacts = async (req, res) => {
+  try{
+    const contacts = await orgService.getAllContacts();
+    if (contacts.length===0) return sendError(res, 404, 'No contacts found');
+
+    return sendSuccess(res, 200, contacts);
+  } catch (err) {
+    return sendError(res, 500, 'Failed to get contacts', err.message);
+  }
+};
+
+exports.getContact = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const contact = await orgService.getContact(id);
+    if (!contact) return sendError(res, 404, 'Contact not found');
+
+    return sendSuccess(res, 200, contact, 'Contact fetched successfully!');
+  } catch (err) {
+    return sendError(res, 500, 'Failed to get the contact', err.message);
+  }
+};
+
+
 exports.createContact = async (req, res) => {
   try {
     const { name, organisation_id } = req.body;
@@ -122,25 +146,42 @@ exports.createContact = async (req, res) => {
   }
 };
 
-exports.getAllContacts = async (req, res) => {
-  try{
-    const contacts = await orgService.getAllContacts();
-    if (contacts.length===0) return sendError(res, 404, 'No contacts found');
+exports.updateContact = async (req, res) => {
+  try {
+    const { name, organisation_id } = req.body
+    const id = req.params.id
 
-    return sendSuccess(res, 200, contacts);
-  } catch (err) {
-    return sendError(res, 500, 'Failed to get contacts', err.message);
+    const contact = await orgService.getContact(id);
+    if (!contact) return sendError(res, 404, 'Contact was not found');
+
+    if (!name || !req.files['profile-pic'] || !req.files['IDs'] || !organisation_id){
+      return sendError(res, 400, 'All fields are required - name, profile picture, ID, organisation_id');
+    }
+
+    const uploadResult = await uploadToCloudinary(req.files['profile-pic'][0].path, 'users/profile-pic');
+
+    const idFiles = req.files['IDs'] || [];
+    const idResults = await uploadMultipleToCloudinary(idFiles, 'users/docs');
+
+    const updated = await orgService.updateContact({ id, name, pfp_url: uploadResult.secure_url, id_url: idResults.map(img => img.secure_url), organisation_id });
+
+    return sendSuccess(res, 201, { Contact: updated, image: { pfp: updated.pfp_url, ID: updated.id_url } }, 'Organisation contact updated successfully');
+
+  } catch (err){
+    return sendError(res, 500, 'Could not update contact', err.message);
   }
 };
 
-exports.getContact = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const contact = await orgService.getContact(id);
-    if (!contact) return sendError(res, 404, 'Contact not found');
+exports.deleteContact = async (req, res) => {
+  try{
+    const id = req.params.id
 
-    return sendSuccess(res, 200, contact, 'Contact fetched successfully!');
-  } catch (err) {
-    return sendError(res, 500, 'Failed to get the contact', err.message);
+    const contact = await orgService.getContact(id);
+    if (!contact) return sendError(res, 404, 'Organisation was not found');
+
+    const deleted = await orgService.deleteContact(id);
+    return sendSuccess(res, 200, { contact: deleted }, 'Contact has been deleted successfully!');
+  } catch (err){
+    return sendError(res, 500, 'Could not delete contact', err.message);
   }
 };
