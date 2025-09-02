@@ -610,7 +610,7 @@ paths:
 
     put:
       tags: [user]
-      summary: Updates a user
+      summary: Update a user
       description: update a user's info
       security:
         - bearerAuth: []
@@ -733,9 +733,19 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               $ref: '#/components/schemas/organisationForm'
+            example:
+              name: Moniepoint
+              email: contact@moniepoint.com
+              address: Lagos, Nigeria
+              country: Nigeria
+              industry: ICT
+              logo: (binary)
+              rc_number: 8976576
+              staff_size: 1 - 10
+              type: partnership
 
       responses:
         200:
@@ -775,9 +785,19 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/organisation'
+              $ref: '#/components/schemas/organisationForm'
+            example:
+              name: Moniepoint
+              email: support@moniepoint.com
+              address: Lagos, Nigeria
+              country: Nigeria
+              industry: ICT
+              logo: logo.png
+              rc_number: 8976576
+              staff_size: 1 - 10
+              type: partnership
       responses:
         201:
           description: Organisation has been successfully updated
@@ -818,7 +838,7 @@ paths:
     get:
       tags: [organisation]
       summary: Get all organisation contacts
-      description: Rdeturns an array of all contacts along with their associated organisation info
+      description: Returns an array of all contacts along with their associated organisation info
       security:
         - bearerAuth: []
 
@@ -835,6 +855,8 @@ paths:
                 pfp_url: https://res.cloudinary/user/profile-pic...
                 id_url: https://res.cloudinary/user/id...
                 organisation_id: 25511d20-9118-4336-8451-7205853223a5
+        404:
+          decription: contacts not found
         500:
           description: Could not fetch contacts 
     post:
@@ -904,7 +926,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema: 
               $ref: '#/components/schemas/contactForm'
       responses:
@@ -1035,12 +1057,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              $ref: '#/compnents/schemas/serviceForm'
-            example:
-              title: Web design & development
-              subtitle: Build your dream online presence.
-              description: long description...
-              banner: banner.png
+              $ref: '#/components/schemas/serviceForm'
 
       responses:
         200:
@@ -1095,7 +1112,7 @@ paths:
   /api/admin/{id}:
     get:
       tags: [admin]
-      summary: Get an Admins
+      summary: Get an Admin
       description: Retun an admin by specifying its uuid
       security:
         - bearerAuth: []
@@ -1128,14 +1145,14 @@ paths:
         500:
           description: Could not remove admin
 
-      parameters:
-        - name: id
-          in: path
-          description: Admin ID
-          required: true
-          schema:
-            type: string
-            format: uuid
+    parameters:
+      - name: id
+        in: path
+        description: Admin ID
+        required: true
+        schema:
+          type: string
+          format: uuid
 
   /api/admin/make-admin:
     put:
@@ -1166,6 +1183,24 @@ paths:
           description: Could not make a user the admin
   
   /api/admin/roles:
+    get:
+      tags: [admin]
+      summary: Get all roles
+      description: Returns all roles 
+      security:
+        - bearerAuth: []
+      
+      responses:
+        200:
+          description: Roles have been fetched successfully
+          content:  
+            application/json:
+              schema:
+                $ref: '#/components/schemas/role'
+        404:
+          description: Roles not found
+        500:
+          description: Could not get roles
     post:
       tags: [admin]
       summary: Create a role
@@ -1393,16 +1428,16 @@ paths:
       security:
         - bearerAuth: []
       requestBody: 
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/testimonialForm'
-          example:
-            user_title: CEO
-            message: My company website is leading to more tunovers than ever!!
-            stars: 5
-            service_id: da202b29-8749-4e20-be73-2beafce16951
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/testimonialForm'
+            example:
+              user_title: CEO
+              message: My company website is leading to more tunovers than ever!!
+              stars: 5
+              service_id: da202b29-8749-4e20-be73-2beafce16951
       responses: 
         200: 
           description: Testimonial has been updated successfully!
@@ -1484,5 +1519,4 @@ paths:
         schema: 
           type: string
           format: uuid
-
     
