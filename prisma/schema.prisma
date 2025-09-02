@@ -37,6 +37,7 @@ model user {
   service_request       service_request[]
   subscription          subscription[]
   testimonial           testimonial[]
+  plan_type             plan_type[]
   role                  role                    @relation("UserRole", fields: [role_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@index([role_id], map: "user_role_id_fkey")
@@ -72,10 +73,11 @@ model service {
   admin_id        String            @db.Char(36)
   banner_url      String            @db.Text
   deleted_at      DateTime?         @db.Timestamp(0)
-  case_studies    case_studies[]
   user            user              @relation(fields: [admin_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   service_request service_request[]
+  case_studies    case_studies[]
   testimonial     testimonial[]
+  plan            plan[]
 
   @@index([admin_id])
 }
@@ -120,7 +122,7 @@ model testimonial {
   message    String  @db.Text
   user_id    String  @db.Char(36)
   service_id String  @db.Char(36)
-  stars      Int
+  stars      Decimal @db.Decimal(2, 1)
   user_title String  @db.Text
   deleted_at DateTime? @db.Timestamp(0)
   service    service @relation(fields: [service_id], references: [id])
@@ -201,12 +203,39 @@ model notification_settings {
   @@index([user_id])
 }
 
+model plan_type {
+  id          String     @id @default(uuid()) @db.Char(36)
+  name        String     @db.VarChar(20)
+  created_at  DateTime   @default(now()) @db.Timestamp(0)
+  created_by  String     @db.Char(36)
+  deleted_at  DateTime?  @db.Timestamp(0)
+
+  user        user       @relation(fields: [created_by], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  plan       plan[]
+}
+
+model billing_cycle {
+  id                String     @id @default(uuid()) @db.Char(36)
+  name              String     @db.VarChar(20)
+  duration_in_days  Int        @db.Int
+  created_at        DateTime   @default(now()) @db.Timestamp(0)
+  deleted_at        DateTime   @db.Timestamp(0)
+
+  plan              plan[]
+}
+
 model plan {
-  id              String            @id @default(uuid()) @db.Char(36)
-  name            String            @db.VarChar(20)
-  price           Int
-  billing_cycle   String            @db.VarChar(20)
-  description     String            @db.Text
+  id                String         @id @default(uuid()) @db.Char(36)
+  service_id        String         @db.Char(36)
+  plan_type_id      String         @db.Char(36)
+  billing_cycle_id  String         @db.Char(36)
+  price             Int            @db.Int
+  description       String         @db.Text
+
+  service           service        @relation(fields: [service_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  plan_type         plan_type      @relation(fields: [plan_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  billing_cycle     billing_cycle  @relation(fields: [billing_cycle_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
   service_request service_request[]
   subscription    subscription[]
 }
