@@ -19,16 +19,11 @@ exports.getAllAdmins = async (req, res) => {
 
 exports.getAdmin = async (req, res) => {
     try {
-        const rolename = 'admin'
-        const role = await adminService.getRoleByName(rolename);
-        if (!role) return sendError(res, 404, 'Admin role not found');
-        const role_id = role.id;
-
         const id = req.params.id;
-        const admin = await adminService.getAdmin({ id, role_id });
+        const admin = await adminService.getAdmin(id);
         if (!admin) return sendError(res, 404, 'admin not found');
         
-        return sendSuccess(res, 200, admin);
+        return sendSuccess(res, 200, admin, 'Admin fetched successfully!');
 
     } catch (err) {
         return sendError(res, 500, 'Could not get admin', err.message);
@@ -51,7 +46,7 @@ exports.getRoleById = async (req, res) => {
         const role = await adminService.getRoleById(id);
         if (!role) return sendError(res, 404, 'role not found');
         
-        return sendSuccess(res, 200, role);
+        return sendSuccess(res, 200, role, 'Role fetched successfully');
 
     } catch (err) {
         return sendError(res, 500, 'Could not get admin', err.message);
@@ -111,6 +106,20 @@ exports.makeAdmin = async (req, res) => {
         return sendError(res, 500, 'Could not make admin', err.message)
     }
 }
+
+exports.removeAdmin = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const admin = await adminService.getAdmin(id);
+        if (!admin) return sendError(res, 404, 'Admin not found');
+
+        const deleted = await adminService.removeAdmin(id);
+        return sendSuccess(res, 200, { admin: deleted }, 'Admin has been deleted successfully!')
+
+    } catch (err) {
+        return sendError(res, 500, 'Could not remove admin', err.message);
+    }
+};
 
 exports.deleteRole = async (req, res) => {
     try {

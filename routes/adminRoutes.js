@@ -10,6 +10,7 @@ router.get('/roles/:id', auth, adminController.getRoleById);
 router.post('/roles', auth, adminController.createRole);
 router.put('/roles/:id', auth, adminController.updateRole);
 router.put('/make-admin', auth, adminController.makeAdmin);
+router.delete('/:id', auth, adminController.removeAdmin);
 router.delete('/roles/:id', auth, adminController.deleteRole);
 
 module.exports=router;

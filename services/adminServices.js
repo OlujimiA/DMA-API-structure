@@ -32,6 +32,10 @@ const makeAdmin = async (adminData) => {
     return await adminModel.makeAdmin(adminData);
 };
 
+const removeAdmin = async(id) => {
+    return await adminModel.removeAdmin(id);
+};
+
 const deleteRole = async (id) => {
     return await adminModel.deleteRole(id);
 };
@@ -45,5 +49,6 @@ module.exports = {
     createRole,
     updateRole,
     makeAdmin,
+    removeAdmin,
     deleteRole,
 };
