@@ -106,11 +106,15 @@ const deleteTestimonial = async (id) => {
   return deleted; 
 };
 
-const updateTestimonial = async (id, { message }) => {
+const updateTestimonial = async (id, { user_id, user_title, message, stars, service_id }) => {
   const updated = await prisma.testimonial.update({
     where: { id: id, deleted_at: null },
     data: {
+      user_id: user_id,
+      user_title: user_title,
       message: message,
+      stars: stars,
+      service_id: service_id,
     },
     include: {
       service: {

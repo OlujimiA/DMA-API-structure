@@ -61,11 +61,11 @@ const getRequest = async (id) => {
     return request;
 }
 
-const createRequest = async ({ message, status, service_id, plan_id, user_id }) => {
+const createRequest = async ({ message, service_id, plan_id, user_id }) => {
     const request = await prisma.service_request.create({
         data: {
             message: message,
-            status: status,
+            status: 'in progress',
             service_id: service_id,
             plan_id: plan_id,
             user_id: user_id,
