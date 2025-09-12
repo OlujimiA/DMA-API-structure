@@ -8,7 +8,11 @@ const login = async (email, password) => {
   if (!user) throw new Error( 'user not found' );
 
   const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) throw new Error ( 'invalid email or password' );
+  if (!passwordMatch) {
+    const error = new Error('invalid email or password');
+    error.statusCode = 401;  
+    throw error;
+  }
 
   // create token
   const accessToken = jwt.sign(

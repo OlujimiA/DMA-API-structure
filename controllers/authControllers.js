@@ -51,7 +51,8 @@ exports.login = async (req, res) => {
     return sendSuccess(res, 200, { AccessToken: accessToken, user: result.user }, 'Login successful!');
 
   } catch (err) {
-    return sendError(res, 500, 'Login failed', err.message);
+    const statusCode = err.statusCode || 500
+    return sendError(res, statusCode, 'Login failed', err.message);
   }
 };
 
